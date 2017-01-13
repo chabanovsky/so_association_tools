@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+
+    "name": "Association Tools for international Stack Overflows",
+    "description": "These set of tools add a special button that helps to associate questions between Stack Overflow in English and an international Stack Overflow.",
+    "version": "1.0",
+    "content_scripts": [{
+        "matches": ["*://ru.stackoverflow.com/*"],
+        "css": ["association_tools.css"],
+        "js": ["jquery.js", "association_tools.js"],
+        "run_at": "document_end"
+    }],
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "webNavigation",
+        "*://ru.stackoverflow.com/*"
+    ]
+}
