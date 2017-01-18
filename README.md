@@ -8,7 +8,7 @@ There were some [discussions](http://meta.ru.stackoverflow.com/questions/4500/) 
 
 <sup>\*Specification bellow is a result of discussions on Meta Stack Overflow in Russian and some my personal thoughts. If you think that something is wrong, [let me know](http://meta.ru.stackoverflow.com/questions/ask)!</sup>
 
-The most general part is the extension. The server application would be implemented only in case of the interest from community.
+The most general part is the extension. The server application would be implemented only in case of the interest from community. For the server we will use our external machine hosted by Hetzner (Ubuntu Server 12.04). According to current server's environment the application could be written only in Python or Go.
 
 1. Browser extension
 
