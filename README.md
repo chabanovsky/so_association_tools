@@ -1,4 +1,4 @@
-# Intro
+# Introduction
 
 This is a basic plugin that changes the way how associations look like on international Stack Overflows.
 
