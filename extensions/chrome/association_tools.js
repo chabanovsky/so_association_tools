@@ -6,6 +6,7 @@ var associationHelpText = "Вопрос был ассоциирован учас
 var associateHelpText = "ассоциировать";
 var addAssociationHelpText = "Ассоциировать";
 var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site=stackoverflow"
+var commetsToQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(";
 
 init();
 
@@ -14,9 +15,8 @@ function init() {
     if (!uri.includes(targetPage) || uri.includes(targetPageException))
         return;
 
-    if (processExistedAssociation())
-        return;
-    processAddingAssociationLink();
+    var localisedQuestionId = questionId(uri);
+    processExistedAssociation(localisedQuestionId);
 }
 
 function processAddingAssociationLink() {
@@ -45,49 +45,65 @@ function processAddingAssociationLink() {
     });
 }
 
-function processExistedAssociation() {
-    var targetComment = $(".question .comment:contains('" + associationTag + "')");
-    if (targetComment == undefined || targetComment.length == 0) {
-        targetComment = $(".question .comment:contains('" + AssociationTag + "')");
-        if (targetComment == undefined || targetComment.length == 0)
-            return false;
+function processExistedAssociation(localisedQuestionId) {
+    function ifThereIsNoAssociation() {
+        processAddingAssociationLink();
     }
+    loadCommentsFromLocalizedStackOverflow(localisedQuestionId, function(data) {
+        if (data == undefined || data.items.length == 0) {
+            ifThereIsNoAssociation();
+            return;
+        }
 
-    if ($(targetComment).find(".comment-copy a").length == 0) {
-        console.error("Unexpected comment structure");
-        return false;
-    }
+        var uploadedTargetComment = null;
+        for (index = 0; index < data.items.length; index++) {
+            var item = data.items[index];
+            if (item.body.toLowerCase().includes(associationTag)) {
+                uploadedTargetComment = item;
+                break;
+            }
+        }
 
-    createAssociationBox(targetComment);
-    return true;
+        if (uploadedTargetComment == null) {
+            ifThereIsNoAssociation();
+            return;
+        }
+
+        var tmpCommnetHtml = "<div>" + uploadedTargetComment.body + "</div>";
+        var linkToSOen = $(tmpCommnetHtml).find("a").attr("href");
+        if (linkToSOen.length == 0) {
+            console.error("Unexpected comment structure");
+            ifThereIsNoAssociation();
+            return;
+        }
+
+        createAssociationBox(uploadedTargetComment, linkToSOen);
+
+    }, function() {
+        ifThereIsNoAssociation();
+    });
 }
 
-function createAssociationBox(targetComment) {
-    var soEnLink = $(targetComment).find(".comment-copy a").attr("href");
-    var ownerProfileLink = $(targetComment).find(".owner").attr("href");
-    var ownerName = $(targetComment).find(".owner").text();
-    var postTime = $(targetComment).find(".relativetime-clean").text();
-    var absTime = $(targetComment).find(".relativetime-clean").attr("title");
-
-    var soEnQuestionId = questionId(soEnLink);
-    var soRuUserId = userId(ownerProfileLink);
+function createAssociationBox(uploadedTargetComment, linkToSOen) {
+    var absTime = (new Date(uploadedTargetComment.creation_date * 1000)).toISOString().replace("T", " ").replace(".000", "");
+    var soEnQuestionId = questionId(linkToSOen);
 
     loadQuestionFromStackOverflowInEnglish(soEnQuestionId,
         function(data) {
             var tmp = associationBoxTemplate();
             var template = $(tmp);
-            $(template).find(".association-author").text(ownerName);
-            $(template).find(".association-author").attr("href", ownerProfileLink);
+            $(template).find(".association-author").text(uploadedTargetComment.owner.display_name);
+            $(template).find(".association-author").attr("href", uploadedTargetComment.owner.link);
             $(template).find(".association-link").text(stripHtml(data.items[0].title));
-            $(template).find(".association-link").attr("href", soEnLink);
-            $(template).find(".relativetime-clean").text(postTime);
+            $(template).find(".association-link").attr("href", linkToSOen);
+            //$(template).find(".relativetime-clean").text();
             $(template).find(".relativetime-clean").attr("title", absTime);
-            var commnetId = $(targetComment).attr("id");
 
-            $("#" + commnetId).css("display", "none");
+            var prevDisplayState = $("#comment-" + uploadedTargetComment.comment_id).css("display");
+            $("#comment-" + uploadedTargetComment.comment_id).css("display", "none");
             $(".question > table > tbody > tr:first-child").after(template);
             $(".association-as-comment").click(function(event) {
-                $("#" + commnetId).css("display", "block");
+                $("#comment-" + uploadedTargetComment.comment_id).css("display", prevDisplayState);
                 $(".association-root").css("display", "none");
                 event.preventDefault();
             });
@@ -113,14 +129,23 @@ function userId(uri) {
     return id[0].replace(/\//g, "");
 }
 
-function loadQuestionFromStackOverflowInEnglish(id, onSuccess, onError) {
-    var url = questionApiEndpoint.replace(/\{id\}/g, id);
+function loadHelper(url, onSuccess, onError) {
     $.ajax({
         url: url,
         method: 'GET',
         success: onSuccess,
         error: onError
     });
+}
+
+function loadQuestionFromStackOverflowInEnglish(id, onSuccess, onError) {
+    var url = questionApiEndpoint.replace(/\{id\}/g, id);
+    loadHelper(url, onSuccess, onError)
+}
+
+function loadCommentsFromLocalizedStackOverflow(id, onSuccess, onError) {
+    var url = commetsToQuestionApiEndpoint.replace(/\{id\}/g, id);
+    loadHelper(url, onSuccess, onError)
 }
 
 function stripHtml(html) {
