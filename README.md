@@ -4,6 +4,8 @@ This is a basic plugin that changes the way how associations look like on intern
 
 There were some [discussions](http://meta.ru.stackoverflow.com/questions/4500/) on Meta Stack Overflow in Russian, that we have to find a better way of adding associations than through an answer on meta. [It was suggested](http://meta.ru.stackoverflow.com/a/4507/6) to add associations in a comment to a question on an international sites.
 
+Original proposal: https://github.com/chabanovsky/so_question_association
+
 # Specification 
 
 <sup>\*Specification bellow is a result of discussions on Meta Stack Overflow in Russian and some my personal thoughts. If you think that something is wrong, [let me know](http://meta.ru.stackoverflow.com/questions/ask)!</sup>
