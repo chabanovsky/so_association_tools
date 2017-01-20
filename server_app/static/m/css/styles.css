@@ -1,0 +1,27 @@
+* {
+    color: rgba(0, 0, 0, 0.8);
+    font-family: jaf-bernino-sans, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+}
+
+a,
+a:active {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    text-align: justify;
+}
+
+body {
+    width: 700px;
+    margin: 0px auto;
+}
+
+#header {
+    padding: 20px 0 30px;
+    height: auto;
+}

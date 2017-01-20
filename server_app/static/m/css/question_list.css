@@ -1,0 +1,126 @@
+.question {
+    padding: 12px 0 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    float: left;
+    width: 700px;
+    overflow: hidden;
+}
+
+.question .stats_container {
+    vertical-align: top;
+    float: left;
+    margin-right: 10px;
+    width: 180px;
+    cursor: pointer;
+}
+
+.question .stats_container .votes {
+    display: inline-block;
+    height: 38px;
+    width: 38px;
+    margin: 0 3px 0 0;
+    font-size: 11px;
+    color: #777;
+    padding: 5px 5px 6px 5px;
+    text-align: center;
+}
+
+.question .stats_container .count {
+    font-size: 17px;
+    font-weight: 300;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.question .stats_container .views {
+    max-width: 40px;
+    display: inline-block;
+    height: 38px;
+    width: 40px;
+    margin: 0 7px 0 0;
+    font-size: 11px;
+    color: #777;
+    padding: 5px 5px 6px 5px;
+    text-align: center;
+}
+
+.question .stats_container .status {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    width: 44px;
+    height: auto;
+    font-size: 11px;
+    padding: 6px;
+    text-align: center;
+}
+
+.question .stats_container .answered div {
+    color: white;
+}
+
+.question .stats_container .answered {
+    background-color: #75845c;
+    color: #fff;
+}
+
+.question .desc {
+    width: 500px;
+    padding: 0;
+    float: left;
+}
+
+.question .desc h3 {
+    margin-bottom: .35em;
+    margin-top: .0em;
+    line-height: 1.3;
+}
+
+.question .desc h3 a {
+    color: #07c;
+    line-height: 1.3;
+    margin-bottom: 1.2em;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.question .desc .tags {
+    line-height: 18px;
+    float: left;
+}
+
+.question .desc .tags .post-tag {
+    color: #3e6d8e;
+    font-size: 12px;
+    white-space: nowrap;
+    background: #e4edf4;
+    border: 1px solid #e4edf4;
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    border-radius: 0;
+    -webkit-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease;
+    padding: .4em .5em;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
+}
+
+.question .desc .owner {
+    width: auto;
+    line-height: inherit;
+    padding-top: 4px;
+    white-space: nowrap;
+    float: right;
+    color: #999;
+}
+
+.question .desc .owner a {
+    font-size: 12px;
+    color: #07c;
+}
+
+.question .desc .owner span {
+    font-size: 12px;
+    margin-right: 2px;
+    font-size: 12px;
+    margin-right: 2px;
+}
