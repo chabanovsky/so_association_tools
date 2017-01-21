@@ -25,3 +25,24 @@ body {
     padding: 20px 0 30px;
     height: auto;
 }
+
+.question .tags {
+    line-height: 18px;
+    float: left;
+}
+
+.question .tags .post-tag {
+    color: #3e6d8e;
+    font-size: 12px;
+    white-space: nowrap;
+    background: #e4edf4;
+    border: 1px solid #e4edf4;
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    border-radius: 0;
+    -webkit-transition: color 0.15s ease, background 0.15s ease, border 0.15s ease;
+    padding: .4em .5em;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
+}
