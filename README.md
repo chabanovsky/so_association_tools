@@ -10,7 +10,7 @@ Original proposal: https://github.com/chabanovsky/so_question_association
 
 <sup>\*Specification bellow is a result of discussions on Meta Stack Overflow in Russian and some my personal thoughts. If you think that something is wrong, [let me know](http://meta.ru.stackoverflow.com/questions/ask)!</sup>
 
-The most general part is the extension. The server application would be implemented only in case of the interest from community. For the server we will use our external machine hosted by Hetzner (Ubuntu Server 12.04). According to current server's environment the application could be written only in Python or Go.
+The most general part is the extension. The server application would be implemented only in case of the interest from community. For the server we will use our external machine hosted by Hetzner (Ubuntu Server 12.04). We, okay, I decided to use Flask + Apache for the server app.
 
 1. Browser extension
 
@@ -39,11 +39,24 @@ We are planning to support a few major browsers. As I understood Opera and Firef
 
 ## How To Install
 
-We suggest use an "unpacked" version of the extension right from a folder with the code.
+### Browser extension
+
+We suggest use an "unpacked" version of the extension right from a folder with the code. Checked out the code from GitHub and use an extension folder as a root directory for the uploading to a browser.
 
 - Chrome: https://developer.chrome.com/extensions/getstarted#unpacked
 - Opera: https://dev.opera.com/extensions/testing/
 - Firefox: https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Your_first_WebExtension#Trying_it_out
+
+### Server app
+
+We started deeloping a samll server application (in code aappp, wich means "Association APPlication") based of the [Flask framework](http://flask.pocoo.org/). Although, most of the code is run on client side, we still need a server app: 1) to serve templates; 2) manage dynamic changes of the state of the association process.
+
+1. Check out code from GitHub to any folder.
+2. Create a symbolic link `ln -s /path/to/your/folder/server_app/ /home/aapp`. It means that we assume that the root directory of the project is "/home/aapp". If you want to user another directory, take a look at the *server_app/server.wsgi*, and *server_app/aapp.conf*.
+3. [Install Flask](http://flask.pocoo.org/docs/0.12/installation/). (In my case it was `pip install Flask`.)
+4. Install the Apache web server.
+5. [Install mod_wsgi for the apache](http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/).
+6. Use the aapp.conf to setup the Apache. Please, take a look at the beggining of the aapp.conf. `ServerName aapp.ru` says that we use *aapp.ru* as the host name. You can use any other. Do not forget to set up your */etc/hosts* to get it redirected to the localhost if you want to run it on your local machine.
 
 ## Implementation
 
