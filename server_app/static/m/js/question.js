@@ -1,5 +1,8 @@
-var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_"
-var questionIdTag = "#question-id"
+var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
+var questionIdTag = "#question-id";
+var searchButtonTag = "#search-button";
+var searchInputTag = "#search-input";
+var searchResultTag = "#search-results";
 var questionId = -1;
 var question = null;
 
@@ -20,6 +23,18 @@ function init(onInitCompleted) {
     }, function() {
         onInitCompleted(false);
     })
+    $(searchButtonTag).click(function(event) {
+        event.preventDefault();
+        $(searchResultTag).empty();
+        var theQuery = $(searchInputTag).val();
+        queryGoogle(theQuery, function(result) {
+            if (result == null || result == undefined) {
+                // TODO: Errors handling
+                return;
+            }
+            createCandidatesForAssociationList(result.items);
+        });
+    });
 }
 
 function updatePage() {
@@ -29,6 +44,7 @@ function updatePage() {
     $("#question-taglist").append(tags);
 
     updatePrettify();
+    updateSearchInput();
 }
 
 function updatePrettify() {
@@ -36,4 +52,23 @@ function updatePrettify() {
         el.classList.add("prettyprint");
     });
     prettyPrint();
+}
+
+function updateSearchInput() {
+    $(searchInputTag).val(stripHtml(question.title));
+}
+
+function createCandidatesForAssociationList(items) {
+    for (index = 0; index < items.length; index++) {
+        var item = items[index];
+        var tmp = candidateForAssociationTemplate();
+        var template = $(tmp);
+        $(template).find(".association-candidate a").attr("href", item.link);
+        $(template).find(".association-candidate a").text(item.title);
+        $(searchResultTag).append(template.html());
+    }
+}
+
+function candidateForAssociationTemplate() {
+    return '<div><div class="association-candidate"><a></a></div></div>'
 }

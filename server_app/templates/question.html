@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block js_ext %}
 <script type="text/javascript" src="/m/assets/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="/m/js/google_custom_search.js"></script>
 <script type="text/javascript" async="" src="/m/js/question.js"></script>
 {% endblock %} {% block css_ext %}
 <link rel="stylesheet" href="/m/assets/google-code-prettify/prettify.css">
@@ -19,18 +20,6 @@
         <input id="search-input" type="text"><a id="search-button">Поиск</a>
     </div>
     <div id="search-results"></div>
-    <script>
-        (function() {
-            var cx = '005587445788863025345:j_pel-w7mb8';
-            var gcse = document.createElement('script');
-            gcse.type = 'text/javascript';
-            gcse.async = true;
-            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(gcse, s);
-        })();
-    </script>
-    <gcse:search></gcse:search>
 </div>
 <div id="association-box"></div>
 </div>
