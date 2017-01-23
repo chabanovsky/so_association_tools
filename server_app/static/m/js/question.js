@@ -1,13 +1,14 @@
-var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
+var soQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
+var candidateQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=ru.stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
 var questionIdTag = "#question-id";
 var searchButtonTag = "#search-button";
 var searchInputTag = "#search-input";
 var searchResultTag = "#search-results";
-var questionId = -1;
+var soQuestionId = -1;
 var question = null;
 
 $(document).ready(function() {
-    questionId = parseInt($(questionIdTag).text());
+    soQuestionId = parseInt($(questionIdTag).text());
     init(function(isSucceeded) {
         if (!isSucceeded)
             return;
@@ -16,7 +17,7 @@ $(document).ready(function() {
 })
 
 function init(onInitCompleted) {
-    url = questionApiEndpoint.replace(/\{id\}/g, questionId);
+    url = soQuestionApiEndpoint.replace(/\{id\}/g, soQuestionId);
     loadHelper(url, function(data) {
         question = data.items[0];
         onInitCompleted(true);
@@ -58,17 +59,66 @@ function updateSearchInput() {
     $(searchInputTag).val(stripHtml(question.title));
 }
 
-function createCandidatesForAssociationList(items) {
+function createCandidateIdsString(items) {
+    var ids = "";
+    var addedIds = new Array();
+
     for (index = 0; index < items.length; index++) {
+        var skipp = false;
         var item = items[index];
-        var tmp = candidateForAssociationTemplate();
-        var template = $(tmp);
-        $(template).find(".association-candidate a").attr("href", item.link);
-        $(template).find(".association-candidate a").text(item.title);
-        $(searchResultTag).append(template.html());
+        var id = questionId(item.link);
+
+        if (id < 0)
+            continue;
+
+        for (subIndex = 0; subIndex < addedIds.length; subIndex++) {
+            if (addedIds[subIndex] == id) {
+                skipp = true;
+                break;
+            }
+        }
+
+        if (skipp)
+            continue;
+
+        ids += id + ";";
+        addedIds.push(id);
     }
+
+    return ids.replace(/;+$/, "");
+}
+
+function createCandidatesForAssociationList(items) {
+    var ids = createCandidateIdsString(items);
+    url = candidateQuestionApiEndpoint.replace(/\{id\}/g, ids);
+    loadHelper(url, function(data) {
+            for (index = 0; index < data.items.length; index++) {
+                var item = data.items[index];
+
+                var tmp = candidateForAssociationTemplate();
+                var template = $(tmp);
+
+                $(template).find(".association-candidate .question-id").text(item.question_id);
+                $(template).find(".association-candidate .candidate-title a").text(stripHtml(item.title));
+                $(template).find(".association-candidate .candidate-body").html(item.body);
+                var tags = createTagsDiv(item.tags);
+                $(template).find(".candidate-taglist").append(tags);
+
+                $(searchResultTag).append(template.html());
+            }
+            $(".association-candidate .candidate-title a").click(function(event) {
+                event.preventDefault();
+            });
+            $(".association-candidate .candidate-associate").click(function(event) {
+                event.preventDefault();
+            });
+            updatePrettify();
+        },
+        function() {
+
+        });
 }
 
 function candidateForAssociationTemplate() {
-    return '<div><div class="association-candidate"><a></a></div></div>'
+    return '<div><div class="association-candidate"><div class="candidate-title"><a href="#"><span class="question-id" style="display:none"></a></div><div class="candidate-body post-text"></div><div class="candidate-bar"><div class="candidate-taglist"></div><div class="candidate-stats"></div></div><div class="candidate-menu"><a class="candidate-associate">ассоциировать</a></div></div></div>'
 }

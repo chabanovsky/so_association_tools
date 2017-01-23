@@ -26,12 +26,12 @@ body {
     height: auto;
 }
 
-.question .tags {
+.tags {
     line-height: 18px;
     float: left;
 }
 
-.question .tags .post-tag {
+.tags .post-tag {
     color: #3e6d8e;
     font-size: 12px;
     white-space: nowrap;

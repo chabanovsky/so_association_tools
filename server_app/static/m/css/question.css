@@ -35,6 +35,17 @@ pre {
     padding: 30px 0px;
 }
 
+#question {
+    border-bottom: 2px solid #e4e6e8;
+    margin-bottom: 7px;
+    float: left;
+}
+
+#question-taglist {
+    padding-bottom: 10px;
+    float: left;
+}
+
 .search {
     float: left;
     width: 100%;
@@ -50,11 +61,37 @@ pre {
     float: left;
 }
 
-#search-association-box a {
-    float: right;
-}
-
 .association-candidate {
     width: 100%;
+    float: left;
     text-align: left;
+    padding: 50px 0 20px;
+    border-bottom: 1px solid #e4e6e8;
+}
+
+.association-candidate .candidate-title {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.association-candidate .candidate-title a {
+    float: left;
+}
+
+.candidate-menu {
+    font-size: 11px;
+    width: 100%;
+    padding-top: 2px;
+    float: left;
+}
+
+.candidate-menu>* {
+    display: inline-block;
+}
+
+.candidate-menu>a {
+    padding: 0 3px 2px 3px;
+    color: #848d95;
 }

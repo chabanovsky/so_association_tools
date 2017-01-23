@@ -12,6 +12,14 @@ function stripHtml(html) {
     return div.textContent || div.innerText || "";
 }
 
+function questionId(uri) {
+    var id = /\/\d+\//.exec(uri)
+    if (!id)
+        return -1
+
+    return id[0].replace(/\//g, "");
+}
+
 function loadHelper(url, onSuccess, onError) {
     $.ajax({
         url: url,
