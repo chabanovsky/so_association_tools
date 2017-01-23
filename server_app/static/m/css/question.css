@@ -58,7 +58,8 @@ pre {
 
 #search-association-box input {
     width: 70%;
-    float: left;
+    padding-left: 10px;
+    margin: 0px 25px 0px 10px;
 }
 
 .association-candidate {
