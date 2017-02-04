@@ -1,23 +1,17 @@
 var idsWithViews = null;
 var totalLoaded = 0;
 var loadPageSize = 15;
+var uploadingNow = false;
 
 var questionListRoot = "#question_list"
 
 var idsApiEndpoint = "/api/suggested_question_ids_with_views";
 var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site=stackoverflow"
 
-var answer_strings = ["ответ", "ответа", "ответов"];
-var score_strings = ["голос", "голоса", "голосов"];
-var view_strings = ["показ", "показа", "показов"];
-
 $(document).ready(function() {
     init(function() {
-        createQuestionsFeed(totalLoaded, totalLoaded + loadPageSize, function(isSucceeded) {
-            if (isSucceeded) {
-                totalLoaded += loadPageSize;
-            }
-        });
+        uploadQuestionFeed();
+        setupScroll();
     });
 })
 
@@ -30,35 +24,29 @@ function init(onInitCompleted) {
     })
 }
 
-function plural(n, forms) {
-    return forms[n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+function setupScroll() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            uploadQuestionFeed();
+        }
+    });
 }
 
-function stripHtml(html) {
-    var div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
-}
+function uploadQuestionFeed() {
+    if (uploadingNow)
+        return;
 
-function loadHelper(url, onSuccess, onError) {
-    $.ajax({
-        url: url,
-        method: 'GET',
-        success: onSuccess,
-        error: onError
+    uploadingNow = true;
+    createQuestionsFeed(totalLoaded, totalLoaded + loadPageSize, function(isSucceeded) {
+        if (isSucceeded) {
+            totalLoaded += loadPageSize;
+        }
+        uploadingNow = false;
     });
 }
 
 function getAAPPlink(questionId) {
     return "/questions/" + questionId;
-}
-
-function getDate(date) {
-    var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth() + 1).toString();
-    var dd = date.getDate().toString();
-
-    return (dd[1] ? dd : "0" + dd[0]) + "." + (mm[1] ? mm : "0" + mm[0]) + "." + yyyy;
 }
 
 function createQuestionsFeed(startIndex, endIndex, onEnded) {
@@ -81,20 +69,6 @@ function createQuestionsFeed(startIndex, endIndex, onEnded) {
     }, function() {
         onEnded(false);
     })
-}
-
-function createTagsDiv(question_tags) {
-    var tags = document.createElement("div");
-    $(tags).addClass("tags");
-
-    for (var i = 0; i < question_tags.length; i++) {
-        var tag = document.createElement("span");
-        $(tag).addClass("post-tag");
-        $(tag).text(question_tags[i]);
-
-        $(tags).append(tag);
-    }
-    return tags;
 }
 
 function createQuestionFromResponse(item) {

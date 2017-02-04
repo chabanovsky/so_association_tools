@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block js_ext %}
+<script type="text/javascript" src="/m/assets/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="/m/js/google_custom_search.js"></script>
+<script type="text/javascript" async="" src="/m/js/question.js"></script>
+{% endblock %} {% block css_ext %}
+<link rel="stylesheet" href="/m/assets/google-code-prettify/prettify.css">
+<link rel="stylesheet" href="/m/css/question.css" type="text/css" media="screen, projection"> {% endblock %} {% block content %}
+<div style="display: none" id="question-id">{{ question_id }}</div>
+<div id="question" class="question">
+    <div id="question-header">
+        <h1>
+        </h1>
+    </div>
+    <div id="question-body" class="post-text">
+    </div>
+    <div id="question-taglist"></div>
+</div>
+<div id="search-association-box">
+    <div class="search">
+        <span>Запрос</span>
+        <input id="search-input" type="text"><a id="search-button">Поиск</a>
+    </div>
+    <div id="search-results"></div>
+</div>
+<div id="association-box"></div>
+</div>
+{% endblock %}
