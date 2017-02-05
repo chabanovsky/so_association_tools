@@ -7,7 +7,7 @@
     "content_scripts": [{
         "matches": ["*://ru.stackoverflow.com/*"],
         "css": ["association_tools.css"],
-        "js": ["jquery.js", "association_tools.js"],
+        "js": ["association_tools.js"],
         "run_at": "document_end"
     }],
     "permissions": [
