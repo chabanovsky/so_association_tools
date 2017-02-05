@@ -92,12 +92,12 @@ function getJson(url) {
         .catch((...args) => console.log('error request', ...args));
 }
 function loadQuestionFromStackOverflowInEnglish(id) {
-    console.log('load en question');
+    console.info('load en question');
     var url = questionApiEndpoint.replace(/\{id\}/g, id);
     return getJson(url);
 }
 function loadCommentsFromLocalizedStackOverflow(id) {
-    console.log('load comments');
+    console.info('load comments');
     var url = commetsToQuestionApiEndpoint.replace(/\{id\}/g, id);
     return getJson(url);
 }
