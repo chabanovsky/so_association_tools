@@ -82,11 +82,8 @@ function createAssociationBox({comment, linkToSOen, enQuestion, absTime}) {
     });
 }
 function questionId(uri) {
-    var id = /\/\d+\//.exec(uri)
-    if (!id)
-        return -1
-
-    return id[0].replace(/\//g, "");
+    var id = /\/(\d+)\//.exec(uri)
+    return id == null ? -1 : id[1];
 }
 
 function getJson(url) {
@@ -95,12 +92,12 @@ function getJson(url) {
         .catch((...args) => console.log('error request', ...args));
 }
 function loadQuestionFromStackOverflowInEnglish(id) {
-    console.log('load en question');
+    console.info('load en question');
     var url = questionApiEndpoint.replace(/\{id\}/g, id);
     return getJson(url);
 }
 function loadCommentsFromLocalizedStackOverflow(id) {
-    console.log('load comments');
+    console.info('load comments');
     var url = commetsToQuestionApiEndpoint.replace(/\{id\}/g, id);
     return getJson(url);
 }
