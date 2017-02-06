@@ -7,6 +7,8 @@ var associateHelpText = "ассоциировать";
 var addAssociationHelpText = "Ассоциировать";
 var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site={sitename}"
 var commetsToQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(";
+var querySESiteInfo = "https://api.stackexchange.com/2.2/info?site={sitename}&filter=!2--kZCrbrZAvwtX1SWlK)";
+
 
 checkPage(document.baseURI)
     .then(loadCommentsFromLocalizedStackOverflow)
@@ -15,6 +17,7 @@ checkPage(document.baseURI)
     .then(findLinkToSE)
     .then(getSEQuestionId)
     .then(({ comment, linkToSE, SE_QuestionId, absTime, SE_Site }) => loadQuestionFromStackExchange(SE_QuestionId, SE_Site).then(data => ({ comment, linkToSE, SE_Question: data.items[0], absTime, SE_Site })))
+    .then(({ comment, linkToSE, SE_Question,   absTime, SE_Site }) => getSESiteName( SE_Site ).then( data => ({ comment, linkToSE, SE_Question, absTime, SE_SiteName:data.items[0].site.name }) ) )
     .then(createAssociationBox)
     .catch(handleWrongPage)
     .then(processAddingAssociationLink);
@@ -69,8 +72,8 @@ function getSEQuestionId( {comment, linkToSE} ) {
     return { comment, linkToSE, SE_QuestionId, absTime, SE_Site };
 }
 
-function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_Site}) {
-    var template = associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, getSESiteName( SE_Site ) );
+function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_SiteName}) {
+    var template = associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, SE_SiteName );
     var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
     if (assocComment)
         assocComment.style.display = "none";
@@ -113,12 +116,7 @@ function stripHtml(html) {
 }
 
 function getSESiteName( SE_Site ) {
-	// TODO: пока оставляю заглушку, потом привести к API
-	var hardcode = {
-			"askubuntu": "Ask Ubuntu",
-			"pt.stackoverflow.com": "Stack Overflow em Português"
-	}
-	return typeof( hardcode[SE_Site] ) == "undefined" ? "Stack Overflow на английском" : hardcode[SE_Site];
+	return getJson( querySESiteInfo.replace( /\{sitename\}/g, SE_Site ) );
  }
 
 function associationBoxTemplate(owner, linkToSOen, enQuestionTitle, absTime, SE_SiteName) {
