@@ -12,9 +12,9 @@ Original proposal: https://github.com/chabanovsky/so_question_association
 
 The most general part is the extension. The server application would be implemented only in case of the interest from community. For the server we will use our external machine hosted by Hetzner (Ubuntu Server 12.04). We, okay, I decided to use Flask + Apache for the server app.
 
-1. [Browser extension](/chabanovsky/so_association_tools/tree/master/extension)
+1. [Browser extension](/extension)
 
-2. [Server side application](/chabanovsky/so_association_tools/tree/master/server_app)
+2. [Server side application](/server_app)
 
 
 # Current Status
