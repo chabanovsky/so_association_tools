@@ -1,10 +1,12 @@
-## Specification
+## Things To Do
 
-  1. Statically (array, dic, or any other) store associations and their authors. It will be updated manually by Stack Overflow employees.
-  2. Return all associations and authors by an API call.
-  3. Statically store a list of suggestions of questions to be associated. (As a metric "most viewed on SOen by a language users" may be used.) It will be updated manually be Stack Overflow employees.
-  4. Serve a page with suggested for association questions. One question per page. Right after the question add a manual Google Search "\*.stackoverflow.com", the results should be right under the question.
-  5. Serve a page with the list of associated questions ordered by time.
+  1. Add ORM and a basic user's data and users' activity history.
+  2. Add authorisation in the tools only by [Stack Exchange OpneID](https://openid.stackexchange.com/).
+  3. Add ability [to post a comment](https://api.stackexchange.com/docs/create-comment) from the tools site to the Stack Overflow in a language [through API](https://api.stackexchange.com/docs/write).
+  4. Add a way to make it possible to add restrictions on what users can do (for example if a user adds random association we need to block them).
+  5. Add a way to upload csv-data from logs that represents most viewed questions on SOen by Ru-users. Store the uploaded data in a database. If a question exists in the database already, update the counter.
+  6. Add a way to mark a question as associated (if one is associated through the app). It should not appear as a question for association if it is marked as an associated one.
+  7. Add a way for the associations to be approved/rejected for the community. It's better to add API to the server app and then, add a special review queue through the extension app.
 
 ## How To Install
 
