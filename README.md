@@ -15,6 +15,3 @@ The most general part is the extension. The server application would be implemen
 1. [Browser extension](/extension)
 
 2. [Server side application](/server_app)
-
-
-# Current Status
