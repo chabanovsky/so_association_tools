@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %}Create Profile{% endblock %} {% block content %}
+<h2>Create Profile</h2>
+<p>
+    Hey! This is the first time you signed in on this website. In order to proceed we need some extra information from you:
+    <form action="" method=post>
+        <dl>
+            <dt>Name:
+      <dd><input type=text name=name size=30 value="{{ request.values.name }}">
+    </dl>
+    <p>
+      <input type=submit value="Create profile">
+      <input type=hidden name=next value="{{ next }}">
+  </form>
+  <p>
+    If you don't want to proceed, you can <a href="{{ url_for('logout')
+    }}">sign out</a> again.
+{% endblock %}
