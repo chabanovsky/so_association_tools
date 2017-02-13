@@ -2,8 +2,6 @@ from flask import Flask, jsonify, render_template, g, url_for, redirect
 from meta import app as application
 from suggested_question import get_suggested_question_ids_with_views
 
-from auth import login
-
 @application.route("/")
 @application.route("/index.html")
 def index():
