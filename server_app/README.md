@@ -18,3 +18,13 @@ We started developing a samll server application (in code aappp, wich means "Ass
 4. Install the Apache web server.
 5. [Install mod_wsgi for the apache](http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/).
 6. Use the aapp.conf to setup the Apache. Please, take a look at the beggining of the aapp.conf. `ServerName aapp.ru` says that we use *aapp.ru* as the host name. You can use any other. Do not forget to set up your */etc/hosts* to get it redirected to the localhost if you want to run it on your local machine.
+
+## What is next
+
+In order to run the app you need:
+
+1. Go to the server_app folder.
+2. Execute `python server.py --init_db`
+3. Execute `python server.py --upload_csv`
+
+Then you will need to go to the site (aapp.ru in my case). By default the app requires you to be authorized with Stack Exchange Open Id. Because of this it will automatically redirect you to openid.stackexchange.com.
