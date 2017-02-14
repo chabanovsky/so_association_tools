@@ -10,7 +10,7 @@ DEFAULT_QUESTION_NUMBER_LIMIT = 1000
 
 def get_suggested_question_ids_with_views():
     quesitons = db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
-        label('Views')).group_by('Question').\
+        label('Views')).filter(MostViewedQuestion.is_associated==False).group_by('Question').\
             order_by(desc('Views')).limit(DEFAULT_QUESTION_NUMBER_LIMIT).all()
 
     to_json = list()

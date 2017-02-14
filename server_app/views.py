@@ -3,9 +3,9 @@ import requests
 import logging
 import json
 
-from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session
-from meta import app as application, db_session
-from models import User
+from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
+from meta import app as application, db, db_session
+from models import User, Association, MostViewedQuestion
 from suggested_question import get_suggested_question_ids_with_views
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, ASSOCIATION_TAG, STACKEXCHANGE_CLIENT_KEY
 
@@ -51,10 +51,18 @@ def suggested_question_ids_with_views():
 @application.route("/api/add_association")
 @application.route("/api/add_association/")
 def add_association():
+    access_token = session.get("access_token", None)
+    if g.user is None or access_token is None:
+        abort(404)
+
     soen_id = int(request.args.get("soen_id"))
     soint_id = int(request.args.get("soint_id"))
-    user = g.user
-    access_token = session["access_token"]
+    
+    count = Association.query.filter_by(soen_id=soen_id).count()
+    if count > 0:
+        # TODO add something better then 404
+        abort(404)
+
     url = STACKEXCHANGE_ADD_COMMENT_ENDPOINT.replace("{id}", str(soint_id))
     params = {
        "body" : ASSOCIATION_TAG + u": http://stackoverflow.com/questions/" + str(soen_id) + "/",
@@ -65,15 +73,25 @@ def add_association():
     }
     
     r = requests.post(url, data=params) 
-    resp = {
-        "comment_id": -1,
-        "full_response": r.text
-    }   
+    comment_id = -1
     data = json.loads(r.text)
     if data.get("items", None) is not None:
         for item in data["items"]:
             if item.get("comment_id", None) is not None:
-                resp["comment_id"] = item["comment_id"]
+                comment_id = item["comment_id"]
                 break
-    
+    resp = {
+        "comment_id": comment_id,
+        "full_response": r.text
+    }
+
+    association = Association(g.user.id, soen_id, soint_id, comment_id)
+    db_session.add(association)
+    db_session.commit()
+
+    questions = MostViewedQuestion.query.filter_by(question_id=soen_id).all()
+    for question in questions:
+        question.is_associated = True
+    db.session.commit()
+
     return jsonify(**resp)

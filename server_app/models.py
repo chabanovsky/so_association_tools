@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 
 from meta import app as application, db
@@ -44,14 +46,16 @@ class Association(db.Model):
     soen_id = db.Column(db.Integer)
     soint_id = db.Column(db.Integer)
     comment_id = db.Column(db.Integer)
-    status = db.Column(String(50))
+    status = db.Column(String(50))      
+    association_date = db.Column(db.DateTime) 
 
-    def __init__(user_id, soen_id, soint_id, comment_id, status="added"):
+    def __init__(self, user_id, soen_id, soint_id, comment_id, status="added"):
         self.user_id = user_id
         self.soen_id = soen_id
         self.soint_id = soint_id
         self.comment_id = comment_id
         self.status = status
+        self.association_date = datetime.datetime.now()
 
     def __repr__(self):
         return '<Association %s>' % str(self.id)        

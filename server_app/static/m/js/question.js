@@ -1,5 +1,6 @@
 var soQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
 var candidateQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=ru.stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
+var addAssociationAndpoint = "/api/add_association"
 var questionIdTag = "#question-id";
 var searchButtonTag = "#search-button";
 var searchInputTag = "#search-input";
@@ -92,6 +93,22 @@ function createCandidatesForAssociationList(items) {
     var ids = createCandidateIdsString(items);
     url = candidateQuestionApiEndpoint.replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
+            function withContext(soen_id, soint_id) {
+
+                $(".soint-" + soint_id + " .candidate-associate").click(function(event) {
+                    event.preventDefault();
+                    alert("SOen: " + soen_id + ", SOint: " + soint_id)
+                    addAssUrl = addAssociationAndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
+                    loadHelper(addAssUrl, function(data) {
+                        if (data.comment_id != undefined) {
+                            alert("Association has been added with id: " + data.comment_id)
+                            window.location = "/";
+                            return;
+                        }
+
+                    })
+                });
+            }
             for (index = 0; index < data.items.length; index++) {
                 var item = data.items[index];
 
@@ -101,18 +118,18 @@ function createCandidatesForAssociationList(items) {
                 $(template).find(".association-candidate .question-id").text(item.question_id);
                 $(template).find(".association-candidate .candidate-title a").text(stripHtml(item.title));
                 $(template).find(".association-candidate .candidate-body").html(item.body);
+                $(template).find(".association-candidate").addClass("soint-" + item.question_id)
                 var tags = createTagsDiv(item.tags);
                 $(template).find(".candidate-taglist").append(tags);
 
                 $(searchResultTag).append(template.html());
+                withContext(soQuestionId, item.question_id)
             }
+            updatePrettify();
+
             $(".association-candidate .candidate-title a").click(function(event) {
                 event.preventDefault();
             });
-            $(".association-candidate .candidate-associate").click(function(event) {
-                event.preventDefault();
-            });
-            updatePrettify();
         },
         function() {
 
