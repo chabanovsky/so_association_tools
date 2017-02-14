@@ -9,7 +9,7 @@ from models import MostViewedQuestion
 DEFAULT_QUESTION_NUMBER_LIMIT = 1000
 
 def get_suggested_question_ids_with_views():
-    quesitons = db.session.query(MostViewedQuestion.questionId.label('Question'), func.sum(MostViewedQuestion.viewCount).\
+    quesitons = db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
         label('Views')).group_by('Question').\
             order_by(desc('Views')).limit(DEFAULT_QUESTION_NUMBER_LIMIT).all()
 

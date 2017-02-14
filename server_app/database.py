@@ -24,22 +24,25 @@ def upload_csv(data_path, debug_print):
         with open(data_path + filename, 'rb') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',')
             for row in csv_reader:
-                questionId = -1
-                viewCount = -1
+                question_id = -1
+                view_count = -1
                 try:
-                    questionId = int(row[0].split("/")[2])
-                    viewCount = int(row[1])
+                    question_id = int(row[0].split("/")[2])
+                    view_count = int(row[1])
                 except:
                     continue
 
-                count = MostViewedQuestion.query.filter_by(questionId=questionId, viewDate=file_date).count()
+                if question_id < 0 or view_count < 0:
+                    continue
+
+                count = MostViewedQuestion.query.filter_by(question_id=question_id, view_date=file_date).count()
                 if count > 0:
                     if debug_print:
                         print "Question %s found in db" % str(questionId)
                     continue
                 
-                question = MostViewedQuestion(questionId, viewCount, file_date)
+                question = MostViewedQuestion(question_id, view_count, file_date)
                 db_session.add(question)
                 db_session.commit()
                 if debug_print:
-                    print "Question %s was added" % str(questionId)
+                    print "Question %s was added" % str(question_id)

@@ -2,6 +2,7 @@
 pip install Flask
 pip install psycopg2
 pip install Flask-OpenID
+pip install requests
 
 # postgres command
 # psql -d template1 -U postgres
