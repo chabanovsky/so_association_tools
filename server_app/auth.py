@@ -12,21 +12,10 @@ from models import User
 oid = OpenID(application, safe_roots=[], extension_responses=[pape.Response])
 DEFAULT_STACKEXCHANGE_OPENID_ENDPOINT = 'https://openid.stackexchange.com'
 
-@application.before_request
-def before_request():
-    g.user = None
-    if 'openid' in session:
-        g.user = User.query.filter_by(openid=session['openid']).first()
-        
-@application.after_request
-def after_request(response):
-    db_session.remove()
-    return response        
-
-@application.route('/login', methods=['GET', 'POST'])
-@application.route('/login/', methods=['GET', 'POST'])
+@application.route('/openid/login', methods=['GET', 'POST'])
+@application.route('/openid/login/', methods=['GET', 'POST'])
 @oid.loginhandler
-def login():
+def login_openid():
     if g.user is not None:
         return redirect(oid.get_next_url())
     
@@ -46,12 +35,13 @@ def create_or_login(resp):
         flash(u'Successfully signed in')
         g.user = user
         return redirect(oid.get_next_url())
-    return redirect(url_for('create_profile', next=oid.get_next_url(),
+
+    return redirect(url_for('create_profile_openid', next=oid.get_next_url(),
                             name=resp.nickname))                           
 
-@application.route('/create-profile', methods=['GET', 'POST'])
-@application.route('/create-profile/', methods=['GET', 'POST'])
-def create_profile():
+@application.route('/openid/create-profile', methods=['GET', 'POST'])
+@application.route('/openid/create-profile/', methods=['GET', 'POST'])
+def create_profile_openid():
     if g.user is not None or 'openid' not in session:
         return redirect(url_for('index'))
     if request.method == 'POST':

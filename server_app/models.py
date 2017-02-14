@@ -6,12 +6,14 @@ class User(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
+    account_id = db.Column(db.Integer, unique=True)
+    user_id = db.Column(db.Integer)
     username = db.Column(db.String(100))
-    openid = db.Column(db.String(300))
 
-    def __init__(self, username, openid):
+    def __init__(self, account_id, user_id, username):
+        self.account_id = account_id
+        self.user_id = user_id
         self.username = username
-        self.openid = openid
 
     def __repr__(self):
         return '<User %r>' % str(self.id)

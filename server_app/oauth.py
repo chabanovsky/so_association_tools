@@ -1,14 +1,17 @@
 import urllib
 import logging
 import requests
+import json
 
-from flask import Flask, jsonify, render_template, g, url_for, redirect, request
+from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session
 
-from meta import app as application
-from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID
+from meta import app as application, db_session
+from models import User
+from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_OAUTH_ENDPOINT = "https://stackexchange.com/oauth"
 STACKEXCHANGE_OAUTH_GET_ACCESS_TOKEN = "https://stackexchange.com/oauth/access_token"
+STACKEXCHANGE_OAUTH_ME_ENDPOINT = "https://api.stackexchange.com/2.2/me"
 
 APP_URL = "http://demo.chabanovsky.com"
 
@@ -18,6 +21,7 @@ def get_redirect_url():
 @application.route("/oauth/start")
 @application.route("/oauth/start/")
 def start_oauth():
+    logging.error("start_oauth")
     params = {
         "client_id": STACKEXCHANGE_CLIENT_ID,
         "scope": "write_access,no_expiry",
@@ -42,7 +46,7 @@ def stackexcange_oauth_callback():
 
     if r.status_code == 400:
         logging.error("Cannot authorise a user on SE OAuth. ")
-        return redirect(url_for("index"))
+        return redirect(url_for("no_way"))
     
     answers = r.text.split("&")
     token = ""
@@ -53,10 +57,48 @@ def stackexcange_oauth_callback():
 
     if token == "":
         logging.error("Cannot obtain access token on SE OAuth. ")
-        return redirect(url_for("index"))
+        return redirect(url_for("no_way"))
     
-    redirect_to_index = redirect(url_for("index"))
-    response = application.make_response(redirect_to_index )  
-    response.set_cookie('access_token',value=token)
-    return response
+    session['access_token'] = token
+    return redirect(url_for("login_oauth"))
     
+@application.route("/oauth/login")    
+@application.route("/oauth/login/")    
+def login_oauth():
+    if "access_token" not in session:
+        return redirect(url_for("no_way"))
+
+    params = {
+        "site": "ru.stackoverflow",
+        "order": "desc",
+        "sort": "reputation",
+        "key": STACKEXCHANGE_CLIENT_KEY, 
+        "access_token": session['access_token']
+    }
+
+    r = requests.get(STACKEXCHANGE_OAUTH_ME_ENDPOINT, data=params)
+    data = json.loads(r.text)
+    account_id = -1
+    user_id = -1
+    display_name = ""
+    if data.get("items", None) is not None:
+        for item in data["items"]:
+            if item.get("account_id", None) is not None:
+                account_id = item["account_id"]
+            if item.get("user_id", None) is not None:
+                user_id = item["user_id"]
+            if item.get("display_name", None) is not None:    
+                display_name = item["display_name"]
+    
+    if account_id < 0 or user_id < 0 or display_name == "":
+        logging.error("OAuth response: %s. Url: %s" % (r.text, r.url))
+        logging.error("account_id: %s, user_id: %s, display_name: %s" % (str(account_id), str(user_id), display_name))
+        return redirect(url_for("no_way"))
+
+    user = User.query.filter_by(account_id=account_id).first()
+    if user is None:
+        db_session.add(User(account_id, user_id, display_name))
+        db_session.commit()
+
+    session["account_id"] = account_id
+    return redirect(url_for("index"))
