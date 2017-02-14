@@ -5,11 +5,10 @@ import requests
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request
 
 from meta import app as application
-from local_settings import STACKEXCHANGE_CLIENT_SECRET
+from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID
 
 STACKEXCHANGE_OAUTH_ENDPOINT = "https://stackexchange.com/oauth"
 STACKEXCHANGE_OAUTH_GET_ACCESS_TOKEN = "https://stackexchange.com/oauth/access_token"
-STACKEXCHANGE_CLIENT_ID = 5492
 
 APP_URL = "http://demo.chabanovsky.com"
 
@@ -25,13 +24,11 @@ def start_oauth():
         "redirect_uri": get_redirect_url()
     }
     url = STACKEXCHANGE_OAUTH_ENDPOINT + "?" + urllib.urlencode(params)
-    logging.error("start_oauth %s" % url)
     return redirect(url)
     
 @application.route("/oauth/stackexchange")
 @application.route("/oauth/stackexchange/")
 def stackexcange_oauth_callback():
-    logging.error("stackexcange_oauth_callback %s" % str(request.args.get('code')))
     params = {
         "client_id": STACKEXCHANGE_CLIENT_ID,
         "client_secret": STACKEXCHANGE_CLIENT_SECRET,

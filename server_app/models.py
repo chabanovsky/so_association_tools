@@ -40,8 +40,16 @@ class Association(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     soen_id = db.Column(db.Integer)
-    soru_id = db.Column(db.Integer)
+    soint_id = db.Column(db.Integer)
+    comment_id = db.Column(db.Integer)
     status = db.Column(String(50))
+
+    def __init__(user_id, soen_id, soint_id, comment_id, status="added"):
+        self.user_id = user_id
+        self.soen_id = soen_id
+        self.soint_id = soint_id
+        self.comment_id = comment_id
+        self.status = status
 
     def __repr__(self):
         return '<Association %s>' % str(self.id)        
