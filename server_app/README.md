@@ -1,12 +1,7 @@
 ## Things To Do
 
-  1. Add ORM and a basic user's data and users' activity history.
-  2. Add authorisation in the tools only by [Stack Exchange OpneID](https://openid.stackexchange.com/).
-  3. Add ability [to post a comment](https://api.stackexchange.com/docs/create-comment) from the tools site to the Stack Overflow in a language [through API](https://api.stackexchange.com/docs/write).
-  4. Add a way to make it possible to add restrictions on what users can do (for example if a user adds random association we need to block them).
-  5. Add a way to upload csv-data from logs that represents most viewed questions on SOen by Ru-users. Store the uploaded data in a database. If a question exists in the database already, update the counter.
-  6. Add a way to mark a question as associated (if one is associated through the app). It should not appear as a question for association if it is marked as an associated one.
-  7. Add a way for the associations to be approved/rejected for the community. It's better to add API to the server app and then, add a special review queue through the extension app.
+  1. Add a way to make it possible to add restrictions on what users can do (for example if a user adds random association we need to block them).
+  2. Add a way for the associations to be approved/rejected for the community. It's better to add API to the server app and then, add a special review queue through the extension app.
 
 ## How To Install
 
@@ -22,9 +17,16 @@ We started developing a samll server application (in code aappp, wich means "Ass
 ## What is next
 
 In order to run the app you need:
+1. Create a postgres database with the name `association_tools`.
+2. Go to the server_app folder.
+3. Create a file `local_settings.py` with variables
 
-1. Go to the server_app folder.
-2. Execute `python server.py --init_db`
-3. Execute `python server.py --upload_csv`
+    STACKEXCHANGE_CLIENT_SECRET = "your secret"
+    STACKEXCHANGE_CLIENT_KEY = "your key"
+    STACKEXCHANGE_CLIENT_ID = app_id
+    ASSOCIATION_TAG = u"ассоциация"
+    
+4. Execute `python server.py --init_db`.
+5. Execute `python server.py --upload_csv`.
 
-Then you will need to go to the site (aapp.ru in my case). By default the app requires you to be authorized with Stack Exchange Open Id. Because of this it will automatically redirect you to openid.stackexchange.com.
+Then you will need to go to the site (aapp.ru in my case). By default the app requires you to be authorized with Stack Exchange OAuth. Because of this it will automatically redirect you to openid.stackexchange.com.
