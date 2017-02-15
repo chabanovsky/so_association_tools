@@ -46,3 +46,64 @@ body {
     text-align: center;
     line-height: 1;
 }
+
+.paginator {
+    margin: 5px 0px;
+    float: right;
+    display: block;
+    padding: 0;
+    border: none;
+    padding: 0px;
+}
+
+.paginator .page-number-separator {
+    float: left;
+    display: block;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #AAA;
+}
+
+.paginator .page-number {
+    border: 1px solid #E9E9E9;
+    background: #E9E9E9;
+    color: #273584;
+    display: block;
+    float: left;
+    margin-right: 4px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 9px;
+}
+
+.paginator .page-number:hover {
+    color: white;
+    display: block;
+    float: left;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 9px;
+}
+
+.paginator .page-number-selected {
+    color: white;
+    display: block;
+    float: left;
+    margin-right: 4px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 9px;
+}
+
+.paginator .page-number:hover,
+.paginator .page-number-selected {
+    border: 1px solid #E0A831;
+    background: #E0A831;
+}
+
+.paginator a:hover {
+    text-decoration: none;
+}

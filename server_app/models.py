@@ -11,11 +11,14 @@ class User(db.Model):
     account_id = db.Column(db.Integer, unique=True)
     user_id = db.Column(db.Integer)
     username = db.Column(db.String(100))
+    is_banned = db.Column(db.Boolean)
+    end_ban_date = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, account_id, user_id, username):
+    def __init__(self, account_id, user_id, username, is_banned=False):
         self.account_id = account_id
         self.user_id = user_id
         self.username = username
+        self.is_banned = is_banned
 
     def __repr__(self):
         return '<User %r>' % str(self.id)

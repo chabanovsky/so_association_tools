@@ -2,6 +2,8 @@ var answer_strings = ["ответ", "ответа", "ответов"];
 var score_strings = ["голос", "голоса", "голосов"];
 var view_strings = ["показ", "показа", "показов"];
 
+var soEnQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site=stackoverflow"
+
 function plural(n, forms) {
     return forms[n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 }
@@ -49,4 +51,9 @@ function createTagsDiv(question_tags) {
         $(tags).append(tag);
     }
     return tags;
+}
+
+
+function getAAPPlink(questionId) {
+    return "/questions/" + questionId;
 }

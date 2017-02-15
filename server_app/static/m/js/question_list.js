@@ -6,7 +6,6 @@ var uploadingNow = false;
 var questionListRoot = "#question_list"
 
 var idsApiEndpoint = "/api/suggested_question_ids_with_views";
-var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site=stackoverflow"
 
 $(document).ready(function() {
     init(function() {
@@ -45,10 +44,6 @@ function uploadQuestionFeed() {
     });
 }
 
-function getAAPPlink(questionId) {
-    return "/questions/" + questionId;
-}
-
 function createQuestionsFeed(startIndex, endIndex, onEnded) {
     var ids = "";
     for (index = startIndex; index < endIndex && index < idsWithViews.length; index++) {
@@ -58,7 +53,7 @@ function createQuestionsFeed(startIndex, endIndex, onEnded) {
             ids += ";"
         }
     }
-    url = questionApiEndpoint.replace(/\{id\}/g, ids);
+    url = soEnQuestionApiEndpoint.replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
         for (index = 0; index < data.items.length; index++) {
             var item = data.items[index];

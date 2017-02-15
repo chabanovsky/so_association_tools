@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block js_ext %}
+<script type="text/javascript" async="" src="/m/js/question_pag_list.js"></script>
+<script>
+    var initJson = []; 
+{% for item in paginator.items %}
+    initJson.push({
+        "questionId": {{ item.Question }},
+        "viewCount": {{ item.Views }}
+    }) 
+{% endfor %}
+
+</script>
+{% endblock %} {% block css_ext %}
+<link rel="stylesheet" href="/m/css/question_list.css" type="text/css" media="screen, projection"> {% endblock %} {% block content %}
+<div id="question_list">
+
+</div>
+{% include 'paginator.html' %} {% endblock %}

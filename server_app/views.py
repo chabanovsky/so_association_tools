@@ -6,7 +6,7 @@ import json
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
 from meta import app as application, db, db_session
 from models import User, Association, MostViewedQuestion
-from suggested_question import get_suggested_question_ids_with_views
+from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, ASSOCIATION_TAG, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
@@ -23,13 +23,14 @@ def after_request(response):
     db_session.remove()
     return response        
 
-@application.route("/")
 @application.route("/index.html")
+@application.route("/")
 def index():
-    logging.error("index")
     if g.user is None:
         return redirect(url_for('start_oauth'))  
-    return render_template('question_list.html')
+    page = max(int(request.args.get("page", "1")), 1)
+    paginator = get_suggested_question_pagination(page)
+    return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("index"))
 
 @application.route("/no-way")
 @application.route("/no-way/")
