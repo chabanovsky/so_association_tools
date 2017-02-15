@@ -97,7 +97,7 @@ function createCandidatesForAssociationList(items) {
 
                 $(".soint-" + soint_id + " .candidate-associate").click(function(event) {
                     event.preventDefault();
-                    alert("SOen: " + soen_id + ", SOint: " + soint_id)
+                    console.log("SOen: " + soen_id + ", SOint: " + soint_id)
                     addAssUrl = addAssociationAndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
                     loadHelper(addAssUrl, function(data) {
                         if (data.comment_id != undefined) {
