@@ -2,6 +2,11 @@
 
   1. Add a way to make it possible to add restrictions on what users can do (for example if a user adds random association we need to block them).
   2. Add a way for the associations to be approved/rejected for the community. It's better to add API to the server app and then, add a special review queue through the extension app.
+  3. Add quering questions by tag.
+  4. Add a logo or something like it in order to have a way to go back from the question page.
+  5. Highlight the search box somehow. Currently it's hard to understand that it's a search box. 
+  6. Add searching by Enter.
+  7. Filter int'l SO questions in the Google's response by number of answers. If a resulting question does not have any answers it should not be represented among the suggestions.
 
 ## How To Install
 
@@ -17,6 +22,7 @@ We started developing a samll server application (in code aappp, wich means "Ass
 ## What is next
 
 In order to run the app you need:
+
 1. Create a postgres database with the name `association_tools`.
 2. Go to the server_app folder.
 3. Create a file `local_settings.py` with variables
