@@ -107,3 +107,6 @@ body {
 .paginator a:hover {
     text-decoration: none;
 }
+.post-text img {
+    width: 100%;
+}

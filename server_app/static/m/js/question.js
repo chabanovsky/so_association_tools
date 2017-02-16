@@ -1,5 +1,4 @@
-var soQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
-var candidateQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=activity&site=ru.stackoverflow&filter=!4(sMpjPlU2B9NnTI_";
+
 var addAssociationAndpoint = "/api/add_association"
 var questionIdTag = "#question-id";
 var searchButtonTag = "#search-button";
@@ -18,7 +17,7 @@ $(document).ready(function() {
 })
 
 function init(onInitCompleted) {
-    url = soQuestionApiEndpoint.replace(/\{id\}/g, soQuestionId);
+    url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, true, false, "activity", "desc").replace(/\{id\}/g, soQuestionId);
     loadHelper(url, function(data) {
         question = data.items[0];
         onInitCompleted(true);
@@ -30,8 +29,8 @@ function init(onInitCompleted) {
         $(searchResultTag).empty();
         var theQuery = $(searchInputTag).val();
         queryGoogle(theQuery, function(result) {
-            if (result == null || result == undefined) {
-                // TODO: Errors handling
+            if (result == null || result == undefined || result.items == undefined) {
+                $(searchResultTag).append('<h3>' + NOT_FOUND_STRING + '</h3>');
                 return;
             }
             createCandidatesForAssociationList(result.items);
@@ -91,22 +90,18 @@ function createCandidateIdsString(items) {
 
 function createCandidatesForAssociationList(items) {
     var ids = createCandidateIdsString(items);
-    url = candidateQuestionApiEndpoint.replace(/\{id\}/g, ids);
+    url = getQuestionApiEndPoint(INTERNATIONAL_STACKOVERFLOW, true, false, "activity", "desc").replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
             function withContext(soen_id, soint_id) {
 
-                $(".soint-" + soint_id + " .candidate-associate").click(function(event) {
+                $(".soint-" + soint_id).click(function(event) {
                     event.preventDefault();
-                    console.log("SOen: " + soen_id + ", SOint: " + soint_id)
-                    addAssUrl = addAssociationAndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
-                    loadHelper(addAssUrl, function(data) {
-                        if (data.comment_id != undefined) {
-                            alert("Association has been added with id: " + data.comment_id)
-                            window.location = "/";
-                            return;
-                        }
+                    show(soen_id, soint_id);
+                });
 
-                    })
+                $(".soint-" + soint_id + " .candidate-title a").click(function(event) {
+                    event.preventDefault();
+                    show(soen_id, soint_id);
                 });
             }
             for (index = 0; index < data.items.length; index++) {
@@ -126,10 +121,6 @@ function createCandidatesForAssociationList(items) {
                 withContext(soQuestionId, item.question_id)
             }
             updatePrettify();
-
-            $(".association-candidate .candidate-title a").click(function(event) {
-                event.preventDefault();
-            });
         },
         function() {
 
@@ -137,5 +128,23 @@ function createCandidatesForAssociationList(items) {
 }
 
 function candidateForAssociationTemplate() {
-    return '<div><div class="association-candidate"><div class="candidate-title"><a href="#"><span class="question-id" style="display:none"></a></div><div class="candidate-body post-text"></div><div class="candidate-bar"><div class="candidate-taglist"></div><div class="candidate-stats"></div></div><div class="candidate-menu"><a class="candidate-associate">ассоциировать</a></div></div></div>'
+    return `
+    <div>
+        <div class="association-candidate">
+            <div class="candidate-title">
+                <a href="#">
+                    <span class="question-id" style="display:none">
+                </a>
+            </div>
+            <div class="candidate-body post-text">
+            </div>
+            <div class="candidate-bar">
+                <div class="candidate-taglist"></div>
+                <div class="candidate-stats"></div>
+            </div>
+            <div class="candidate-menu">
+            </div>
+        </div>
+    </div>
+    `
 }

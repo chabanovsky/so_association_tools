@@ -10,6 +10,7 @@ from suggested_question import get_suggested_question_ids_with_views, get_sugges
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, ASSOCIATION_TAG, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
+STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/?";
 
 
 @application.before_request
@@ -96,3 +97,29 @@ def add_association():
     db.session.commit()
 
     return jsonify(**resp)
+
+@application.route("/api/get-answers")
+@application.route("/api/get-answers/")
+def get_answers():
+    access_token = session.get("access_token", None)
+    if g.user is None or access_token is None:
+        abort(404)
+
+    ids = request.args.get("ids", None)
+    site = request.args.get("site", None)
+
+    if ids is None or site is None:
+        abort(404)
+
+    url = STACKEXCHANGE_ANSWER_API_ENDPOINT.replace("{id}", ids)
+    params = {
+       "access_token": access_token,
+       "key": STACKEXCHANGE_CLIENT_KEY,
+       "site": site,
+       "order": "asc",
+       "sort": "votes",
+       "filter": "!)s4ZC4Cto10(q(Yp)zK*"
+    }    
+    r = requests.get(url, data=params) 
+    data = json.loads(r.text)
+    return jsonify(**data)

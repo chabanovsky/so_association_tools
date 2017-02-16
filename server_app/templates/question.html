@@ -2,10 +2,14 @@
 <script type="text/javascript" src="/m/assets/google-code-prettify/prettify.js"></script>
 <script type="text/javascript" src="/m/js/google_custom_search.js"></script>
 <script type="text/javascript" async="" src="/m/js/question.js"></script>
+<script type="text/javascript" src="/m/js/two_questions_view.js"></script>
 {% endblock %} {% block css_ext %}
 <link rel="stylesheet" href="/m/assets/google-code-prettify/prettify.css">
-<link rel="stylesheet" href="/m/css/question.css" type="text/css" media="screen, projection"> {% endblock %} {% block content %}
+<link rel="stylesheet" href="/m/css/question.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/m/css/two_questions_view.css" type="text/css" >
+{% endblock %} {% block content %}
 <div style="display: none" id="question-id">{{ question_id }}</div>
+{% include 'two_questions_view.html' %}
 <div id="question" class="question">
     <div id="question-header">
         <h1>

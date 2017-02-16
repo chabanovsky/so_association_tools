@@ -10,7 +10,7 @@ $(document).ready(function() {
             ids += ";"
         }
     }
-    url = soEnQuestionApiEndpoint.replace(/\{id\}/g, ids);
+    url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, false, false, "votes", "desc").replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
         for (index = 0; index < data.items.length; index++) {
             var item = data.items[index];
