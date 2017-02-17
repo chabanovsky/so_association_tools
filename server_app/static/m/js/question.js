@@ -30,7 +30,7 @@ function init(onInitCompleted) {
         var theQuery = $(searchInputTag).val();
         queryGoogle(theQuery, function(result) {
             if (result == null || result == undefined || result.items == undefined) {
-                $(searchResultTag).append('<h3>' + NOT_FOUND_STRING + '</h3>');
+                $(searchResultTag).append('<h3>' + localeManager.notFoundInGogle + '</h3>');
                 return;
             }
             createCandidatesForAssociationList(result.items);

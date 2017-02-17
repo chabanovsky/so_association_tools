@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-17 08:37+0300\n"
+"POT-Creation-Date: 2017-02-17 11:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,5 +19,74 @@ msgstr ""
 
 #: views.py:70
 msgid "association"
+msgstr ""
+
+#: templates/base.html:6
+msgid "List of suggested questions for Stack Overflow in Russian"
+msgstr ""
+
+#: templates/locale_strings.js:4 templates/locale_strings.js:5
+#: templates/locale_strings.js:6
+msgid "answer"
+msgid_plural "answers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/locale_strings.js:9 templates/locale_strings.js:10
+#: templates/locale_strings.js:11
+msgid "vote"
+msgid_plural "votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/locale_strings.js:14 templates/locale_strings.js:15
+#: templates/locale_strings.js:16
+msgid "view"
+msgid_plural "views"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/locale_strings.js:18
+msgid "asked "
+msgstr ""
+
+#: templates/locale_strings.js:19
+msgid "Google has not found anything by the query."
+msgstr ""
+
+#: templates/locale_strings.js:20
+msgid "Association has been added with id: "
+msgstr ""
+
+#: templates/no_way.html:1 templates/no_way.html:2
+msgid "No Way"
+msgstr ""
+
+#: templates/no_way.html:4
+msgid "There is no way to use the app without OAuth authentication."
+msgstr ""
+
+#: templates/no_way.html:6
+msgid "Try again"
+msgstr ""
+
+#: templates/question.html:24
+msgid "Query"
+msgstr ""
+
+#: templates/question.html:25
+msgid "Search"
+msgstr ""
+
+#: templates/two_questions_view.html:5
+msgid "Associate"
+msgstr ""
+
+#: templates/two_questions_view.html:6
+msgid "Back"
+msgstr ""
+
+#: templates/two_questions_view_with_answers.html:9
+msgid "Answers"
 msgstr ""
 

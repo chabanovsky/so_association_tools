@@ -1,7 +1,3 @@
-var answer_strings = ["ответ", "ответа", "ответов"];
-var score_strings = ["голос", "голоса", "голосов"];
-var view_strings = ["показ", "показа", "показов"];
-
 var INTERNATIONAL_STACKOVERFLOW = "ru.stackoverflow";
 var STACKOVERFLOW_IN_ENGLISH = "stackoverflow";
 
@@ -14,8 +10,6 @@ var DEFAULT_API_SORT = "activity";
 var DEFAULT_API_ORDER = "desc";
 var DEFAULT_QUESTION_API_ENDPOINT = "https://api.stackexchange.com/2.2/questions/{id}/?";
 var DEFAULT_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/?";
-
-var NOT_FOUND_STRING = "По вашему запросу результатов не найдено.";
 
 function getQuestionApiEndPoint(site, needBody, needAnswers, sort, order) {
     var url = DEFAULT_QUESTION_API_ENDPOINT;

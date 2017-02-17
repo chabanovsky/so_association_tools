@@ -1,6 +1,6 @@
-{% extends "base.html" %} {% block title %}No Way{% endblock %} {% block content %}
-<h2>No Way</h2>
+{% extends "base.html" %} {% block title %}{{ gettext('No Way') }}{% endblock %} {% block content %}
+<h2>{{ gettext('No Way') }}</h2>
 <p>
-    There is no way to use the app without OAuth authentication.
+    {{ gettext('There is no way to use the app without OAuth authentication.') }}
     <p>
-        <a href="{{ url_for('index') }}">Go To Index</a> again. {% endblock %}
+        <a href="{{ url_for('index') }}">{{ gettext('Try again') }}</a>{% endblock %}

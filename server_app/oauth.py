@@ -5,15 +5,13 @@ import json
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session
 
-from meta import app as application, db_session
+from meta import app as application, db_session, APP_URL
 from models import User
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_OAUTH_ENDPOINT = "https://stackexchange.com/oauth"
 STACKEXCHANGE_OAUTH_GET_ACCESS_TOKEN = "https://stackexchange.com/oauth/access_token"
 STACKEXCHANGE_OAUTH_ME_ENDPOINT = "https://api.stackexchange.com/2.2/me"
-
-APP_URL = "http://demo.chabanovsky.com"
 
 def get_redirect_url():
     return APP_URL + url_for("stackexcange_oauth_callback")

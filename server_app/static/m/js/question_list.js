@@ -91,7 +91,7 @@ function createQuestionStatus(item) {
     $(votes_count).addClass("count");
     $(votes_count).append(item.score);
     var votes_count_word = document.createElement("div");
-    $(votes_count_word).append(plural(parseInt(item.score), score_strings));
+    $(votes_count_word).append(plural(parseInt(item.score), localeManager.scoreStrings));
 
     $(votes).append(votes_count);
     $(votes).append(votes_count_word);
@@ -105,7 +105,7 @@ function createQuestionStatus(item) {
     $(answer_count).append(item.answer_count);
     $(answer_count).addClass("count");
     var answer_count_word = document.createElement("div");
-    $(answer_count_word).append(plural(parseInt(item.answer_count), answer_strings));
+    $(answer_count_word).append(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
     $(status).append(answer_count);
     $(status).append(answer_count_word);
@@ -118,7 +118,7 @@ function createQuestionStatus(item) {
     $(views_count).append(shortViewsCount + "K");
     $(views_count).addClass("count");
     var views_count_word = document.createElement("div");
-    $(views_count_word).append(plural(5, view_strings));
+    $(views_count_word).append(plural(5, localeManager.viewStrings));
 
     $(views).append(views_count);
     $(views).append(views_count_word);

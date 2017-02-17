@@ -41,7 +41,7 @@ function addAssociation(soen_id, soint_id) {
     addAssUrl = addAssociationAndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
     loadHelper(addAssUrl, function(data) {
         if (data.comment_id != undefined) {
-            alert("Association has been added with id: " + data.comment_id)
+            alert(localeManager.associationWasAdded + data.comment_id)
             window.location = document.referrer;
             return;
         }

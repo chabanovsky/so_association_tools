@@ -5,6 +5,7 @@ from models import *
 from auth import *
 from views import *
 from oauth import *
+from filters import *
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

@@ -2,41 +2,19 @@
   <a href="javascript:void(0)" class="close-button">&times;</a>
   <div class="overlay-content">
       <div class="association-menu">
-            <a id="add-association">Ассоциировать</a>
-            <a id="close-popup">Вернуться назад</a>
+            <a id="add-association">{{ gettext('Associate') }}</a>
+            <a id="close-popup">{{ gettext('Back') }}</a>
       </div>
       <table>
         <tr>
             <td class="left">
                 <div class="so-en-content">
-                    <div class="question-header">
-                        <h1>
-                        </h1>
-                    </div>
-                        <div class="question-body  post-text">
-                        </div>
-                    <div class="question-taglist"></div>
-                    <div class="answer-divider">
-                        <h3>Ответы</h3>
-                    </div>
-                    <div class="answers">
-                    </div>
+                    {% include 'two_questions_view_with_answers.html' %}
                 </div>
             </td>
             <td class="right">
                 <div class="so-int-content">
-                    <div class="question-header">
-                        <h1>
-                        </h1>
-                    </div>
-                    <div class="question-body" class="post-text">
-                    </div>
-                    <div class="question-taglist"></div>
-                    <div class="answer-divider">
-                        <h3>Ответы</h3>
-                    </div>
-                    <div class="answers">
-                    </div>
+                    {% include 'two_questions_view_with_answers.html' %}
                 </div>
             </td>
         </tr>

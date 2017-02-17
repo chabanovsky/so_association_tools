@@ -1,5 +1,4 @@
 var questionListRoot = "#question_list"
-var askedString = "задан ";
 
 $(document).ready(function() {
     var ids = "";
@@ -25,15 +24,15 @@ function createQuestion(item) {
     var template = $(tmp);
     $(template).find(".stats_container").attr("onclick", "window.location.href='" + getAAPPlink(item.question_id) + "'");
     $(template).find(".votes .count").text(item.score);
-    $(template).find(".votes .label").text(plural(parseInt(item.score), score_strings));
+    $(template).find(".votes .label").text(plural(parseInt(item.score), localeManager.scoreStrings));
     if (item.is_answered)
         $(template).find(".status").addClass(" answered");    
     $(template).find(".status .count").text(item.answer_count);
-    $(template).find(".status .label").text(plural(parseInt(item.answer_count), answer_strings));
+    $(template).find(".status .label").text(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
     var shortViewsCount = Math.round(item.view_count / 1000);
     $(template).find(".views .count").text(shortViewsCount + "K");
-    $(template).find(".views .label").text(plural(5, view_strings));
+    $(template).find(".views .label").text(plural(5, localeManager.viewStrings));
 
     $(template).find(".desc h3 a").text(stripHtml(item.title));
     $(template).find(".desc h3 a").attr("href", getAAPPlink(item.question_id));
@@ -43,7 +42,7 @@ function createQuestion(item) {
     $(template).find(".tag_holder").append(tags);
 
     var active = new Date(parseInt(1000 * item.creation_date));
-    $(template).find(".owner span").text(askedString + getDate(active) + " ");
+    $(template).find(".owner span").text(localeManager.asked + getDate(active) + " ");
     $(template).find(".owner a").attr("href", item.owner.link);
     $(template).find(".owner a").text(item.owner.display_name);
 

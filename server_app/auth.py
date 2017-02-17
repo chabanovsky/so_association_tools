@@ -32,7 +32,6 @@ def create_or_login(resp):
         session['auth_time'] = pape_resp.auth_time
     user = User.query.filter_by(openid=resp.identity_url).first()
     if user is not None:
-        flash(u'Successfully signed in')
         g.user = user
         return redirect(oid.get_next_url())
 
@@ -47,9 +46,8 @@ def create_profile_openid():
     if request.method == 'POST':
         name = request.form['name']
         if not name:
-            flash(u'Error: you have to provide a name')
+            logging.error(u'Error: you have to provide a name')
         else:
-            flash(u'Profile successfully created')
             db_session.add(User(name, session['openid']))
             db_session.commit()
             return redirect(oid.get_next_url())
@@ -60,5 +58,4 @@ def create_profile_openid():
 @application.route('/logout/')
 def logout():
     session.pop('openid', None)
-    flash(u'You have been signed out')
     return redirect(oid.get_next_url())
