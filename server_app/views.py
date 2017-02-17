@@ -4,14 +4,15 @@ import logging
 import json
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
+from flask.ext.babel import gettext, ngettext
+
 from meta import app as application, db, db_session
 from models import User, Association, MostViewedQuestion
 from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
-from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, ASSOCIATION_TAG, STACKEXCHANGE_CLIENT_KEY
+from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
 STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/?";
-
 
 @application.before_request
 def before_request():
@@ -22,7 +23,7 @@ def before_request():
 @application.after_request
 def after_request(response):
     db_session.remove()
-    return response        
+    return response    
 
 @application.route("/index.html")
 @application.route("/")
@@ -66,8 +67,9 @@ def add_association():
         abort(404)
 
     url = STACKEXCHANGE_ADD_COMMENT_ENDPOINT.replace("{id}", str(soint_id))
+    association_tag = gettext(u"association")
     params = {
-       "body" : ASSOCIATION_TAG + u": http://stackoverflow.com/questions/" + str(soen_id) + "/",
+       "body" : association_tag + u": http://stackoverflow.com/questions/" + str(soen_id) + "/",
        "access_token": access_token,
        "key": STACKEXCHANGE_CLIENT_KEY,
        "site": "ru.stackoverflow",
