@@ -107,6 +107,94 @@ body {
 .paginator a:hover {
     text-decoration: none;
 }
+
 .post-text img {
     width: 100%;
+}
+
+.header h2 {
+    font-size: 200%;
+}
+
+.explanation {
+    padding-bottom: 25px;
+}
+
+.post-menu {
+    width: 100%;
+    padding-top: 15px;
+}
+
+.post-menu ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.post-menu a,
+.post-menu span {
+    padding: 0 3px 2px 3px;
+    color: #848d95;
+    font-size: 11px;
+}
+
+.post-menu a,
+.post-menu span {
+    display: inline-block;
+}
+
+.post-menu a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.post-signature {
+    text-align: left;
+    vertical-align: top;
+    width: 200px;
+}
+
+.user-info {
+    box-sizing: border-box;
+    padding: 5px 6px 7px 7px;
+    width: 200px;
+    color: #6a737c;
+}
+
+.user-info .user-gravatar32 {
+    float: left;
+    width: 32px;
+    height: 32px;
+    border-radius: 1px;
+    box-shadow: 2px 2px 4px rgba(12,13,14,0.5);
+    border-collapse: separate;
+}
+
+.gravatar-wrapper-32, .gravatar-wrapper-32 img {
+    width: 32px;
+    height: 32px;
+}
+
+[class*="gravatar-wrapper-"] {
+    padding: 0;
+    overflow: hidden;
+}
+
+.user-info .user-gravatar32 img {
+    border-radius: 1px;
+}
+
+.user-details {
+    line-height: 17px;
+    word-wrap: break-word;
+}
+
+.user-info .user-details {
+    float: left;
+    width: 100%;
+}
+
+.user-info .user-gravatar32+.user-details {
+    margin-left: 8px;
+    width: calc(100% - 40px);
 }

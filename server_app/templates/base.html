@@ -15,8 +15,10 @@
 
 <body>
     {% block body %}
-    <div id="header">
-        {% block header %} {% endblock %}
+    <div id="header" class="header">
+        {% block header %}
+        <h2><a href="/">{{ gettext('Association Tools for Stack Overflow') }}</a></h2>
+        {% endblock %}
     </div>
     <div id="content">
         {% block content %} {% endblock %}

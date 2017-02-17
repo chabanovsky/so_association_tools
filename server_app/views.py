@@ -118,7 +118,7 @@ def get_answers():
        "access_token": access_token,
        "key": STACKEXCHANGE_CLIENT_KEY,
        "site": site,
-       "order": "asc",
+       "order": "desc",
        "sort": "votes",
        "filter": "!)s4ZC4Cto10(q(Yp)zK*"
     }    

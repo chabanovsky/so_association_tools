@@ -17,5 +17,8 @@ var localeManager = {
     ],
     asked: {{ gettext('asked ')|generate_string|safe }},
     notFoundInGogle: {{ gettext('Google has not found anything by the query.')|generate_string|safe }},
-    associationWasAdded: {{ gettext('Association has been added with id: ')|generate_string|safe }}
+    associationWasAdded: {{ gettext('Association has been added with id: ')|generate_string|safe }},
+    LinkStr: {{ gettext('link')|generate_string|safe }},
+    scoreHelpStr: {{ gettext('score')|generate_string|safe }},
+    answeredStr: {{ gettext('answered')|generate_string|safe }}
 }

@@ -39,7 +39,7 @@ function init(onInitCompleted) {
 }
 
 function updatePage() {
-    $("#question-header h1").text(stripHtml(question.title));
+    $("#question-header h2").text(stripHtml(question.title));
     $("#question-body").html(question.body);
     var tags = createTagsDiv(question.tags);
     $("#question-taglist").append(tags);

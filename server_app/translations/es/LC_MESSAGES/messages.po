@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-17 11:47+0300\n"
+"POT-Creation-Date: 2017-02-17 16:35+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -24,6 +24,10 @@ msgstr ""
 
 #: templates/base.html:6
 msgid "List of suggested questions for Stack Overflow in Russian"
+msgstr ""
+
+#: templates/base.html:20
+msgid "Association Tools for Stack Overflow"
 msgstr ""
 
 #: templates/locale_strings.js:4 templates/locale_strings.js:5
@@ -59,6 +63,18 @@ msgstr ""
 msgid "Association has been added with id: "
 msgstr ""
 
+#: templates/locale_strings.js:21
+msgid "link"
+msgstr ""
+
+#: templates/locale_strings.js:22
+msgid "score"
+msgstr ""
+
+#: templates/locale_strings.js:23
+msgid "answered"
+msgstr ""
+
 #: templates/no_way.html:1 templates/no_way.html:2
 msgid "No Way"
 msgstr ""
@@ -79,6 +95,17 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: templates/question_pag_list.html:18
+msgid ""
+"The list bellow contains most viewed questions on Stack Overflow in "
+"English by a language audience. In order to add an association pick a "
+"question an click on it. In the open window you will see full question "
+"with a search box. Use the box to query the associations on an "
+"international site. Click on a candidate for association and you will see"
+" both the question on Stack Overflow in English and the candidate with "
+"their answers. If they are the same associate them!"
+msgstr ""
+
 #: templates/two_questions_view.html:5
 msgid "Associate"
 msgstr ""
@@ -87,7 +114,13 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: templates/two_questions_view_with_answers.html:9
+#: templates/two_questions_view_with_answers.html:36
 msgid "Answers"
 msgstr ""
+
+#~ msgid " score"
+#~ msgstr ""
+
+#~ msgid " answered"
+#~ msgstr ""
 

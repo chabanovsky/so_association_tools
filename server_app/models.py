@@ -31,12 +31,14 @@ class MostViewedQuestion(db.Model):
     view_count = db.Column(db.Integer)       
     view_date = db.Column(db.DateTime) 
     is_associated = db.Column(db.Boolean)
+    can_be_associated = db.Column(db.Boolean)
 
-    def __init__(self, question_id, view_count, view_date, is_associated=False):
+    def __init__(self, question_id, view_count, view_date, is_associated=False, can_be_associated=True):
         self.question_id = question_id
         self.view_count = view_count
         self.view_date = view_date
         self.is_associated = is_associated
+        self.can_be_associated = can_be_associated
 
     def __repr__(self):
         return '<MostViewedQuestion %s>' % str(self.id)        

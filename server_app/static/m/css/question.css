@@ -38,6 +38,7 @@ pre {
     border-bottom: 2px solid #e4e6e8;
     margin-bottom: 7px;
     float: left;
+    width: 100%;
 }
 
 #question-taglist {

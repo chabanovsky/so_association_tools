@@ -70,7 +70,8 @@
 
 .overlay-content .answers .answer {
     border-bottom: 1px solid #e4e6e8;
-    margin-bottom: 7px;
+    margin-bottom: 2px;
+    padding: 10px 0 15px;
 }
 
 .overlay-content .answer-divider {
