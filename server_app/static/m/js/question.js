@@ -1,9 +1,11 @@
 
 var addAssociationAndpoint = "/api/add_association"
 var questionIdTag = "#question-id";
+var questionViewsTag = "#question-views"
 var searchButtonTag = "#search-button";
 var searchInputTag = "#search-input";
 var searchResultTag = "#search-results";
+var searchBoxTag = "#search-association-box"
 var soQuestionId = -1;
 var question = null;
 
@@ -15,6 +17,14 @@ $(document).ready(function() {
         updatePage();
     });
 })
+
+function thereAreResults(flag) {
+    if (flag) {
+        $(searchBoxTag + " .help h3").text(localeManager.candidatesForAssociationStr);
+    } else {
+        $(searchBoxTag + " .help h3").text(localeManager.notFoundInGogle);
+    }
+}
 
 function init(onInitCompleted) {
     url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, true, false, "activity", "desc").replace(/\{id\}/g, soQuestionId);
@@ -28,9 +38,10 @@ function init(onInitCompleted) {
         event.preventDefault();
         $(searchResultTag).empty();
         var theQuery = $(searchInputTag).val();
+        $(searchBoxTag + " .help h3").text(localeManager.searchingStr);
         queryGoogle(theQuery, function(result) {
-            if (result == null || result == undefined || result.items == undefined) {
-                $(searchResultTag).append('<h3>' + localeManager.notFoundInGogle + '</h3>');
+            if (result == null || result == undefined || result.items == undefined || result.items.length == 0) {
+                thereAreResults(false);
                 return;
             }
             createCandidatesForAssociationList(result.items);
@@ -43,6 +54,9 @@ function updatePage() {
     $("#question-body").html(question.body);
     var tags = createTagsDiv(question.tags);
     $("#question-taglist").append(tags);
+    updatePostMenu($("#question"), question, localeManager.asked);
+    var viewed = '<li><span>' + localeManager.viewdStr + "</span>  <span>" + $(questionViewsTag).text() + '</span></li>'
+    $("#question .post-menu ul").prepend(viewed);
 
     updatePrettify();
     updateSearchInput();
@@ -104,8 +118,13 @@ function createCandidatesForAssociationList(items) {
                     show(soen_id, soint_id);
                 });
             }
+            var found = false;
             for (index = 0; index < data.items.length; index++) {
                 var item = data.items[index];
+                if (item.answer_count < 1) {
+                    continue;
+                }
+                    
 
                 var tmp = candidateForAssociationTemplate();
                 var template = $(tmp);
@@ -119,7 +138,9 @@ function createCandidatesForAssociationList(items) {
 
                 $(searchResultTag).append(template.html());
                 withContext(soQuestionId, item.question_id)
+                found = true;
             }
+            thereAreResults(found);
             updatePrettify();
         },
         function() {

@@ -5,6 +5,8 @@ import json
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
 from flask.ext.babel import gettext, ngettext
+from sqlalchemy import and_, desc
+from sqlalchemy.sql import func
 
 from meta import app as application, db, db_session
 from models import User, Association, MostViewedQuestion
@@ -43,8 +45,10 @@ def no_way():
 @application.route("/questions/<question_id>/")
 def question(question_id):
     if g.user is None:
-        return redirect(url_for('start_oauth'))  
-    return render_template('question.html', question_id=question_id)    
+        return redirect(url_for('start_oauth'))
+    q = db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
+        label('Views')).filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).group_by('Question').first()
+    return render_template('question.html', question_id=q.Question, question_views=q.Views)    
 
 @application.route("/api/suggested_question_ids_with_views")
 def suggested_question_ids_with_views():

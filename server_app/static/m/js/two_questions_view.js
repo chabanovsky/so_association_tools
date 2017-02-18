@@ -13,10 +13,6 @@ function show(soen_id, soint_id) {
     
     showPopup();
 
-    $(".close-button").off("click");
-    $(".close-button").click(function(){
-        closePopup();
-    })
     $(addAssociationTag).off("click");
     $(addAssociationTag).click(function(){
         addAssociation(soen_id, soint_id);
@@ -62,6 +58,10 @@ function loadOverlayQuestion(questionId, site, rootTag) {
 
 function loadOverlayAnswers(question, site, rootTag) {
     var ids = "";
+    if (question.answers == undefined) {
+        console.log("There are no answers: " + question.question_id);
+        return;
+    }
     for (index = 0; index < question.answers.length; index++) {
         ids += question.answers[index].answer_id;
         if (index < (question.answers.length -1)) {
@@ -84,7 +84,7 @@ function updateOverlayQuestion(question, rootTag) {
     var tags = createTagsDiv(question.tags);
     $(rootTag + " .question-taglist").empty();
     $(rootTag + " .question-taglist").append(tags);
-    updateOverlayPostMenu($(rootTag), question, localeManager.asked);
+    updatePostMenu($(rootTag), question, localeManager.asked);
 }
 
 function updateOverlayAnswers(answers, rootTag) {
@@ -95,27 +95,10 @@ function updateOverlayAnswers(answers, rootTag) {
         var template = $(tmp);
         $(template).find(".answer-body").html(item.body);
 
-        updateOverlayPostMenu(template, item, localeManager.answeredStr);
+        updatePostMenu(template, item, localeManager.answeredStr);
 
         $(rootTag + " .answers").append(template.html());
     }
-}
-
-function updateOverlayPostMenu(template, item, postedStr) {
-    $(template).find(".post-menu .ref-to-post").text(localeManager.LinkStr);
-    $(template).find(".post-menu .ref-to-post").attr("href", item.link);       
-    $(template).find(".post-menu ul .score-help").text(localeManager.scoreHelpStr);        
-    $(template).find(".post-menu ul .score").text(item.score);
-    $(template).find(".post-menu ul .posted-help").text(postedStr);        
-
-    var posted = new Date(parseInt(1000 * item.creation_date));
-    $(template).find(".post-menu ul .posted").text(getDate(posted));        
-
-    $(template).find(".post-menu .user-gravatar32 a").attr("href", item.owner.link);        
-    $(template).find(".post-menu .user-gravatar32 img").attr("src", item.owner.profile_image);        
-
-    $(template).find(".post-menu .user-details a").attr("href", item.owner.link);    
-    $(template).find(".post-menu .user-details a").text(item.owner.display_name);    
 }
 
 function getAnswerTemaplate() {
@@ -132,7 +115,7 @@ function getAnswerTemaplate() {
                             <li><a target="_blank" class="ref-to-post"></a></li>
                         </ul>
                     </td>
-                    <td align="right" style="width: 10%;" class="post-signature">
+                    <td align="right" style="width: 20%;" class="post-signature">
                         <div class="user-info">
                           <div class="user-gravatar32">
                             <a target="_blank" >
@@ -142,7 +125,7 @@ function getAnswerTemaplate() {
                             </a>
                           </div>
                           <div class="user-details">
-                            <a></a>
+                            <a target="_blank"></a>
                           </div>
                         </div>
                     </td>

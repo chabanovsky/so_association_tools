@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-17 16:35+0300\n"
+"POT-Creation-Date: 2017-02-18 14:42+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:70
+#: views.py:74
 msgid "association"
 msgstr "ассоциация"
 
@@ -28,8 +28,8 @@ msgid "List of suggested questions for Stack Overflow in Russian"
 msgstr "Список вопросов для ассоциации для Stack Overflow на русском"
 
 #: templates/base.html:20
-msgid "Association Tools for Stack Overflow"
-msgstr "Инструменты ассоциации для Stack Overflow на русском"
+msgid "Stack Overflow Association Tools"
+msgstr "Инструменты ассоциации Stack Overflow"
 
 #: templates/locale_strings.js:4 templates/locale_strings.js:5
 #: templates/locale_strings.js:6
@@ -79,6 +79,18 @@ msgstr "рейтинг"
 msgid "answered"
 msgstr "отвечен"
 
+#: templates/locale_strings.js:24
+msgid "Candidates for the association"
+msgstr "Кандидаты для ассоциации"
+
+#: templates/locale_strings.js:25
+msgid "Searching..."
+msgstr "Выполняется поиск..."
+
+#: templates/locale_strings.js:26
+msgid "viewed"
+msgstr "просмотров"
+
 #: templates/no_way.html:1 templates/no_way.html:2
 msgid "No Way"
 msgstr "Без вариантов"
@@ -93,11 +105,11 @@ msgstr ""
 msgid "Try again"
 msgstr "Попробовать еще раз"
 
-#: templates/question.html:24
+#: templates/question.html:26
 msgid "Query"
 msgstr "Запрос"
 
-#: templates/question.html:25
+#: templates/question.html:27
 msgid "Search"
 msgstr "Искать"
 
@@ -110,17 +122,29 @@ msgid ""
 "international site. Click on a candidate for association and you will see"
 " both the question on Stack Overflow in English and the candidate with "
 "their answers. If they are the same associate them!"
-msgstr "Список ниже содержит наиболее просматриваемые вопросы"
+msgstr ""
+"Список ниже содержит наиболее просматриваемые вопросы на Stack Overflow "
+"на английском русскоязычными пользователями. Для того чтобы назначить "
+"ассоциацию выберите интересный вам вопрос и нажмите на него. На "
+"открывшейся странице вы увидете весь вопрос и поле поиска. Используйте "
+"поиск для поиска кандидатов для ассоциации. Выбрав кандидата, нажмите на "
+"него и вы увидите окно с обоими вопросами, которые будут содержать "
+"ответы. Если вопросы должны быть ассоциированны, нажмите кномпку "
+"«Ассоциировать»."
 
-#: templates/two_questions_view.html:5
+#: templates/question_pag_list.html:22
+msgid "Questions in English"
+msgstr "Вопросы на английском"
+
+#: templates/two_questions_view.html:4
 msgid "Associate"
 msgstr "Ассоциировать"
 
-#: templates/two_questions_view.html:6
+#: templates/two_questions_view.html:5
 msgid "Back"
 msgstr "Вернуться назад"
 
-#: templates/two_questions_view_with_answers.html:36
+#: templates/two_questions_view_with_answers.html:12
 msgid "Answers"
 msgstr "Ответы"
 

@@ -103,3 +103,20 @@
     font-size: 12px;
     margin-right: 2px;
 }
+
+.explanation {
+    background: #e9f7fd;
+    padding: 15px;
+    border: 2px solid #dde9ef;
+    margin: 0px 0 25px;
+    text-align: left;
+}
+
+.help {
+    color: #242729;
+    font-size: 18px;
+    line-height: 2.22;
+    border-bottom: 1px solid #e4e6e8;
+    padding-bottom: 7px;
+    margin-bottom: 15px;
+}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-17 16:35+0300\n"
+"POT-Creation-Date: 2017-02-18 14:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:70
+#: views.py:74
 msgid "association"
 msgstr ""
 
@@ -26,7 +26,7 @@ msgid "List of suggested questions for Stack Overflow in Russian"
 msgstr ""
 
 #: templates/base.html:20
-msgid "Association Tools for Stack Overflow"
+msgid "Stack Overflow Association Tools"
 msgstr ""
 
 #: templates/locale_strings.js:4 templates/locale_strings.js:5
@@ -74,6 +74,18 @@ msgstr ""
 msgid "answered"
 msgstr ""
 
+#: templates/locale_strings.js:24
+msgid "Candidates for the association"
+msgstr ""
+
+#: templates/locale_strings.js:25
+msgid "Searching..."
+msgstr ""
+
+#: templates/locale_strings.js:26
+msgid "viewed"
+msgstr ""
+
 #: templates/no_way.html:1 templates/no_way.html:2
 msgid "No Way"
 msgstr ""
@@ -86,11 +98,11 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: templates/question.html:24
+#: templates/question.html:26
 msgid "Query"
 msgstr ""
 
-#: templates/question.html:25
+#: templates/question.html:27
 msgid "Search"
 msgstr ""
 
@@ -105,15 +117,19 @@ msgid ""
 "their answers. If they are the same associate them!"
 msgstr ""
 
-#: templates/two_questions_view.html:5
+#: templates/question_pag_list.html:22
+msgid "Questions in English"
+msgstr ""
+
+#: templates/two_questions_view.html:4
 msgid "Associate"
 msgstr ""
 
-#: templates/two_questions_view.html:6
+#: templates/two_questions_view.html:5
 msgid "Back"
 msgstr ""
 
-#: templates/two_questions_view_with_answers.html:36
+#: templates/two_questions_view_with_answers.html:12
 msgid "Answers"
 msgstr ""
 

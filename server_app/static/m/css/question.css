@@ -14,9 +14,6 @@
 pre {
     margin-bottom: 1em;
     padding: 5px;
-    padding-bottom: 20px !ie7;
-    width: auto;
-    width: 650px !ie7;
     max-height: 600px;
     overflow: auto;
     font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif;
@@ -34,15 +31,29 @@ pre {
     padding: 30px 0px;
 }
 
+#search-association-box .search {
+    background-color: #FFF8DC;
+    border: 1px solid #E0DCBF;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1),0 1px 0 #ffffff inset;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 1px 0 #ffffff inset;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 1px 0 #ffffff inset;
+    border-image: initial;
+    padding: 15px 0;
+}
+
+#search-association-box .search span {
+    padding-left: 15px;
+}
+
 #question {
     border-bottom: 2px solid #e4e6e8;
     margin-bottom: 7px;
     float: left;
     width: 100%;
+    padding-bottom: 10px;
 }
 
 #question-taglist {
-    padding-bottom: 10px;
     float: left;
 }
 
@@ -57,9 +68,10 @@ pre {
 }
 
 #search-association-box input {
-    width: 70%;
-    padding-left: 10px;
-    margin: 0px 25px 0px 10px;
+    width: 65%;
+    padding: 10px;
+    margin: 0px 25px 0px 15px;
+    font-size: 14px;
 }
 
 .association-candidate {
@@ -95,4 +107,10 @@ pre {
 .candidate-menu>a {
     padding: 0 3px 2px 3px;
     color: #848d95;
+}
+#search-association-box .help {
+    width: 100%;
+    float: left;
+    border-bottom: 2px solid #e0e0e0;
+    padding-top: 35px;
 }

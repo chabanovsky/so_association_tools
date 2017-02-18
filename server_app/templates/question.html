@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/m/css/two_questions_view.css" type="text/css" >
 {% endblock %} {% block content %}
 <div style="display: none" id="question-id">{{ question_id }}</div>
+<div style="display: none" id="question-views">{{ question_views }}</div>
 {% include 'two_questions_view.html' %}
 <div id="question" class="question">
     <div id="question-header">
@@ -18,13 +19,17 @@
     <div id="question-body" class="post-text">
     </div>
     <div id="question-taglist"></div>
+    {% include 'post_menu.html' %}
 </div>
 <div id="search-association-box">
     <div class="search">
         <span>{{ gettext('Query') }}</span>
-        <input id="search-input" type="text"><a id="search-button">{{ gettext('Search') }}</a>
+        <input id="search-input" type="text"><a class="button" id="search-button">{{ gettext('Search') }}</a>
     </div>
-    <div id="search-results"></div>
+    <div class="help"><h3></h3></div>
+    <div id="search-results">
+
+    </div>
 </div>
 <div id="association-box"></div>
 </div>

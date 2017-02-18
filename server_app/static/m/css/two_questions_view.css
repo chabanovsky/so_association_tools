@@ -33,10 +33,12 @@
 
 .overlay table {
     width: 100%;
+    table-layout: fixed;
 }
 
 .overlay table td {
     width: 48%;
+    word-wrap: break-word;
 }
 
 .overlay table td.left {
@@ -78,40 +80,4 @@
     width: 100%;
     float: left;
     border-bottom: 2px solid #e0e0e0;
-}
-
-.association-menu a {
-    white-space: nowrap;
-    color: #FFF;
-    background-color: #0095ff;
-    border-color: #07c;
-    box-shadow: inset 0 1px 0 #66bfff;
-    display: inline-block;
-    position: relative;
-    padding: .61538462em 1em;
-    vertical-align: middle;
-    min-height: 2.46153846em;
-    box-sizing: border-box;
-    font-weight: 400;
-    font-family: inherit;
-    line-height: 1;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 2px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    outline: none;
-    touch-action: manipulation;
-    transition: all .1s ease-in;
-}
-
-.association-menu a:hover,
-.association-menu a:focus {
-    color: rgba(255,255,255,0.9);
-    background-color: #07c;
-    border-color: #005999;
-    box-shadow: inset 0 1px 0 #3af;
-    text-decoration: none;
-    transition: all .1s ease-in-out;
-    outline: none;
 }

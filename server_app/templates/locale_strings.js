@@ -20,5 +20,8 @@ var localeManager = {
     associationWasAdded: {{ gettext('Association has been added with id: ')|generate_string|safe }},
     LinkStr: {{ gettext('link')|generate_string|safe }},
     scoreHelpStr: {{ gettext('score')|generate_string|safe }},
-    answeredStr: {{ gettext('answered')|generate_string|safe }}
+    answeredStr: {{ gettext('answered')|generate_string|safe }},
+    candidatesForAssociationStr: {{ gettext('Candidates for the association')|generate_string|safe }},
+    searchingStr: {{ gettext('Searching...')|generate_string|safe }},
+    viewdStr: {{ gettext('viewed')|generate_string|safe }}
 }

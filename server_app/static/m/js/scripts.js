@@ -98,3 +98,21 @@ function createTagsDiv(question_tags) {
 function getAAPPlink(questionId) {
     return "/questions/" + questionId;
 }
+
+
+function updatePostMenu(template, item, postedStr) {
+    $(template).find(".post-menu .ref-to-post").text(localeManager.LinkStr);
+    $(template).find(".post-menu .ref-to-post").attr("href", item.link);       
+    $(template).find(".post-menu ul .score-help").text(localeManager.scoreHelpStr);        
+    $(template).find(".post-menu ul .score").text(item.score);
+    $(template).find(".post-menu ul .posted-help").text(postedStr);        
+
+    var posted = new Date(parseInt(1000 * item.creation_date));
+    $(template).find(".post-menu ul .posted").text(getDate(posted));        
+
+    $(template).find(".post-menu .user-gravatar32 a").attr("href", item.owner.link);        
+    $(template).find(".post-menu .user-gravatar32 img").attr("src", item.owner.profile_image);        
+
+    $(template).find(".post-menu .user-details a").attr("href", item.owner.link);    
+    $(template).find(".post-menu .user-details a").text(stripHtml(item.owner.display_name));    
+}
