@@ -80,6 +80,7 @@ function updateSearchInput() {
         }
     });
     $(searchInputTag).focus();
+    $(this).scrollTop(0);
 }
 
 function createCandidateIdsString(items) {

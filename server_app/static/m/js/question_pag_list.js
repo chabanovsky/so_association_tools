@@ -23,16 +23,22 @@ function createQuestion(item) {
     var tmp = questionTemplate();
     var template = $(tmp);
     $(template).find(".stats_container").attr("onclick", "window.location.href='" + getAAPPlink(item.question_id) + "'");
-    $(template).find(".votes .count").text(item.score);
-    $(template).find(".votes .label").text(plural(parseInt(item.score), localeManager.scoreStrings));
+    var theScore = item.score;
+    var mul = ""
+    if (item.score > 1000)  {
+        theScore = Math.round(item.score / 1000);
+        mul = "K"
+    }
+    $(template).find(".votes .count").text(theScore + mul);
+    $(template).find(".votes .label").text(plural( mul != "" ? 5 : theScore, localeManager.scoreStrings));
     if (item.is_answered)
         $(template).find(".status").addClass(" answered");    
     $(template).find(".status .count").text(item.answer_count);
     $(template).find(".status .label").text(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
-    var shortViewsCount = Math.round(item.view_count / 1000);
-    $(template).find(".views .count").text(shortViewsCount + "K");
-    $(template).find(".views .label").text(plural(5, localeManager.viewStrings));
+    var viewCount = getViewCount(item.question_id);
+    $(template).find(".views .count").text(viewCount);
+    $(template).find(".views .label").text(plural(viewCount, localeManager.viewStrings));
 
     $(template).find(".desc h3 a").text(stripHtml(item.title));
     $(template).find(".desc h3 a").attr("href", getAAPPlink(item.question_id));
@@ -47,6 +53,16 @@ function createQuestion(item) {
     $(template).find(".owner a").text(item.owner.display_name);
 
     return template;
+}
+
+function getViewCount(questionId) {
+    for (index = 0; index < initJson.length; index++) {
+        item = initJson[index];
+        if (item.questionId == questionId) {
+            return item.viewCount;
+        }
+    }
+    return -1;
 }
 
 function questionTemplate() {
