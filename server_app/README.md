@@ -27,12 +27,12 @@ In order to run the app you need:
 2. Go to the server_app folder.
 3. Create a file `local_settings.py` with variables
 
-    STACKEXCHANGE_CLIENT_SECRET = "your secret"
-    STACKEXCHANGE_CLIENT_KEY = "your key"
-    STACKEXCHANGE_CLIENT_ID = app_id
-    ASSOCIATION_TAG = u"ассоциация"
-    
-4. Execute `python server.py --init_db`.
-5. Execute `python server.py --upload_csv`.
+    STACKEXCHANGE_CLIENT_SECRET = "your secret"   
+    STACKEXCHANGE_CLIENT_KEY = "your key"   
+    STACKEXCHANGE_CLIENT_ID = app_id   
+    ASSOCIATION_TAG = u"ассоциация"   
+   
+4. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --init_db`.
+5. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --upload_csv`.
 
 Then you will need to go to the site (aapp.ru in my case). By default the app requires you to be authorized with Stack Exchange OAuth. Because of this it will automatically redirect you to openid.stackexchange.com.
