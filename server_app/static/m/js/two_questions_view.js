@@ -20,6 +20,8 @@ function show(soen_id, soint_id) {
     $(closePopupMenuTag).off("click");
     $(closePopupMenuTag).click(function(){
         closePopup();
+        emptyOverlayFormFields(soEnContentTag);
+        emptyOverlayFormFields(soIntContentTag);
     })
 }
 
@@ -85,6 +87,13 @@ function updateOverlayQuestion(question, rootTag) {
     $(rootTag + " .question-taglist").empty();
     $(rootTag + " .question-taglist").append(tags);
     updatePostMenu($(rootTag), question, localeManager.asked);
+}
+
+function emptyOverlayFormFields(rootTag) {
+    $(rootTag + " .question-header h1").empty();
+    $(rootTag + " .question-body").empty();
+    $(rootTag + " .question-taglist").empty();
+    $(rootTag + " .answers").empty();
 }
 
 function updateOverlayAnswers(answers, rootTag) {

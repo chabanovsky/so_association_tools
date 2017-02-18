@@ -71,6 +71,14 @@ function updatePrettify() {
 
 function updateSearchInput() {
     $(searchInputTag).val(stripHtml(question.title));
+    $(searchInputTag).keypress(function (e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $(searchButtonTag).click();
+            return false;
+        } else {
+            return true;
+        }
+    });
 }
 
 function createCandidateIdsString(items) {
