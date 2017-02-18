@@ -55,7 +55,7 @@ function createQuestionsFeed(startIndex, endIndex, onEnded) {
     }
     url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, false, false, "votes", "desc").replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
-        for (index = 0; index < data.items.length; index++) {
+        for (var index = 0; index < data.items.length; index++) {
             var item = data.items[index];
             var question = createQuestionFromResponse(item)
             $(question_list).append(question);

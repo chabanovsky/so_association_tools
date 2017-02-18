@@ -87,7 +87,7 @@ function createCandidateIdsString(items) {
     var ids = "";
     var addedIds = new Array();
 
-    for (index = 0; index < items.length; index++) {
+    for (var index = 0; index < items.length; index++) {
         var skipp = false;
         var item = items[index];
         var id = questionId(item.link);
@@ -129,7 +129,7 @@ function createCandidatesForAssociationList(items) {
                 });
             }
             var found = false;
-            for (index = 0; index < data.items.length; index++) {
+            for (var index = 0; index < data.items.length; index++) {
                 var item = data.items[index];
                 if (item.answer_count < 1) {
                     continue;

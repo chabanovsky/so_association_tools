@@ -2,7 +2,7 @@ var questionListRoot = "#question_list"
 
 $(document).ready(function() {
     var ids = "";
-    for (index = 0; index < initJson.length; index++) {
+    for (var index = 0; index < initJson.length; index++) {
         var item = initJson[index]
         ids += item.questionId;
         if (index < (initJson.length - 1)) {
@@ -11,14 +11,14 @@ $(document).ready(function() {
     }
     url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, false, false, "votes", "desc").replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
-        for (index = 0; index < data.items.length; index++) {
+        for (var index = 0; index < data.items.length; index++) {
             var item = data.items[index];
             data.items[index].viewCount = getViewCount(data.items[index].question_id);
         }
         data.items.sort(function (objA, objB){
             return  objB.viewCount - objA.viewCount;
         });
-        for (index = 0; index < data.items.length; index++) {
+        for (var index = 0; index < data.items.length; index++) {
             var item = data.items[index];
             var question = createQuestion(item);
             $(questionListRoot).append(question);
@@ -62,8 +62,8 @@ function createQuestion(item) {
 }
 
 function getViewCount(questionId) {
-    for (i = 0; i < initJson.length; i++) {
-        item = initJson[i];
+    for (var index = 0; index < initJson.length; index++) {
+        item = initJson[index];
         if (item.questionId == questionId) {
             return item.viewCount;
         }
