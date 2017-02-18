@@ -30,7 +30,6 @@ In order to run the app you need:
     STACKEXCHANGE_CLIENT_SECRET = "your secret"   
     STACKEXCHANGE_CLIENT_KEY = "your key"   
     STACKEXCHANGE_CLIENT_ID = app_id   
-    ASSOCIATION_TAG = u"ассоциация"   
    
 4. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --init_db`.
 5. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --upload_csv`.
