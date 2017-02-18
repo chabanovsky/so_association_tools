@@ -13,8 +13,15 @@ $(document).ready(function() {
     loadHelper(url, function(data) {
         for (index = 0; index < data.items.length; index++) {
             var item = data.items[index];
+            data.items[index].viewCount = getViewCount(data.items[index].question_id);
+        }
+        data.items.sort(function (objA, objB){
+            return  objB.viewCount - objA.viewCount;
+        });
+        for (index = 0; index < data.items.length; index++) {
+            var item = data.items[index];
             var question = createQuestion(item);
-            $(question_list).append(question);
+            $(questionListRoot).append(question);
         }
     }, function() {})
 })
@@ -36,9 +43,8 @@ function createQuestion(item) {
     $(template).find(".status .count").text(item.answer_count);
     $(template).find(".status .label").text(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
-    var viewCount = getViewCount(item.question_id);
-    $(template).find(".views .count").text(viewCount);
-    $(template).find(".views .label").text(plural(viewCount, localeManager.viewStrings));
+    $(template).find(".views .count").text(item.viewCount);
+    $(template).find(".views .label").text(plural(item.viewCount, localeManager.viewStrings));
 
     $(template).find(".desc h3 a").text(stripHtml(item.title));
     $(template).find(".desc h3 a").attr("href", getAAPPlink(item.question_id));
@@ -56,8 +62,8 @@ function createQuestion(item) {
 }
 
 function getViewCount(questionId) {
-    for (index = 0; index < initJson.length; index++) {
-        item = initJson[index];
+    for (i = 0; i < initJson.length; i++) {
+        item = initJson[i];
         if (item.questionId == questionId) {
             return item.viewCount;
         }
