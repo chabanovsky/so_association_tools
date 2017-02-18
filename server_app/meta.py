@@ -10,13 +10,14 @@ from local_settings import FLASK_SECRET_KEY
 
 LANGUAGE = os.environ["LOCALE_LANGUAGE_NAME"]
 APP_URL = "http://demo.chabanovsky.com"
+DB_NAME = "association_tools_" + LANGUAGE
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = FLASK_SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres@localhost:5432/association_tools?client_encoding=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres@localhost:5432/'+ DB_NAME + '?client_encoding=utf8'
 app.config['BABEL_DEFAULT_LOCALE'] = LANGUAGE
 
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], convert_unicode=True)

@@ -15,7 +15,7 @@ if __name__ == "__main__":
             quit()
         elif str(sys.argv[1]) == "--upload_csv":
             debug_print = str(sys.argv[2]) == "--debug" if len(sys.argv) > 2 else False
-            upload_csv("./csv_data/", debug_print)
+            upload_csv("./csv_data_" + LANGUAGE + "/", debug_print)
             quit()
 
     app.run()
