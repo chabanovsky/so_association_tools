@@ -79,6 +79,7 @@ function updateSearchInput() {
             return true;
         }
     });
+    $(searchInputTag).focus();
 }
 
 function createCandidateIdsString(items) {
