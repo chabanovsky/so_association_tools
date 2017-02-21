@@ -35,3 +35,22 @@ In order to run the app you need:
 5. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --upload_csv`.
 
 Then you will need to go to the site (aapp.ru in my case). By default the app requires you to be authorized with Stack Exchange OAuth. Because of this it will automatically redirect you to openid.stackexchange.com.
+
+
+## A few screenshots
+
+When one logged in they see the list of most viewed questions on Stack Overflow in English by a language audience.
+
+![](https://i.stack.imgur.com/Bibfl.png)
+
+When one decides which question the want to associate they click on it and see the question page.
+
+![](https://i.stack.imgur.com/dY6z8.png)
+
+Under the questions's body there is a search box. One ueses that search box to write a query and find associations on a language Stack Overflow. Candidates for the association are listed under the search box.
+
+![](https://i.stack.imgur.com/VKLCV.png)
+
+When one thinks that a candidate might be associated they click on it and see two columns view with qeustions from both sites. The questions contain answers.
+
+![](https://i.stack.imgur.com/vhEja.png)
