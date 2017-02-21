@@ -51,6 +51,6 @@ Under the questions's body there is a search box. One ueses that search box to w
 
 ![](https://i.stack.imgur.com/VKLCV.png)
 
-When one thinks that a candidate might be associated they click on it and see two columns view with qeustions from both sites. The questions contain answers.
+When one thinks that a candidate might be associated they click on it and see two columns view with qeustions from both sites. The questions contain answers. If one thinks that these two questions are the same they click "Associate", which actually force the app add a comment on a language site that contains the following text "association: http://stackoverflow.com/questions/id/". There are no need for the user to do anything more than that for adding an association. If questions are about different issues one clicks "Back". 
 
 ![](https://i.stack.imgur.com/vhEja.png)
