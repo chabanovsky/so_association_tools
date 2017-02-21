@@ -68,9 +68,8 @@ def update_most_viewed():
     for question in all_questions:
         most_viewed_question = MostViewedQuestion.query.filter_by(question_id=question.question_id).first()
 
-        if (most_viewed_question is None):
+        if most_viewed_question is None:
             most_viewed_question = MostViewedQuestion(question.question_id, question.view_count)
-            
         else:
             most_viewed_question.view_count += question.view_count
 
