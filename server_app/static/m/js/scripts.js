@@ -1,4 +1,4 @@
-var INTERNATIONAL_STACKOVERFLOW = "ru.stackoverflow";
+var INTERNATIONAL_STACKOVERFLOW = currentLanguage + ".stackoverflow";
 var STACKOVERFLOW_IN_ENGLISH = "stackoverflow";
 
 var QUESTION_BODY_FILTER = "!4(sMpjPlU2B9NnTI_";
