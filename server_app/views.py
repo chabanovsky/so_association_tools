@@ -25,6 +25,9 @@ def before_request():
 @application.after_request
 def after_request(response):
     db_session.remove()
+    db_session.close()
+    db.dispose()
+    
     return response    
 
 @application.route("/index.html")

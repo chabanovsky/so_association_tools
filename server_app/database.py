@@ -40,8 +40,19 @@ def upload_csv(data_path, debug_print):
                     if debug_print:
                         print "Question %s found in db" % str(questionId)
                     continue
-                
-                question = MostViewedQuestion(question_id, view_count, file_date)
+                the_same_id = MostViewedQuestion.query.filter_by(question_id=question_id).first()
+
+                if (the_same_id is not None):
+                    question = MostViewedQuestion(question_id, 
+                        view_count, 
+                        file_date, 
+                        the_same_id.is_associated, 
+                        the_same_id.can_be_associated)
+                else:
+                    question = MostViewedQuestion(question_id, 
+                        view_count, 
+                        file_date)
+
                 db_session.add(question)
                 db_session.commit()
                 if debug_print:
