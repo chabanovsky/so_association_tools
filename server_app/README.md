@@ -45,7 +45,7 @@ When one logged in they see the list of most viewed questions on Stack Overflow 
 
 When one decides which question the want to associate they click on it and see the question page.
 
-![](https://i.stack.imgur.com/dY6z8.png)
+![](https://i.stack.imgur.com/6R6X6.png)
 
 Under the questions's body there is a search box. One ueses that search box to write a query and find associations on a language Stack Overflow. Candidates for the association are listed under the search box.
 
