@@ -11,14 +11,15 @@ class User(db.Model):
     account_id = db.Column(db.Integer, unique=True)
     user_id = db.Column(db.Integer)
     username = db.Column(db.String(100))
+    role = db.Column(db.String(30))
     is_banned = db.Column(db.Boolean)
     end_ban_date = db.Column(db.DateTime, nullable=True)
-    #reputation = db.Column(db.Integer)
 
-    def __init__(self, account_id, user_id, username, is_banned=False):
+    def __init__(self, account_id, user_id, username, role="regular", is_banned=False):
         self.account_id = account_id
         self.user_id = user_id
         self.username = username
+        self.role = role
         self.is_banned = is_banned
 
     def __repr__(self):
@@ -29,20 +30,48 @@ class MostViewedQuestion(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer)
-    view_count = db.Column(db.Integer)       
-    view_date = db.Column(db.DateTime) 
+    view_count = db.Column(db.Integer)    
     is_associated = db.Column(db.Boolean)
+    # Allows to remove a question from the list manually
     can_be_associated = db.Column(db.Boolean)
+    # Currenly these are not in use.
+    # It seems it could be a good idea
+    # to add some kind of cache and search
+    title = db.Column(db.String(500))
+    body = db.Column(db.String(30000))
+    tags = db.Column(db.String(500))   
+    # In order to track changes we need to know when we updated
+    # a record last time.
+    last_update_date = db.Column(db.DateTime)  
 
-    def __init__(self, question_id, view_count, view_date, is_associated=False, can_be_associated=True):
+    def __init__(self, question_id, view_count, is_associated=False):
         self.question_id = question_id
         self.view_count = view_count
-        self.view_date = view_date
         self.is_associated = is_associated
-        self.can_be_associated = can_be_associated
+        self.can_be_associated = True
+        self.last_update_date = datetime.datetime.now()
 
     def __repr__(self):
         return '<MostViewedQuestion %s>' % str(self.id)        
+
+class QuestionViewHistory(db.Model):
+    __tablename__ = 'question_view_history'
+
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer)
+    view_count = db.Column(db.Integer)       
+    view_date = db.Column(db.DateTime) 
+    counted = db.Column(db.Boolean)
+
+    def __init__(self, question_id, view_count, view_date):
+        self.question_id = question_id
+        self.view_count = view_count
+        self.view_date = view_date
+        self.counted = False
+
+    def __repr__(self):
+        return '<QuestionViewHistory %s>' % str(self.id)        
+        
 
 class Association(db.Model):
     __tablename__ = 'association'
@@ -65,3 +94,23 @@ class Association(db.Model):
 
     def __repr__(self):
         return '<Association %s>' % str(self.id)        
+
+class Action(db.Model):
+    __tablename__ = 'action'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    most_viewed_question_id = db.Column(db.Integer, ForeignKey('most_viewed_question.id'))
+
+    # Action could be: skipped, wanted
+    action = db.Column(String(50)) 
+    action_date = db.Column(db.DateTime)      
+
+    def __init__(self, user_id, most_viewed_question_id, action):
+        self.user_id = user_id
+        self.most_viewed_question_id = most_viewed_question_id
+        self.action = action
+        self.action_date = datetime.datetime.now()
+
+    def __repr__(self):
+        return '<Action %s>' % str(self.id)    

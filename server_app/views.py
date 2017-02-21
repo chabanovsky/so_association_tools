@@ -8,7 +8,7 @@ from flask.ext.babel import gettext, ngettext
 from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
 
-from meta import app as application, db, db_session, LANGUAGE
+from meta import app as application, db, db_session, engine, LANGUAGE
 from models import User, Association, MostViewedQuestion
 from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
@@ -26,6 +26,7 @@ def before_request():
 def after_request(response):
     db_session.close()
     db_session.remove()
+    engine.dispose()
 
     return response    
 
@@ -53,8 +54,11 @@ def welcome():
 def question(question_id):
     if g.user is None:
         return redirect(url_for('welcome'))
-    q = db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
-        label('Views')).filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).group_by('Question').first()
+    q = db.session.query(MostViewedQuestion.question_id.label('Question'), MostViewedQuestion.view_count.\
+        label('Views')).filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).first()
+    if q is None:
+        abort(404)
+
     return render_template('question.html', question_id=q.Question, question_views=q.Views)    
 
 @application.route("/api/suggested_question_ids_with_views")
@@ -105,6 +109,7 @@ def add_association():
     db_session.commit()
 
     questions = MostViewedQuestion.query.filter_by(question_id=soen_id).all()
+    # There should be only one
     for question in questions:
         question.is_associated = True
     db.session.commit()

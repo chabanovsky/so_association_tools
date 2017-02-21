@@ -26,8 +26,8 @@ def get_suggested_question_ids_with_views():
     }
 
 def get_suggested_question_query():
-     return db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
-        label('Views')).filter(MostViewedQuestion.is_associated==False).group_by('Question').\
+    return db.session.query(MostViewedQuestion.question_id.label('Question'), MostViewedQuestion.view_count.\
+        label('Views')).filter(MostViewedQuestion.is_associated==False).\
             order_by(desc('Views'))   
 
 def get_suggested_question_pagination(page_num, per_page=DEFAULT_QUESTIONS_PER_PAGE):
