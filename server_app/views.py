@@ -8,7 +8,7 @@ from flask.ext.babel import gettext, ngettext
 from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
 
-from meta import app as application, db, db_session
+from meta import app as application, db, db_session, LANGUAGE
 from models import User, Association, MostViewedQuestion
 from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
@@ -24,17 +24,16 @@ def before_request():
         
 @application.after_request
 def after_request(response):
-    db_session.remove()
     db_session.close()
-    db.dispose()
-    
+    db_session.remove()
+
     return response    
 
 @application.route("/index.html")
 @application.route("/")
 def index():
     if g.user is None:
-        return redirect(url_for('start_oauth'))  
+        return redirect(url_for('welcome'))  
     page = max(int(request.args.get("page", "1")), 1)
     paginator = get_suggested_question_pagination(page)
     return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("index"))
@@ -44,11 +43,16 @@ def index():
 def no_way():
     return render_template('no_way.html')    
 
+@application.route("/welcome")
+@application.route("/welcome/")
+def welcome():
+    return render_template('welcome.html', language=LANGUAGE)    
+
 @application.route("/questions/<question_id>")
 @application.route("/questions/<question_id>/")
 def question(question_id):
     if g.user is None:
-        return redirect(url_for('start_oauth'))
+        return redirect(url_for('welcome'))
     q = db.session.query(MostViewedQuestion.question_id.label('Question'), func.sum(MostViewedQuestion.view_count).\
         label('Views')).filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).group_by('Question').first()
     return render_template('question.html', question_id=q.Question, question_views=q.Views)    

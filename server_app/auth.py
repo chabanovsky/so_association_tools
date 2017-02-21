@@ -54,8 +54,8 @@ def create_profile_openid():
     return render_template('create_profile.html', next_url=oid.get_next_url())                            
 
 
-@application.route('/logout')
-@application.route('/logout/')
-def logout():
+@application.route('/openid/logout')
+@application.route('/openid/logout/')
+def logout_openid():
     session.pop('openid', None)
     return redirect(oid.get_next_url())

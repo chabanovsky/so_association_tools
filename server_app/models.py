@@ -13,6 +13,7 @@ class User(db.Model):
     username = db.Column(db.String(100))
     is_banned = db.Column(db.Boolean)
     end_ban_date = db.Column(db.DateTime, nullable=True)
+    #reputation = db.Column(db.Integer)
 
     def __init__(self, account_id, user_id, username, is_banned=False):
         self.account_id = account_id

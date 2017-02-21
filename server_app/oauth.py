@@ -16,6 +16,13 @@ STACKEXCHANGE_OAUTH_ME_ENDPOINT = "https://api.stackexchange.com/2.2/me"
 def get_redirect_url():
     return APP_URL + url_for("stackexcange_oauth_callback")
 
+@application.route("/oauth/logout")
+@application.route("/oauth/logout/")
+def logout_oauth():
+    session.pop('account_id', None)
+    return redirect(url_for("welcome"))
+    
+
 @application.route("/oauth/start")
 @application.route("/oauth/start/")
 def start_oauth():

@@ -235,3 +235,57 @@ body {
     transition: all .1s ease-in-out;
     outline: none;
 }
+
+.welcome {
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: 200%;
+    margin-top: 0px;
+}
+
+.welcome > a,
+.welcome > a:hover {
+    text-decoration: none;
+}
+
+.welcome .sos-plus {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.welcome .main-description,
+.welcome .title {
+    text-align: center;
+    font-size: 22px;
+}
+
+.welcome .login-and-start {
+    text-align: center;
+}
+
+.welcome .divider {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0 15px;
+}
+
+.welcome .divider div {
+    width: 60px;
+    border-bottom: 2px solid #e0e0e0;
+    margin: 0 auto;
+}
+
+.welcome .login-and-start > a {
+    font-size: 17px;
+     line-height: 35px;
+}
+.welcome .login-and-start > a,
+.welcome .login-and-start > a:hover {
+    text-decoration: underline;
+}
+
+.welcome .login-and-start span {
+    font-size: 10px;
+}
