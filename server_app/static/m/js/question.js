@@ -62,9 +62,9 @@ function setupActions() {
         url = requestTranslationEndpoint + "?soen_id=" + soQuestionId;
         loadHelper(url, function(data) {
             if (data.status) {
-                $(skipActionTag).text(localeManager.requestTranslationStr + requestAddString);
+                $(requestTranslationActionTag).text(localeManager.requestTranslationStr + requestAddString);
             } else {
-                $(skipActionTag).text(localeManager.cancelTranslationRequestStr);
+                $(requestTranslationActionTag).text(localeManager.cancelTranslationRequestStr);
             }
         }, function(data) {
             console.log("Something went wrong during requesting translation/canceling it for a question");
