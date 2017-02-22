@@ -5,7 +5,7 @@ import json
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session
 
-from meta import app as application, db_session, APP_URL
+from meta import app as application, db_session, db, APP_URL
 from models import User
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
@@ -26,7 +26,6 @@ def logout_oauth():
 @application.route("/oauth/start")
 @application.route("/oauth/start/")
 def start_oauth():
-    logging.error("start_oauth")
     params = {
         "client_id": STACKEXCHANGE_CLIENT_ID,
         "scope": "write_access,no_expiry",
@@ -61,7 +60,7 @@ def stackexcange_oauth_callback():
             break
 
     if token == "":
-        logging.error("Cannot obtain access token on SE OAuth. ")
+        logging.error("Cannot obtain access token on SE OAuth.")
         return redirect(url_for("no_way"))
     
     session['access_token'] = token
@@ -86,6 +85,10 @@ def login_oauth():
     account_id = -1
     user_id = -1
     display_name = ""
+    role = ""
+    reputation = -1
+    profile_image = ""
+    link = ""
     if data.get("items", None) is not None:
         for item in data["items"]:
             if item.get("account_id", None) is not None:
@@ -94,6 +97,14 @@ def login_oauth():
                 user_id = item["user_id"]
             if item.get("display_name", None) is not None:    
                 display_name = item["display_name"]
+            if item.get("user_type", None) is not None:    
+                role = item["user_type"]
+            if item.get("reputation", None) is not None:    
+                reputation = item["reputation"]
+            if item.get("profile_image", None) is not None:    
+                profile_image = item["profile_image"]
+            if item.get("link", None) is not None:    
+                link = item["link"]
     
     if account_id < 0 or user_id < 0 or display_name == "":
         logging.error("OAuth response: %s. Url: %s" % (r.text, r.url))
@@ -102,8 +113,26 @@ def login_oauth():
 
     user = User.query.filter_by(account_id=account_id).first()
     if user is None:
-        db_session.add(User(account_id, user_id, display_name))
+        db_session.add(User(account_id, 
+            user_id, 
+            display_name, 
+            reputation, 
+            profile_image,
+            link,
+            role))
         db_session.commit()
+    else:
+        if user.username != display_name:
+            user.username = display_name
+        if user.role != role:
+            user.role = role
+        if user.reputation != reputation:
+            user.reputation = reputation
+        if user.profile_image != profile_image:
+            user.profile_image = profile_image
+        if user.profile_link != link:
+            user.profile_link = link
+        db.session.commit()
 
     session["account_id"] = account_id
     return redirect(url_for("index"))

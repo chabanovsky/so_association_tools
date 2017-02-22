@@ -14,11 +14,17 @@ class User(db.Model):
     role = db.Column(db.String(30))
     is_banned = db.Column(db.Boolean)
     end_ban_date = db.Column(db.DateTime, nullable=True)
+    reputation = db.Column(db.Integer)
+    profile_image = db.Column(db.String(200))
+    profile_link = db.Column(db.String(200))
 
-    def __init__(self, account_id, user_id, username, role="regular", is_banned=False):
+    def __init__(self, account_id, user_id, username, reputation, profile_image, profile_link, role="user", is_banned=False):
         self.account_id = account_id
         self.user_id = user_id
         self.username = username
+        self.reputation = reputation
+        self.profile_image = profile_image
+        self.profile_link = profile_link
         self.role = role
         self.is_banned = is_banned
 

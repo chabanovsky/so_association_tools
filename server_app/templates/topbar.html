@@ -1,0 +1,20 @@
+{% if g.user %}
+<div class="topbar">
+    <div class="topbar-links">
+        <a target="_blank" href="{{ g.user.profile_link }}" class="profile">
+            <div class="gravatar-wrapper-24" title="{{ g.user.username }}">
+                <img src="{{ g.user.profile_image }}" alt="" width="24" height="24" class="avatar">
+            </div>
+            <div class="links-container">
+                <span class="reputation">
+                    {{ g.user.reputation }}
+                </span>
+            </div>
+        </a>
+        <a href=" {{ url_for('logout_oauth') }}">{{ gettext('log out') }}</a>
+        {% if g.user.role == "moderator" %}
+        <a class="topbar-icon" href="#"><span>{{ gettext('mod') }}</span></a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
