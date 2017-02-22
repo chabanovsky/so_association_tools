@@ -73,8 +73,14 @@ def add_association():
     if g.user is None or access_token is None:
         abort(404)
 
-    soen_id = int(request.args.get("soen_id"))
-    soint_id = int(request.args.get("soint_id"))
+    soen_id = -1
+    soint_id = -1
+
+    try:
+        soen_id = int(request.args.get("soen_id"))
+        soint_id = int(request.args.get("soint_id"))
+    except:
+        abort(404)
     
     count = Association.query.filter_by(soen_id=soen_id).count()
     if count > 0:

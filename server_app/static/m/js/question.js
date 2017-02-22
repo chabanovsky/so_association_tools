@@ -119,6 +119,10 @@ function createCandidatesForAssociationList(items) {
             function withContext(soen_id, soint_id) {
 
                 $(".soint-" + soint_id).click(function(event) {
+                    if (event.target.localName == "a") {
+                        return;
+                    }
+
                     event.preventDefault();
                     show(soen_id, soint_id);
                 });
@@ -145,6 +149,10 @@ function createCandidatesForAssociationList(items) {
                 $(template).find(".association-candidate").addClass("soint-" + item.question_id)
                 var tags = createTagsDiv(item.tags);
                 $(template).find(".candidate-taglist").append(tags);
+                var asked = new Date(parseInt(1000 * item.creation_date));
+                $(template).find(".candidate-bar .owner span").text(localeManager.asked + getDate(asked));
+                $(template).find(".candidate-bar .owner a").text(item.owner.display_name);
+                $(template).find(".candidate-bar .owner a").attr("href", item.owner.link);
 
                 $(searchResultTag).append(template.html());
                 withContext(soQuestionId, item.question_id)
@@ -171,7 +179,10 @@ function candidateForAssociationTemplate() {
             </div>
             <div class="candidate-bar">
                 <div class="candidate-taglist"></div>
-                <div class="candidate-stats"></div>
+                <div class="owner">
+                    <span></span>
+                    <a target="_blank"></a>
+                </div>
             </div>
             <div class="candidate-menu">
             </div>
