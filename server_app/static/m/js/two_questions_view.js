@@ -36,7 +36,7 @@ function closePopup() {
 }
 
 function addAssociation(soen_id, soint_id) {
-    addAssUrl = addAssociationAndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
+    addAssUrl = addAssociationEndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
     loadHelper(addAssUrl, function(data) {
         if (data.comment_id != undefined) {
             alert(localeManager.associationWasAdded + data.comment_id)

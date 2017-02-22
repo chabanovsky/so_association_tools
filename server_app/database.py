@@ -72,7 +72,7 @@ def update_most_viewed():
             most_viewed_question = MostViewedQuestion(question.question_id, question.view_count)
         else:
             most_viewed_question.view_count += question.view_count
-            
+
         db_session.add(most_viewed_question)
         db_session.commit()
 

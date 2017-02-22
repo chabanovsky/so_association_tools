@@ -9,7 +9,7 @@ from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
 
 from meta import app as application, db, db_session, engine, LANGUAGE
-from models import User, Association, MostViewedQuestion
+from models import User, Association, MostViewedQuestion, Action
 from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
@@ -54,12 +54,28 @@ def welcome():
 def question(question_id):
     if g.user is None:
         return redirect(url_for('welcome'))
-    q = db.session.query(MostViewedQuestion.question_id.label('Question'), MostViewedQuestion.view_count.\
-        label('Views')).filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).first()
+    q = MostViewedQuestion.query.filter(and_(MostViewedQuestion.is_associated==False, MostViewedQuestion.question_id==question_id)).first()
+    
     if q is None:
         abort(404)
+    skip = Action.query.filter(and_(Action.user_id==g.user.id, 
+        Action.most_viewed_question_id==q.id, 
+        Action.action_name==Action.action_skip_name, 
+        Action.canceled==False)).first()
+    translate_request = Action.query.filter(and_(Action.user_id==g.user.id, 
+        Action.most_viewed_question_id==q.id, 
+        Action.action_name==Action.action_translate_request_name, 
+        Action.canceled==False)).first()
+    translate_request_count = db.session.query(func.count(Action.id)).filter(and_(Action.most_viewed_question_id==q.id,
+        Action.action_name==Action.action_translate_request_name, 
+        Action.canceled==False)).scalar()
 
-    return render_template('question.html', question_id=q.Question, question_views=q.Views)    
+    return render_template('question.html', 
+        question_id=q.question_id, 
+        question_views=q.view_count, 
+        skip=skip,
+        translate_request=translate_request,
+        translate_request_count=translate_request_count)    
 
 @application.route("/api/suggested_question_ids_with_views")
 def suggested_question_ids_with_views():
@@ -146,4 +162,44 @@ def get_answers():
     }    
     r = requests.get(url, data=params) 
     data = json.loads(r.text)
-    return jsonify(**data)
+    return jsonify(**data)    
+
+
+def do_action_helper(action_name):
+    if g.user is None:
+        abort(404)
+
+    soen_id = -1
+    try:
+        soen_id = int(request.args.get("soen_id"))
+    except:
+        abort(404)
+    
+    question = MostViewedQuestion.query.filter_by(question_id=soen_id).first()
+    if question is None:
+        abort(404)
+        
+    action = Action.query.filter(and_(Action.user_id==g.user.id, Action.most_viewed_question_id==question.id, Action.action_name==action_name)).first()
+    if action is not None:
+        action.canceled = not action.canceled
+        db.session.commit()
+    else:
+        action = Action(g.user.id, question.id, action_name)
+        db_session.add(action)
+        db_session.commit()
+
+    resp = {
+        "status": action.canceled
+    }
+
+    return jsonify(**resp)    
+
+@application.route("/api/skip_most_viewed_question")
+@application.route("/api/skip_most_viewed_question/")
+def skip_most_viewed_question():
+    return do_action_helper(Action.action_skip_name)
+
+@application.route("/api/translation_request")
+@application.route("/api/translation_request/")
+def translation_request():
+    return do_action_helper(Action.action_translate_request_name)

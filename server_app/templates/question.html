@@ -10,6 +10,13 @@
 {% endblock %} {% block content %}
 <div style="display: none" id="question-id">{{ question_id }}</div>
 <div style="display: none" id="question-views">{{ question_views }}</div>
+<div style="display: none" id="translate-request-count">{{ translate_request_count }}</div>
+{% if skip %}
+<div style="display: none" id="skip-label">1</div>
+{% endif %}
+{% if translate_request %}
+<div style="display: none" id="translate-request-label">1</div>
+{% endif %}
 {% include 'two_questions_view.html' %}
 <div id="question" class="question">
     <div id="question-header">
@@ -20,6 +27,26 @@
     </div>
     <div id="question-taglist"></div>
     {% include 'post_menu.html' %}
+</div>
+<div class="question-actions">
+    <table>
+        <tr>
+            <td>
+                <a id="skip" class="button"></a>
+            </td>
+            <td>
+                <span>{{ gettext('You will not see this question again in the suggested list. Skip a question if you do your best but cannot find an association.') }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a id="translate-request" class="button"></a>
+            </td>
+            <td>
+                <span>{{ gettext('If you cannot find an association and think that the question must be in the knowledge base of your community add a translation request.') }}</span>
+            </td>
+        </tr>
+    </table>
 </div>
 <div id="search-association-box">
     <div class="search">

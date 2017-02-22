@@ -1,11 +1,19 @@
 
-var addAssociationAndpoint = "/api/add_association"
+var addAssociationEndpoint = "/api/add_association"
+var skipEndpoint = "/api/skip_most_viewed_question"
+var requestTranslationEndpoint = "/api/translation_request"
+
 var questionIdTag = "#question-id";
 var questionViewsTag = "#question-views"
 var searchButtonTag = "#search-button";
 var searchInputTag = "#search-input";
 var searchResultTag = "#search-results";
 var searchBoxTag = "#search-association-box"
+var skipActionTag = "#skip";
+var skipLabelTag = "#skip-label";
+var requestTranslationActionTag = "#translate-request";
+var requestTranslationLabelTag = "#translate-request-label";
+var requestTranslationCountTag = "#translate-request-count";
 var soQuestionId = -1;
 var question = null;
 
@@ -16,7 +24,53 @@ $(document).ready(function() {
             return;
         updatePage();
     });
+
+    setupActions();
 })
+
+function setupActions() {
+    if (parseInt($(skipLabelTag).text()) == 1) {
+        $(skipActionTag).text(localeManager.addToTheListStr);
+    } else {
+        $(skipActionTag).text(localeManager.skipStr);
+    }
+    var requestAddString = "";
+    var initialRequestCount = parseInt($($(requestTranslationCountTag).text()));
+    if (initialRequestCount > 0) {
+        requestAddString = " (" + initialRequestCount + ")"
+    }
+    if (parseInt($(requestTranslationLabelTag).text()) == 1) {
+        $(requestTranslationActionTag).text(localeManager.cancelTranslationRequestStr);
+    } else {
+        $(requestTranslationActionTag).text(localeManager.requestTranslationStr + requestAddString);
+    }
+    $(skipActionTag).click(function(event){
+        url = skipEndpoint + "?soen_id=" + soQuestionId;
+        loadHelper(url, function(data) {
+            // canceled == true means that it's on the list, 
+            // add the "skip" lable to the button
+            if (data.status) {
+                $(skipActionTag).text(localeManager.skipStr);
+            } else {
+                $(skipActionTag).text(localeManager.addToTheListStr);
+            }
+        }, function(data) {
+            console.log("Something went wrong during skipping/returning a question");
+        })
+    });
+    $(requestTranslationActionTag).click(function(event){
+        url = requestTranslationEndpoint + "?soen_id=" + soQuestionId;
+        loadHelper(url, function(data) {
+            if (data.status) {
+                $(skipActionTag).text(localeManager.requestTranslationStr + requestAddString);
+            } else {
+                $(skipActionTag).text(localeManager.cancelTranslationRequestStr);
+            }
+        }, function(data) {
+            console.log("Something went wrong during requesting translation/canceling it for a question");
+        })
+    });
+}
 
 function thereAreResults(flag) {
     if (flag) {
@@ -137,8 +191,7 @@ function createCandidatesForAssociationList(items) {
                 var item = data.items[index];
                 if (item.answer_count < 1) {
                     continue;
-                }
-                    
+                }   
 
                 var tmp = candidateForAssociationTemplate();
                 var template = $(tmp);

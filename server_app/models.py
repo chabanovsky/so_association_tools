@@ -103,20 +103,24 @@ class Association(db.Model):
 
 class Action(db.Model):
     __tablename__ = 'action'
+    action_skip_name = 'skip'
+    action_translate_request_name = 'transreq'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     most_viewed_question_id = db.Column(db.Integer, ForeignKey('most_viewed_question.id'))
 
     # Action could be: skipped, wanted
-    action = db.Column(String(50)) 
+    action_name = db.Column(String(50)) 
     action_date = db.Column(db.DateTime)      
+    canceled = db.Column(db.Boolean)
 
-    def __init__(self, user_id, most_viewed_question_id, action):
+    def __init__(self, user_id, most_viewed_question_id, action_name):
         self.user_id = user_id
         self.most_viewed_question_id = most_viewed_question_id
-        self.action = action
+        self.action_name = action_name
         self.action_date = datetime.datetime.now()
+        self.canceled = False
 
     def __repr__(self):
         return '<Action %s>' % str(self.id)    

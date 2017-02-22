@@ -133,3 +133,22 @@ pre {
     font-size: 12px;
     color: #07c;
 }
+
+.question-actions {
+    text-align: left;
+}
+
+.question-actions .button {
+    font-size: 12px;
+    margin: 7px 10px 5px 0px;
+}
+
+.question-actions span {
+    color: #848d95;
+    font-size: 11px;
+    text-align: justify;
+}
+
+.question-actions table {
+    border-collapse: collapse;
+}

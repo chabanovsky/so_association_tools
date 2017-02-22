@@ -23,5 +23,9 @@ var localeManager = {
     answeredStr: {{ gettext('answered')|generate_string|safe }},
     candidatesForAssociationStr: {{ gettext('Candidates for the association')|generate_string|safe }},
     searchingStr: {{ gettext('Searching...')|generate_string|safe }},
-    viewdStr: {{ gettext('viewed')|generate_string|safe }}
+    viewdStr: {{ gettext('viewed')|generate_string|safe }},
+    skipStr: {{ gettext('skip')|generate_string|safe }},
+    addToTheListStr: {{ gettext('add to the list')|generate_string|safe }},
+    requestTranslationStr: {{ gettext('request translation')|generate_string|safe }},
+    cancelTranslationRequestStr: {{ gettext('cancel request')|generate_string|safe }}
 }
