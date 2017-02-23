@@ -1,4 +1,5 @@
 import sys
+import os
 
 from meta import *
 from models import *
@@ -14,12 +15,18 @@ if __name__ == "__main__":
             init_db()
             quit()
         elif str(sys.argv[1]) == "--upload_csv":
-            debug_print = str(sys.argv[2]) == "--debug" if len(sys.argv) > 2 else False
-            upload_csv("./csv_data_" + LANGUAGE + "/", debug_print)
+            debug_print = os.environ.get("DEBUG_PRINT", False)
+            check_existence = not os.environ.get("CANCEL_CHECK", False)
+            upload_csv("./csv_data_" + LANGUAGE + "/", 
+                debug_print,
+                check_existence)
             quit()
         elif "--upload_csv_from_file" in str(sys.argv[1]):
-            debug_print = str(sys.argv[2]) == "--debug" if len(sys.argv) > 2 else False
-            upload_csv_from_file("./csv_data_" + LANGUAGE + "/" + str(sys.argv[1]).split("=")[1], debug_print)
+            debug_print = os.environ.get("DEBUG_PRINT", False)
+            check_existence = not os.environ.get("CANCEL_CHECK", False)
+            upload_csv_from_file("./csv_data_" + LANGUAGE + "/" + str(sys.argv[1]).split("=")[1], 
+                debug_print, 
+                check_existence)
             quit()    
         elif str(sys.argv[1]) == "--update_most_viewed":
             update_most_viewed()

@@ -8,6 +8,14 @@ from flask.ext.babel import Babel
 
 from local_settings import FLASK_SECRET_KEY
 
+def make_db_session(engine):
+    return scoped_session(sessionmaker(autocommit=False,
+        autoflush=True,
+        bind=engine))    
+
+def make_db_engine():
+    return create_engine(app.config['SQLALCHEMY_DATABASE_URI'], convert_unicode=True)
+
 LANGUAGE = os.environ["LOCALE_LANGUAGE_NAME"]
 APP_URL = "http://demo.chabanovsky.com"
 DB_NAME = "association_tools_" + LANGUAGE
@@ -20,12 +28,9 @@ app.config['SECRET_KEY'] = FLASK_SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres@localhost:5432/'+ DB_NAME + '?client_encoding=utf8'
 app.config['BABEL_DEFAULT_LOCALE'] = LANGUAGE
 
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=True,
-                                         bind=engine))                             
+engine = make_db_engine()
+db_session = make_db_session(engine)
 
 db = SQLAlchemy(app)                                                   
 
 babel = Babel(app)
-
