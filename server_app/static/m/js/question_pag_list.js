@@ -2,6 +2,10 @@ var questionListRoot = "#question_list"
 
 $(document).ready(function() {
     var ids = "";
+    if (initJson.length == 0) {
+        $(questionListRoot).append("<h3 class='no-results'>" + localeManager.emptyListStr + "</h3>")
+        return;
+    }
     for (var index = 0; index < initJson.length; index++) {
         var item = initJson[index]
         ids += item.questionId;

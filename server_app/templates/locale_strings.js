@@ -27,5 +27,6 @@ var localeManager = {
     skipStr: {{ gettext('skip')|generate_string|safe }},
     addToTheListStr: {{ gettext('add to the list')|generate_string|safe }},
     requestTranslationStr: {{ gettext('request translation')|generate_string|safe }},
-    cancelTranslationRequestStr: {{ gettext('cancel request')|generate_string|safe }}
+    cancelTranslationRequestStr: {{ gettext('cancel request')|generate_string|safe }},
+    emptyListStr: {{ gettext('There are no items here.')|generate_string|safe }}
 }

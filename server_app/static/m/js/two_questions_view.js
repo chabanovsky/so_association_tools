@@ -40,6 +40,7 @@ function addAssociation(soen_id, soint_id) {
     loadHelper(addAssUrl, function(data) {
         if (data.comment_id != undefined) {
             alert(localeManager.associationWasAdded + data.comment_id)
+            closePopup();
             window.location = document.referrer;
             return;
         }

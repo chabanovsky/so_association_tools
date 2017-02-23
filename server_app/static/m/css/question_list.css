@@ -120,3 +120,7 @@
     padding-bottom: 7px;
     margin-bottom: 15px;
 }
+
+#question_list .no-results {
+    padding-top: 30px;
+}

@@ -364,3 +364,45 @@ gravatar-wrapper-24 {
     text-decoration: none;
     cursor: pointer;
 }
+
+#tabs {
+    float: right; 
+}
+
+#tabs a {
+    position: relative;
+    padding: 13px 10px;
+    background-color: #FFF;
+    border: 1px solid transparent;
+    font-size: 12px;
+    float: left;
+    margin-right: 8px;
+    color: #848d95;
+    line-height: 1;
+    text-decoration: none;
+    transition: all .15s ease-in-out;
+}
+
+#tabs a.active {
+    padding-bottom: 14px;
+    font-weight: 400;
+    border-color: #e4e6e8;
+    border-bottom-color: transparent;
+    color: #242729;
+}
+
+.main-menu h3 {
+    color: #242729;
+    font-size: 18px;
+    line-height: 0.22;
+    float: left;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.main-menu {
+    clear: both;
+    margin-bottom: 10px;
+    height: 40px;
+    border-bottom: 1px solid #e4e6e8;
+}

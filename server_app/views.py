@@ -10,7 +10,7 @@ from sqlalchemy.sql import func
 
 from meta import app as application, db, db_session, engine, LANGUAGE
 from models import User, Association, MostViewedQuestion, Action
-from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination
+from suggested_question import get_suggested_question_ids_with_views, get_suggested_question_pagination, get_skipped_question_pagination, get_requested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
@@ -30,14 +30,35 @@ def after_request(response):
 
     return response    
 
-@application.route("/index.html")
-@application.route("/")
+@application.route("/index.html", endpoint="index")
+@application.route("/", endpoint="index")
 def index():
     if g.user is None:
         return redirect(url_for('welcome'))  
+
     page = max(int(request.args.get("page", "1")), 1)
     paginator = get_suggested_question_pagination(page)
-    return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("index"))
+    return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("index"), active_tab="most_viewed")
+
+@application.route("/skipped", endpoint="skipped")
+@application.route("/skipped/", endpoint="skipped")
+def skipped():
+    if g.user is None:
+        return redirect(url_for('welcome'))  
+
+    page = max(int(request.args.get("page", "1")), 1)
+    paginator = get_skipped_question_pagination(page)
+    return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("skipped"), active_tab="skipped")
+
+@application.route("/requested", endpoint="requested")
+@application.route("/requested/", endpoint="requested")
+def requested():
+    if g.user is None:
+        return redirect(url_for('welcome'))  
+
+    page = max(int(request.args.get("page", "1")), 1)
+    paginator = get_requested_question_pagination(page)
+    return render_template('question_pag_list.html', paginator=paginator, base_url=url_for("requested"), active_tab="requested")
 
 @application.route("/no-way")
 @application.route("/no-way/")
