@@ -98,4 +98,4 @@ def update_most_viewed():
         session_wiriter.commit()
         session_wiriter.close()
 
-    print "All question were counted"
+    print "All questions were counted"
