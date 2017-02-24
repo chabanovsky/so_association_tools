@@ -16,14 +16,14 @@ if __name__ == "__main__":
             quit()
         elif str(sys.argv[1]) == "--upload_csv":
             debug_print = os.environ.get("DEBUG_PRINT", False)
-            check_existence = not os.environ.get("CANCEL_CHECK", False)
+            check_existence = int(os.environ.get("CHECK_EXISTENCE", "1")) == 1
             upload_csv("./csv_data_" + LANGUAGE + "/", 
                 debug_print,
                 check_existence)
             quit()
         elif "--upload_csv_from_file" in str(sys.argv[1]):
             debug_print = os.environ.get("DEBUG_PRINT", False)
-            check_existence = not os.environ.get("CANCEL_CHECK", False)
+            check_existence = int(os.environ.get("CHECK_EXISTENCE", "1")) == 1
             upload_csv_from_file("./csv_data_" + LANGUAGE + "/" + str(sys.argv[1]).split("=")[1], 
                 debug_print, 
                 check_existence)

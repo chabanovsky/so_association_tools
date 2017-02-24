@@ -1,10 +1,8 @@
 import csv
 import os
-import logging
 from datetime import datetime
 
-from sqlalchemy import text
-
+import logging
 from meta import db, db_session, engine
 from models import QuestionViewHistory, MostViewedQuestion
 from utils import print_progress_bar
@@ -22,6 +20,7 @@ def upload_csv_from_file(path, debug_print, check_existence=True):
     the_date = filename.split(".")[0].split("_")
     file_date = datetime(int(the_date[0]), int(the_date[1]), int(the_date[2]))
     print "Started working on %s, check existence: %s" % (path, str(check_existence))
+    session = db_session()
     with open(path, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
         for row in csv_reader:
@@ -37,7 +36,7 @@ def upload_csv_from_file(path, debug_print, check_existence=True):
                 continue
 
             if check_existence:
-                count = QuestionViewHistory.query.filter_by(question_id=question_id, view_date=file_date).count()
+                count = session.query(func.count(QuestionViewHistory.id)).filter_by(question_id=question_id, view_date=file_date).scalar()
                 if count > 0:
                     if debug_print:
                         print "Question %s found in db for the date %s" % (str(question_id), str(file_date))
@@ -47,15 +46,17 @@ def upload_csv_from_file(path, debug_print, check_existence=True):
                 view_count, 
                 file_date)
 
-            db_session.add(question)
+            session.add(question)
             if check_existence:
-                db_session.commit()
+                session.commit()
 
             if debug_print:
                 print "Question %s was added" % str(question_id)
 
         if not check_existence:
-            db_session.commit()
+            session.commit()
+            
+    session.close()
 
     print "Done with %s" % (path)
 
