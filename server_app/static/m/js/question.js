@@ -35,7 +35,7 @@ function setupActions() {
         $(skipActionTag).text(localeManager.skipStr);
     }
     var requestAddString = "";
-    var initialRequestCount = parseInt($($(requestTranslationCountTag).text()));
+    var initialRequestCount = parseInt($(requestTranslationCountTag).text());
     if (initialRequestCount > 0) {
         requestAddString = " (" + initialRequestCount + ")"
     }
@@ -62,6 +62,11 @@ function setupActions() {
         url = requestTranslationEndpoint + "?soen_id=" + soQuestionId;
         loadHelper(url, function(data) {
             if (data.status) {
+                var requestAddString = "";
+                var initialRequestCount = parseInt($(requestTranslationCountTag).text()) - 1;
+                if (initialRequestCount > 0) {
+                    requestAddString = " (" + initialRequestCount + ")"
+                }
                 $(requestTranslationActionTag).text(localeManager.requestTranslationStr + requestAddString);
             } else {
                 $(requestTranslationActionTag).text(localeManager.cancelTranslationRequestStr);
