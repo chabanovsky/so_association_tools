@@ -112,15 +112,6 @@
     text-align: left;
 }
 
-.help {
-    color: #242729;
-    font-size: 18px;
-    line-height: 2.22;
-    border-bottom: 1px solid #e4e6e8;
-    padding-bottom: 7px;
-    margin-bottom: 15px;
-}
-
 #question_list .no-results {
     padding-top: 30px;
 }

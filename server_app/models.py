@@ -31,34 +31,41 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % str(self.id)
 
-class MostViewedQuestion(db.Model):
-    __tablename__ = 'most_viewed_question'
+class Question(db.Model):
+    __tablename__ = 'question'
+
+    question_type_most_viewed = 'most_viewed'
+    question_type_suggested = 'suggested'
 
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer)
-    view_count = db.Column(db.Integer)    
+    view_count = db.Column(db.Integer)  
     is_associated = db.Column(db.Boolean)
+    question_type = db.Column(String(50)) 
+    # Is used in case of question_type is "suggested"
+    suggested_user_id = Column(Integer, ForeignKey('user.id'), nullable=True)
     # Allows to remove a question from the list manually
     can_be_associated = db.Column(db.Boolean)
     # Currenly these are not in use.
     # It seems it could be a good idea
     # to add some kind of cache and search
-    title = db.Column(db.String(500))
-    body = db.Column(db.String(30000))
     tags = db.Column(db.String(500))   
     # In order to track changes we need to know when we updated
     # a record last time.
-    last_update_date = db.Column(db.DateTime)  
+    last_update_date = db.Column(db.DateTime)
 
-    def __init__(self, question_id, view_count, is_associated=False):
+
+    def __init__(self, question_type, question_id, view_count, suggested_user_id=None, is_associated=False):
+        self.question_type = question_type
         self.question_id = question_id
         self.view_count = view_count
         self.is_associated = is_associated
         self.can_be_associated = True
+        self.suggested_user_id = suggested_user_id
         self.last_update_date = datetime.datetime.now()
 
     def __repr__(self):
-        return '<MostViewedQuestion %s>' % str(self.id)        
+        return '<Question %s>' % str(self.id)        
 
 class QuestionViewHistory(db.Model):
     __tablename__ = 'question_view_history'
@@ -108,16 +115,16 @@ class Action(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    most_viewed_question_id = db.Column(db.Integer, ForeignKey('most_viewed_question.id'))
+    question_id = db.Column(db.Integer)
 
     # Action could be: skipped, wanted
     action_name = db.Column(String(50)) 
     action_date = db.Column(db.DateTime)      
     canceled = db.Column(db.Boolean)
 
-    def __init__(self, user_id, most_viewed_question_id, action_name):
+    def __init__(self, user_id, question_id, action_name):
         self.user_id = user_id
-        self.most_viewed_question_id = most_viewed_question_id
+        self.question_id = question_id
         self.action_name = action_name
         self.action_date = datetime.datetime.now()
         self.canceled = False

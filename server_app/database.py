@@ -5,7 +5,7 @@ from datetime import datetime
 
 import logging
 from meta import db, db_session, engine
-from models import QuestionViewHistory, MostViewedQuestion, Association, User
+from models import QuestionViewHistory, Question, Association, User
 from utils import print_progress_bar
 from sqlalchemy.sql import func
 from sqlalchemy import and_
@@ -83,9 +83,9 @@ def update_most_viewed():
         wiriter_session = db_session()
         for question in all_questions:
             record_id, question_id, view_count = question
-            most_viewed_question = wiriter_session.query(MostViewedQuestion).filter_by(question_id=question_id).first()
+            most_viewed_question = wiriter_session.query(Question).filter_by(question_type=Question.question_type_most_viewed).filter_by(question_id=question_id).first()
             if most_viewed_question is None:
-                most_viewed_question = MostViewedQuestion(question_id, view_count)
+                most_viewed_question = Question(Question.question_type_most_viewed, question_id, view_count)
                 wiriter_session.add(most_viewed_question)
             else:
                 most_viewed_question.view_count += view_count
@@ -106,7 +106,10 @@ def sync_associations():
     session = db_session()
 
     subquery = session.query(Association.soen_id).distinct()
-    query = session.query(MostViewedQuestion).filter(MostViewedQuestion.is_associated==False).filter(MostViewedQuestion.question_id.in_(subquery))
+    query = session.query(Question).\
+        filter(Question.is_associated==False).\
+        filter(Question.question_id.in_(subquery))
+
     frame_size = 1000
     progress_index = 0
     counter = 0

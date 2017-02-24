@@ -366,7 +366,7 @@ gravatar-wrapper-24 {
 }
 
 #tabs {
-    float: right; 
+    float: left; 
 }
 
 #tabs a {
@@ -405,4 +405,59 @@ gravatar-wrapper-24 {
     margin-bottom: 10px;
     height: 40px;
     border-bottom: 1px solid #e4e6e8;
+}
+
+#suggest-question-box,
+#search-association-box {
+    width: 100%;
+    float: left;
+    padding: 30px 0px;
+}
+
+#suggest-question-box .suggest-question,
+#search-association-box .search {
+    background-color: #FFF8DC;
+    border: 1px solid #E0DCBF;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1),0 1px 0 #ffffff inset;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 1px 0 #ffffff inset;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 1px 0 #ffffff inset;
+    border-image: initial;
+    padding: 15px 0;
+}
+
+#search-association-box .search span {
+    padding-left: 15px;
+}
+
+#suggest-question-box input,
+#search-association-box input {
+    width: 65%;
+    padding: 10px;
+    margin: 0px 25px 0px 15px;
+    font-size: 14px;
+}
+
+#search-association-box .help {
+    width: 100%;
+    float: left;
+    border-bottom: 2px solid #e0e0e0;
+    padding-top: 35px;
+}
+
+#suggest-question-box .help {
+    font-size: 14px;
+    padding: 15px 15px 0px 15px;
+}
+
+#suggest-question-box input {
+    font-size: 15px;
+    padding: 5px 10px;
+    margin: 0px 15px 0px 15px;
+    width: 550px;
+}
+
+#suggest-question-box .button {
+    font-size: 13px;
+    float: right;
+    margin-right: 15px;
 }

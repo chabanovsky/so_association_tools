@@ -1,6 +1,6 @@
 
 var addAssociationEndpoint = "/api/add_association"
-var skipEndpoint = "/api/skip_most_viewed_question"
+var skipEndpoint = "/api/skip_question"
 var requestTranslationEndpoint = "/api/translation_request"
 
 var questionIdTag = "#question-id";

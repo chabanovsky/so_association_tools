@@ -1,6 +1,10 @@
-var questionListRoot = "#question_list"
+var questionListRoot = "#question_list";
+var suggestQuestionInputTag = "#suggested-question";
+var suggestQuestionButtonTag = "#suggest-button";
+var suggestEndpoint = "/api/suggest_question"
 
 $(document).ready(function() {
+    setupSuggestion();
     var ids = "";
     if (initJson.length == 0) {
         $(questionListRoot).append("<h3 class='no-results'>" + localeManager.emptyListStr + "</h3>")
@@ -27,8 +31,40 @@ $(document).ready(function() {
             var question = createQuestion(item);
             $(questionListRoot).append(question);
         }
-    }, function() {})
+    }, function() {});
 })
+
+function setupSuggestion() {
+    $(suggestQuestionInputTag).keypress(function (e) {
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $(suggestQuestionButtonTag).click();
+            return false;
+        } else {
+            return true;
+        }
+    });
+    $(suggestQuestionButtonTag).click(function(event){
+        event.preventDefault();
+        var question = $(suggestQuestionInputTag).val();
+        var id = questionId(question);
+        var l = getLocation(question);
+        if (l.hostname != STACKOVERFLOW_IN_ENGLISH_HOSTNAME || id < 0) {
+            alert("Wrong url");
+            return;
+        }
+        var url = suggestEndpoint + "?question_url=" + encodeURIComponent(question)
+        loadHelper(url, function(data){
+            if (data.status) {
+                alert("Question was suggested");
+                location.reload();
+            } else {
+                alert("We cannot add the suggestion");
+            }
+        }, function(){
+            alert("Something went wrong");
+        });
+    })
+}
 
 function createQuestion(item) {
     var tmp = questionTemplate();

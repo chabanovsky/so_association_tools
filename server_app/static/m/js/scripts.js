@@ -1,5 +1,6 @@
 var INTERNATIONAL_STACKOVERFLOW = currentLanguage + ".stackoverflow";
 var STACKOVERFLOW_IN_ENGLISH = "stackoverflow";
+var STACKOVERFLOW_IN_ENGLISH_HOSTNAME = STACKOVERFLOW_IN_ENGLISH + ".com";
 
 var QUESTION_BODY_FILTER = "!4(sMpjPlU2B9NnTI_";
 var QUESTION_BODY_AND_ANSWERS_FILTER = "!4(sMpjPj7CC*aVjgo";
@@ -54,6 +55,16 @@ function stripHtml(html) {
     div.innerHTML = html;
     return div.textContent || div.innerText || "";
 }
+
+// http://stackoverflow.com/a/13405933/564240
+function getLocation(href) {
+    var location = document.createElement("a");
+    location.href = href;
+    if (location.host == "") {
+      location.href = location.href;
+    }
+    return location;
+};
 
 function questionId(uri) {
     var id = /\/\d+\//.exec(uri)
