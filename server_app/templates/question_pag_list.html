@@ -20,7 +20,7 @@
 {% endif %}
 
 <div class="main-menu">
-    <h3>{{ gettext('Questions in English') }}</h3> 
+    <!-- h3>{{ gettext('Questions in English') }}</h3--> 
     <div id="tabs">
         <a {% if "most_viewed" in active_tab  %}class="active"{% endif %} href="{{ url_for('index') }}">{{ gettext('Most Viewed') }}</a>
         <a {% if "skipped" in active_tab  %}class="active"{% endif %} href="{{ url_for('skipped') }}">{{ gettext('Skipped') }}</a>
