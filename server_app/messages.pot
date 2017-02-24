@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-18 14:42+0300\n"
+"POT-Creation-Date: 2017-02-24 09:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:74
+#: views.py:128
 msgid "association"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "List of suggested questions for Stack Overflow in Russian"
 msgstr ""
 
-#: templates/base.html:20
+#: templates/base.html:22 templates/welcome.html:2
 msgid "Stack Overflow Association Tools"
 msgstr ""
 
@@ -86,23 +86,55 @@ msgstr ""
 msgid "viewed"
 msgstr ""
 
-#: templates/no_way.html:1 templates/no_way.html:2
+#: templates/locale_strings.js:27
+msgid "skip"
+msgstr ""
+
+#: templates/locale_strings.js:28
+msgid "add to the list"
+msgstr ""
+
+#: templates/locale_strings.js:29
+msgid "request translation"
+msgstr ""
+
+#: templates/locale_strings.js:30
+msgid "cancel request"
+msgstr ""
+
+#: templates/locale_strings.js:31
+msgid "There are no items here."
+msgstr ""
+
+#: templates/no_way.html:2 templates/no_way.html:4
 msgid "No Way"
 msgstr ""
 
-#: templates/no_way.html:4
+#: templates/no_way.html:6
 msgid "There is no way to use the app without OAuth authentication."
 msgstr ""
 
-#: templates/no_way.html:6
+#: templates/no_way.html:9
 msgid "Try again"
 msgstr ""
 
-#: templates/question.html:26
+#: templates/question.html:38
+msgid ""
+"You will not see this question again in the suggested list. Skip a "
+"question if you do your best but cannot find an association."
+msgstr ""
+
+#: templates/question.html:46
+msgid ""
+"If you cannot find an association and think that the question must be in "
+"the knowledge base of your community add a translation request."
+msgstr ""
+
+#: templates/question.html:53
 msgid "Query"
 msgstr ""
 
-#: templates/question.html:27
+#: templates/question.html:54
 msgid "Search"
 msgstr ""
 
@@ -117,8 +149,28 @@ msgid ""
 "their answers. If they are the same associate them!"
 msgstr ""
 
-#: templates/question_pag_list.html:22
+#: templates/question_pag_list.html:23
 msgid "Questions in English"
+msgstr ""
+
+#: templates/question_pag_list.html:25
+msgid "Most Viewed"
+msgstr ""
+
+#: templates/question_pag_list.html:26
+msgid "Skipped"
+msgstr ""
+
+#: templates/question_pag_list.html:27
+msgid "Requested"
+msgstr ""
+
+#: templates/topbar.html:14
+msgid "log out"
+msgstr ""
+
+#: templates/topbar.html:16
+msgid "mod"
 msgstr ""
 
 #: templates/two_questions_view.html:4
@@ -131,5 +183,33 @@ msgstr ""
 
 #: templates/two_questions_view_with_answers.html:12
 msgid "Answers"
+msgstr ""
+
+#: templates/welcome.html:5
+msgid "Welcome!"
+msgstr ""
+
+#: templates/welcome.html:22
+msgid ""
+"Association Tools allows you to mark two questions as the same on two "
+"sites Stack Overflow in English and Stack Overflow in a language"
+msgstr ""
+
+#: templates/welcome.html:30
+msgid "Log in and start associating"
+msgstr ""
+
+#: templates/welcome.html:31
+msgid "In order to associate you must log in with Stack Exchange OAuth."
+msgstr ""
+
+#: templates/welcome.html:33
+msgid ""
+"This is an open source project. If you know how to improve the app, "
+"please, do that: "
+msgstr ""
+
+#: templates/welcome.html:42
+msgid "Help to build a bridge connecting knowledge bases and communities"
 msgstr ""
 
