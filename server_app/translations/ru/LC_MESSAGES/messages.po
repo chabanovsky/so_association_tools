@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-24 09:24+0300\n"
+"POT-Creation-Date: 2017-02-24 09:42+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -129,13 +129,17 @@ msgstr "Попробовать еще раз"
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
-msgstr "Вы более не увидите этот вопрос в общем списке. Пропустите вопрос елси вы сделали все возможное, но не смогли найти ассоциацию."
+msgstr ""
+"Вы более не увидите этот вопрос в общем списке. Пропустите вопрос елси вы"
+" сделали все возможное, но не смогли найти ассоциацию."
 
 #: templates/question.html:46
 msgid ""
 "If you cannot find an association and think that the question must be in "
 "the knowledge base of your community add a translation request."
-msgstr "Если вы не смогли найти ассоциацию и думаете, что вопрос обязан быть в базе знаний вашего сообщества, отправьте запрос на перевод."
+msgstr ""
+"Если вы не смогли найти ассоциацию и думаете, что вопрос обязан быть в "
+"базе знаний вашего сообщества, отправьте запрос на перевод."
 
 #: templates/question.html:53
 msgid "Query"
@@ -165,8 +169,8 @@ msgstr ""
 "«Ассоциировать»."
 
 #: templates/question_pag_list.html:23
-msgid "Questions in English"
-msgstr "Вопросы на английском"
+msgid "Questions"
+msgstr "Вопросы"
 
 #: templates/question_pag_list.html:25
 msgid "Most Viewed"
@@ -208,7 +212,9 @@ msgstr "Добро пожаловать!"
 msgid ""
 "Association Tools allows you to mark two questions as the same on two "
 "sites Stack Overflow in English and Stack Overflow in a language"
-msgstr "Инструменты ассоциации позволяют вам отмечать два вопроса как дубликаты между сайтами Stack Overflow на английском и Stack Overflow на русском"
+msgstr ""
+"Инструменты ассоциации позволяют вам отмечать два вопроса как дубликаты "
+"между сайтами Stack Overflow на английском и Stack Overflow на русском"
 
 #: templates/welcome.html:30
 msgid "Log in and start associating"
@@ -216,15 +222,22 @@ msgstr "Войти и начать ассоциировать"
 
 #: templates/welcome.html:31
 msgid "In order to associate you must log in with Stack Exchange OAuth."
-msgstr "Для назначения ассоциаций необходимо авторизоваться через Stack Exchange OAuth."
+msgstr ""
+"Для назначения ассоциаций необходимо авторизоваться через Stack Exchange "
+"OAuth."
 
 #: templates/welcome.html:33
 msgid ""
 "This is an open source project. If you know how to improve the app, "
 "please, do that: "
-msgstr "Это проект с открытым исходным кодом. Если вы можете улучшить данное приложение, пожалуйста, сделайте это: "
+msgstr ""
+"Это проект с открытым исходным кодом. Если вы можете улучшить данное "
+"приложение, пожалуйста, сделайте это: "
 
 #: templates/welcome.html:42
 msgid "Help to build a bridge connecting knowledge bases and communities"
 msgstr "Помогите построить мост, соединяющий базы знаний и сообщества"
+
+#~ msgid "Questions in English"
+#~ msgstr "Вопросы на английском"
 
