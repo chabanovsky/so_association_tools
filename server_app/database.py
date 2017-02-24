@@ -78,24 +78,24 @@ def update_most_viewed():
         all_questions = query.offset(0).limit(frame_size).all()
         counter = counter + frame_size
 
-        session_wiriter = db_session()
+        wiriter_session = db_session()
         for question in all_questions:
             record_id, question_id, view_count = question
-            most_viewed_question = session_wiriter.query(MostViewedQuestion).filter_by(question_id=question_id).first()
+            most_viewed_question = wiriter_session.query(MostViewedQuestion).filter_by(question_id=question_id).first()
             if most_viewed_question is None:
                 most_viewed_question = MostViewedQuestion(question_id, view_count)
-                session_wiriter.add(most_viewed_question)
+                wiriter_session.add(most_viewed_question)
             else:
                 most_viewed_question.view_count += view_count
             
-            qh = session_wiriter.query(QuestionViewHistory).filter_by(id=record_id).first()
+            qh = wiriter_session.query(QuestionViewHistory).filter_by(id=record_id).first()
             qh.counted = True
-            session_wiriter.add(qh)
+            wiriter_session.add(qh)
 
             print_progress_bar(progress_index, question_count, prefix = 'Progress:', suffix = 'Complete')
             progress_index +=1
         
-        session_wiriter.commit()
-        session_wiriter.close()
+        wiriter_session.commit()
+        wiriter_session.close()
 
     print "All questions were counted"
