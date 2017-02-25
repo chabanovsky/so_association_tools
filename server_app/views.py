@@ -2,19 +2,23 @@
 import requests
 import logging
 import json
+import urllib
+import re
+from urlparse import urlparse
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
 from flask.ext.babel import gettext, ngettext
 from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
 
-from meta import app as application, db, db_session, engine, LANGUAGE
+from meta import app as application, db, db_session, engine, LANGUAGE, STACKOVERFLOW_HOSTNAME, STACKOVERFLOW_SITE_PARAM
 from models import User, Association, Question, Action
 from suggested_question import get_skipped_question_pagination, get_requested_question_pagination, get_most_viewed_question_pagination, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
-STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/?";
+STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/";
+STACKEXCHANGE_QUESTION_API_ENDPOINT = "https://api.stackexchange.com/2.2/questions/{id}/";
 
 @application.before_request
 def before_request():
@@ -111,7 +115,7 @@ def question(question_id):
 @application.route("/api/add_association")
 @application.route("/api/add_association/")
 def add_association():
-    access_token = session.get("access_token", None)
+    access_token = flask.session.get("access_token", None)
     if g.user is None or access_token is None:
         abort(404)
 
@@ -229,10 +233,88 @@ def translation_request():
 @application.route("/api/suggest_question")
 @application.route("/api/suggest_question/")
 def suggest_question():
-    
-    resp = {
-        "status": False
-    }
+    access_token = session.get("access_token", None)
+    if g.user is None or access_token is None:
+        abort(404)
 
-    return jsonify(**resp)  
+    url = request.args.get("question", None)
+    if (url is None): 
+        return jsonify(**{
+            "status": False,
+            "msg": "Wrong params"
+        })  
+
+    unquoted = urllib.unquote(url)
+    parsed = urlparse(unquoted)
+
+    if parsed.hostname != STACKOVERFLOW_HOSTNAME:
+        return jsonify(**{
+            "status": False,
+            "msg": "Question should be on hostname: %s" % STACKOVERFLOW_HOSTNAME
+        })  
+        
+    question_id = -1
+    try:    
+        question_id = int(re.findall('\d+', parsed.path)[0])
+    except:
+        return jsonify(**{
+            "status": False,
+            "msg": "Cannot parse question_id. Path: %s, re: %s" % (parsed.path, re.findall('\d+', parsed.path))
+        })  
+
+    if question_id < 0:
+        return jsonify(**{
+            "status": True,
+            "msg": "Not valid question_id: %s" % (str(question_id))
+        })  
+
+    url = STACKEXCHANGE_QUESTION_API_ENDPOINT.replace("{id}", str(question_id))
+    params = {
+       "access_token": access_token,
+       "key": STACKEXCHANGE_CLIENT_KEY,
+       "site": STACKOVERFLOW_SITE_PARAM,
+       "order": "desc",
+       "sort": "votes",
+    }    
+    r = requests.get(url, data=params) 
+    data = json.loads(r.text)
+
+    if data.get("items", None) is None:
+        return jsonify(**{
+            "status": False,
+            "msg": "There are no items: %s" % r.text
+        })  
+
+    view_count = 0
+    q_id = 0
+    for item in data["items"]:
+        if item.get("view_count", None) is not None:
+            view_count = item["view_count"]
+        if item.get("question_id", None) is not None:
+            q_id = int(item["question_id"])
+    
+    if question_id != q_id:
+        return jsonify(**{
+            "status": False,
+            "msg": "Question ids are different: %s != %s, text:  %s" % (str(question_id), str(q_id), r.text)
+        })  
+        
+    pg_session = db_session()
+    suggested_question_count = pg_session.query(func.count(Question.id)).filter(and_(Question.question_id==question_id, Question.question_type==Question.question_type_suggested)).scalar()
+    if suggested_question_count > 0:
+        return jsonify(**{
+            "status": False,
+            "msg": "The suggestion is already existed in the list"
+        })  
+
+    question = Question(Question.question_type_suggested, question_id, view_count, suggested_user_id=g.user.id)
+    
+    pg_session.add(question)
+    pg_session.commit()
+    pg_session.close()
+
+    return jsonify(**{
+        "status": True,
+        "msg": "Suggestion was added"
+    })  
     

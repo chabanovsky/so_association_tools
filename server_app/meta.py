@@ -19,6 +19,9 @@ def make_db_engine():
 LANGUAGE = os.environ["LOCALE_LANGUAGE_NAME"]
 APP_URL = "http://demo.chabanovsky.com"
 DB_NAME = "association_tools_" + LANGUAGE
+STACKOVERFLOW_HOSTNAME = "stackoverflow.com"
+STACKOVERFLOW_SITE_PARAM = "stackoverflow"
+INT_STACKOVERFLOW_SITE_PARAM = LANGUAGE + "." + STACKOVERFLOW_SITE_PARAM
 
 app = Flask(__name__)
 

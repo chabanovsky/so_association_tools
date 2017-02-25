@@ -1,4 +1,5 @@
 var questionListRoot = "#question_list";
+var suggestQuestionBoxId = "#suggest-question-box";
 var suggestQuestionInputTag = "#suggested-question";
 var suggestQuestionButtonTag = "#suggest-button";
 var suggestEndpoint = "/api/suggest_question"
@@ -52,15 +53,19 @@ function setupSuggestion() {
             alert("Wrong url");
             return;
         }
-        var url = suggestEndpoint + "?question_url=" + encodeURIComponent(question)
+        var oldText = $(suggestQuestionBoxId + " .help").text();
+        $(suggestQuestionBoxId + " .help").text(localeManager.processingSuggestionStr);
+        var url = suggestEndpoint + "?question=" + encodeURIComponent(question)
         loadHelper(url, function(data){
+            $(suggestQuestionBoxId + " .help").text(oldText);
             if (data.status) {
-                alert("Question was suggested");
+                alert(data.msg);
                 location.reload();
             } else {
-                alert("We cannot add the suggestion");
+                alert(data.msg);
             }
         }, function(){
+            $(suggestQuestionBoxId + " .help").text(oldText);
             alert("Something went wrong");
         });
     })
