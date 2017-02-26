@@ -63,13 +63,15 @@ function loadOverlayQuestion(questionId, site, rootTag) {
 
 function loadOverlayAnswers(question, site, rootTag) {
     var ids = "";
+    // if there are more then 10 answers we do not want to load them.
+    var maxIdsNum = 10; 
     if (question.answers == undefined) {
         console.log("There are no answers: " + question.question_id);
         return;
     }
-    for (var index = 0; index < question.answers.length; index++) {
+    for (var index = 0; index < question.answers.length && index < maxIdsNum; index++) {
         ids += question.answers[index].answer_id;
-        if (index < (question.answers.length -1)) {
+        if (index < (question.answers.length - 1) && index < (maxIdsNum - 1)) {
             ids += ";";
         }
     }
