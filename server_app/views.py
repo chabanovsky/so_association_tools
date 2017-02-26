@@ -198,7 +198,12 @@ def get_answers():
        "filter": "!)s4ZC4Cto10(q(Yp)zK*"
     }    
     r = requests.get(url, data=params) 
-    data = json.loads(r.text)
+    try: 
+        data = json.loads(r.text)
+    except:
+        return jsonify(**{
+            "error": r.text
+        })        
     return jsonify(**data)    
 
 
