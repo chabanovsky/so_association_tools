@@ -88,9 +88,14 @@ function createQuestion(item) {
     $(template).find(".status .count").text(item.answer_count);
     $(template).find(".status .label").text(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
-    $(template).find(".views .count").text(item.viewCount);
-    $(template).find(".views .label").text(plural(item.viewCount, localeManager.viewStrings));
-
+    if (item.viewCount > 1000) {
+        var shortViewsCount = Math.round(item.viewCount / 1000);
+        $(template).find(".views .count").text(shortViewsCount + "K");
+        $(template).find(".views .label").text(plural(5, localeManager.viewStrings));
+    } else {
+        $(template).find(".views .count").text(item.viewCount);
+        $(template).find(".views .label").text(plural(item.viewCount, localeManager.viewStrings));
+    }
     $(template).find(".desc h3 a").text(stripHtml(item.title));
     $(template).find(".desc h3 a").attr("href", getAAPPlink(item.question_id));
 
