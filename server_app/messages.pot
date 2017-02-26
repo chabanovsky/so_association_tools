@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-26 12:22+0300\n"
+"POT-Creation-Date: 2017-02-26 16:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "List of suggested questions for Stack Overflow in Russian"
 msgstr ""
 
-#: templates/base.html:22 templates/welcome.html:2
+#: templates/base.html:51 templates/welcome.html:2
 msgid "Stack Overflow Association Tools"
 msgstr ""
 
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/question_pag_list.html:18
+#: templates/question_pag_list.html:19
 msgid ""
 "The list bellow contains most viewed questions on Stack Overflow in "
 "English by a language audience. In order to add an association pick a "
@@ -224,27 +224,49 @@ msgid ""
 "their answers. If they are the same associate them!"
 msgstr ""
 
-#: templates/question_pag_list.html:24
-msgid "Most Viewed"
+#: templates/question_pag_list.html:21
+msgid ""
+"If users cannot find an association for a question they skip it. Skipping"
+" removes the question from a list. This section contains questions that "
+"were skipped by any users."
+msgstr ""
+
+#: templates/question_pag_list.html:23
+msgid ""
+"If users cannot find an association for a question and think that a "
+"question must be in the local knowledge base they send a translate "
+"request for the question. This section contains all those requests."
 msgstr ""
 
 #: templates/question_pag_list.html:25
-msgid "Skipped"
+msgid ""
+"If users want to add to the list of questions for association another "
+"one, they submit it with the submission form below (please, use the form "
+"if you think that a question should be in the knowledge base of your "
+"comminity). This section contains all suggested questions."
 msgstr ""
 
-#: templates/question_pag_list.html:26
-msgid "Requested"
-msgstr ""
-
-#: templates/question_pag_list.html:27
-msgid "Suggested"
+#: templates/question_pag_list.html:32
+msgid "Most Viewed"
 msgstr ""
 
 #: templates/question_pag_list.html:33
-msgid "Suggest"
+msgid "Skipped"
 msgstr ""
 
 #: templates/question_pag_list.html:34
+msgid "Requested"
+msgstr ""
+
+#: templates/question_pag_list.html:35
+msgid "Suggested"
+msgstr ""
+
+#: templates/question_pag_list.html:41
+msgid "Suggest"
+msgstr ""
+
+#: templates/question_pag_list.html:42
 msgid ""
 "To suggest a question for assaciation paste url of the question above and"
 " click \"Suggest\". You can only suggest questions on the "
