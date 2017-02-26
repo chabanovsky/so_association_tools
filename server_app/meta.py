@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask.ext.babel import Babel
 
-from local_settings import FLASK_SECRET_KEY
+from local_settings import FLASK_SECRET_KEY, PG_NAME_PASSWORD
 
 def make_db_session(engine):
     return scoped_session(sessionmaker(autocommit=False,
@@ -28,7 +28,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = FLASK_SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres@localhost:5432/'+ DB_NAME + '?client_encoding=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://' + PG_NAME_PASSWORD + '@localhost:5432/'+ DB_NAME + '?client_encoding=utf8'
 app.config['BABEL_DEFAULT_LOCALE'] = LANGUAGE
 
 engine = make_db_engine()
