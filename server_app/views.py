@@ -115,7 +115,7 @@ def question(question_id):
 @application.route("/api/add_association")
 @application.route("/api/add_association/")
 def add_association():
-    access_token = flask.session.get("access_token", None)
+    access_token = session.get("access_token", None)
     if g.user is None or access_token is None:
         abort(404)
 
