@@ -257,7 +257,7 @@ msgid ""
 "If users cannot find an association for a question and think that a "
 "question must be in the local knowledge base they send a translate "
 "request for the question. This section contains all those requests."
-msgstr "Если участник не могут найти ассоциацию для вопроса и считают, что вопрос обязан быть в базе знаний сообщества, они отправляют запрос на перевод. Данный раздел содержит все вопросы, отмеченные как требующие перевода."
+msgstr "Если участники не могут найти ассоциацию для вопроса и считают, что вопрос обязан быть в базе знаний сообщества, они отправляют запрос на перевод. Данный раздел содержит все вопросы, отмеченные как требующие перевода."
 
 #: templates/question_pag_list.html:25
 msgid ""
