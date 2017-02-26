@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-24 09:42+0300\n"
+"POT-Creation-Date: 2017-02-26 11:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:128
+#: views.py:131 views.py:138 views.py:251
+msgid "Wrong params"
+msgstr ""
+
+#: views.py:142
 msgid "association"
+msgstr ""
+
+#: views.py:161
+msgid "Association was added"
+msgstr ""
+
+#: views.py:260
+#, python-format
+msgid "Question should be on hostname: %s"
+msgstr ""
+
+#: views.py:269
+#, python-format
+msgid "Cannot parse question_id. Path: %s, re: %s"
+msgstr ""
+
+#: views.py:275
+#, python-format
+msgid "Not valid question_id: %s"
+msgstr ""
+
+#: views.py:292
+#, python-format
+msgid "There are no items: %s"
+msgstr ""
+
+#: views.py:306
+#, python-format
+msgid "Question ids are different: %s != %s, text:  %s"
+msgstr ""
+
+#: views.py:314
+msgid "The suggestion is already existed in the list"
+msgstr ""
+
+#: views.py:325
+msgid "Suggestion was added"
 msgstr ""
 
 #: templates/base.html:6
@@ -106,6 +147,28 @@ msgstr ""
 msgid "There are no items here."
 msgstr ""
 
+#: templates/locale_strings.js:32
+msgid "Processing the suggestion..."
+msgstr ""
+
+#: templates/locale_strings.js:33
+msgid "Something went wrong during skipping/returning a question"
+msgstr ""
+
+#: templates/locale_strings.js:34
+msgid ""
+"Something went wrong during requesting translation/canceling it for a "
+"question"
+msgstr ""
+
+#: templates/locale_strings.js:35
+msgid "Cannot add association"
+msgstr ""
+
+#: templates/locale_strings.js:36
+msgid "Cannot load a question: "
+msgstr ""
+
 #: templates/no_way.html:2 templates/no_way.html:4
 msgid "No Way"
 msgstr ""
@@ -149,20 +212,32 @@ msgid ""
 "their answers. If they are the same associate them!"
 msgstr ""
 
-#: templates/question_pag_list.html:23
-msgid "Questions"
-msgstr ""
-
-#: templates/question_pag_list.html:25
+#: templates/question_pag_list.html:24
 msgid "Most Viewed"
 msgstr ""
 
-#: templates/question_pag_list.html:26
+#: templates/question_pag_list.html:25
 msgid "Skipped"
 msgstr ""
 
-#: templates/question_pag_list.html:27
+#: templates/question_pag_list.html:26
 msgid "Requested"
+msgstr ""
+
+#: templates/question_pag_list.html:27
+msgid "Suggested"
+msgstr ""
+
+#: templates/question_pag_list.html:33
+msgid "Suggest"
+msgstr ""
+
+#: templates/question_pag_list.html:34
+msgid ""
+"To suggest a question for assaciation paste url of the question bellow "
+"and click \"Suggest\". You can only suggest questions on the "
+"stackoverflow.com domain (it means questions from Stack Overflow in "
+"English only)."
 msgstr ""
 
 #: templates/topbar.html:14

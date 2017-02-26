@@ -11,7 +11,7 @@ from flask.ext.babel import gettext, ngettext
 from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
 
-from meta import app as application, db, db_session, engine, LANGUAGE, STACKOVERFLOW_HOSTNAME, STACKOVERFLOW_SITE_PARAM
+from meta import app as application, db, db_session, engine, LANGUAGE, STACKOVERFLOW_HOSTNAME, STACKOVERFLOW_SITE_PARAM, INT_STACKOVERFLOW_SITE_PARAM
 from models import User, Association, Question, Action
 from suggested_question import get_skipped_question_pagination, get_requested_question_pagination, get_most_viewed_question_pagination, get_suggested_question_pagination
 from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
@@ -128,14 +128,14 @@ def add_association():
     except:
         return jsonify(**{
             "status": False,
-            "msg": "Wrong params"
+            "msg": gettext("Wrong params")
         })  
     
     count = Association.query.filter_by(soen_id=soen_id).count()
     if count > 0:
         return jsonify(**{
             "status": False,
-            "msg": "Wrong params"
+            "msg": gettext("Wrong params")
         })  
 
     url = STACKEXCHANGE_ADD_COMMENT_ENDPOINT.replace("{id}", str(soint_id))
@@ -144,7 +144,7 @@ def add_association():
        "body" : association_tag + u": http://stackoverflow.com/questions/" + str(soen_id) + "/",
        "access_token": access_token,
        "key": STACKEXCHANGE_CLIENT_KEY,
-       "site": "ru.stackoverflow",
+       "site": INT_STACKOVERFLOW_SITE_PARAM,
        "preview": "false"
     }
     
@@ -158,7 +158,7 @@ def add_association():
                 break
     resp = {
         "status": True,
-        "msg": "Association was added",
+        "msg": gettext("Association was added"),
         "comment_id": comment_id,
         "full_response": r.text
     }
@@ -248,7 +248,7 @@ def suggest_question():
     if (url is None): 
         return jsonify(**{
             "status": False,
-            "msg": "Wrong params"
+            "msg": gettext("Wrong params")
         })  
 
     unquoted = urllib.unquote(url)
@@ -257,7 +257,7 @@ def suggest_question():
     if parsed.hostname != STACKOVERFLOW_HOSTNAME:
         return jsonify(**{
             "status": False,
-            "msg": "Question should be on hostname: %s" % STACKOVERFLOW_HOSTNAME
+            "msg": gettext("Question should be on hostname: %s") % STACKOVERFLOW_HOSTNAME
         })  
         
     question_id = -1
@@ -266,13 +266,13 @@ def suggest_question():
     except:
         return jsonify(**{
             "status": False,
-            "msg": "Cannot parse question_id. Path: %s, re: %s" % (parsed.path, re.findall('\d+', parsed.path))
+            "msg": gettext("Cannot parse question_id. Path: %s, re: %s") % (parsed.path, re.findall('\d+', parsed.path))
         })  
 
     if question_id < 0:
         return jsonify(**{
             "status": True,
-            "msg": "Not valid question_id: %s" % (str(question_id))
+            "msg": gettext("Not valid question_id: %s") % (str(question_id))
         })  
 
     url = STACKEXCHANGE_QUESTION_API_ENDPOINT.replace("{id}", str(question_id))
@@ -289,7 +289,7 @@ def suggest_question():
     if data.get("items", None) is None:
         return jsonify(**{
             "status": False,
-            "msg": "There are no items: %s" % r.text
+            "msg": gettext("There are no items: %s") % r.text
         })  
 
     view_count = 0
@@ -303,7 +303,7 @@ def suggest_question():
     if question_id != q_id:
         return jsonify(**{
             "status": False,
-            "msg": "Question ids are different: %s != %s, text:  %s" % (str(question_id), str(q_id), r.text)
+            "msg": gettext("Question ids are different: %s != %s, text:  %s") % (str(question_id), str(q_id), r.text)
         })  
         
     pg_session = db_session()
@@ -311,7 +311,7 @@ def suggest_question():
     if suggested_question_count > 0:
         return jsonify(**{
             "status": False,
-            "msg": "The suggestion is already existed in the list"
+            "msg": gettext("The suggestion is already existed in the list")
         })  
 
     question = Question(Question.question_type_suggested, question_id, view_count, suggested_user_id=g.user.id)
@@ -322,6 +322,6 @@ def suggest_question():
 
     return jsonify(**{
         "status": True,
-        "msg": "Suggestion was added"
+        "msg": gettext("Suggestion was added")
     })  
     
