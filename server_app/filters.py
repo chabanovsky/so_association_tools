@@ -1,6 +1,5 @@
 from jinja2 import evalcontextfilter, Markup
-from meta import app as application, LANGUAGE
-from local_settings import GOOGLE_CUSTOM_SEARCH_KEY, GOOGLE_CUSTOM_SEARCH_CX
+from meta import app as application, LANGUAGE, GOOGLE_CUSTOM_SEARCH_KEY, GOOGLE_CUSTOM_SEARCH_CX
 
 @application.template_filter()
 @evalcontextfilter

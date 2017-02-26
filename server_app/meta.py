@@ -37,3 +37,6 @@ db_session = make_db_session(engine)
 db = SQLAlchemy(app)                                                   
 
 babel = Babel(app)
+
+GOOGLE_CUSTOM_SEARCH_KEY = os.environ.get("GOOGLE_CUSTOM_SEARCH_KEY", "")
+GOOGLE_CUSTOM_SEARCH_CX = os.environ.get("GOOGLE_CUSTOM_SEARCH_CX", "")
