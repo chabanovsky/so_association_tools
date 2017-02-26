@@ -1,4 +1,4 @@
-{% if paginator.total > 1 %}
+{% if paginator.total > paginator.per_page %}
 <div class="paginator">
     {% for page in paginator.iter_pages() %} {% if page %}
     <a href="{{ base_url }}?page={{ page}}">
