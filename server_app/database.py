@@ -8,7 +8,7 @@ from meta import db, db_session, engine, STACKOVERFLOW_HOSTNAME
 from models import QuestionViewHistory, Question, Association, User
 from utils import print_progress_bar, print_association_setting
 from sqlalchemy.sql import func
-from sqlalchemy import and_, not_, select, exists
+from sqlalchemy import and_, not_, select, exists, delete
 
 MINIMUM_VIEW_COUNT_TO_ADD = 30
 
@@ -122,11 +122,28 @@ def sync_associations():
     session.commit()
     session.close()   
 
+    session = db_session()
+
+    reverse_update_query = Question.__table__.update().values(is_associated=False).\
+        where(and_(Question.is_associated==True, 
+            ~Question.question_id.in_(select([Association.soen_id]).\
+                distinct().\
+                as_scalar())))
+
+    session.execute(reverse_update_query)
+    session.commit()
+    session.close()   
+
     print "All associations were synced"
 
 def update_associations(filename, debug_print):
     session = db_session()
     association_list = list()
+
+    delete_stmt = Association.__table__.delete()
+    session.execute(delete_stmt)
+    session.commit()
+
     with open(filename, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
         for row in csv_reader:
