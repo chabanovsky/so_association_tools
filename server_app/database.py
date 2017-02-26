@@ -6,7 +6,7 @@ from datetime import datetime
 import logging
 from meta import db, db_session, engine, STACKOVERFLOW_HOSTNAME
 from models import QuestionViewHistory, Question, Association, User
-from utils import print_progress_bar
+from utils import print_progress_bar, print_association_setting
 from sqlalchemy.sql import func
 from sqlalchemy import and_, not_, select, exists
 
@@ -126,6 +126,7 @@ def sync_associations():
 
 def update_associations(filename, debug_print):
     session = db_session()
+    association_list = list()
     with open(filename, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
         for row in csv_reader:
@@ -173,7 +174,14 @@ def update_associations(filename, debug_print):
                 if debug_print:
                     print "Association has already existed: %s" % str(association.id)
 
+            association_list.append({
+                "soen": soen_id,
+                "soint": soint_id
+            })
+
     
     session.close()
     sync_associations()
+    print_association_setting(association_list)
+    
             
