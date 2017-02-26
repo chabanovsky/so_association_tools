@@ -50,7 +50,7 @@ function setupSuggestion() {
         var id = questionId(question);
         var l = getLocation(question);
         if (l.hostname != STACKOVERFLOW_IN_ENGLISH_HOSTNAME || id < 0) {
-            alert("Wrong url");
+            alert(localeManager.wrongUrlStr);
             return;
         }
         var oldText = $(suggestQuestionBoxId + " .help").text();
@@ -66,7 +66,7 @@ function setupSuggestion() {
             }
         }, function(){
             $(suggestQuestionBoxId + " .help").text(oldText);
-            alert("Something went wrong");
+            alert(localeManager.cannotSuggestQuestionStr);
         });
     })
 }

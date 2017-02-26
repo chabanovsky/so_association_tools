@@ -33,5 +33,7 @@ var localeManager = {
     cannotSkipStr: {{ gettext('Something went wrong during skipping/returning a question')|generate_string|safe }},
     cannotRequestTranslationStr: {{ gettext('Something went wrong during requesting translation/canceling it for a question')|generate_string|safe }},
     cannotAddAssociationStr: {{ gettext('Cannot add association')|generate_string|safe }},
-    cannotLoadQuestionStr: {{ gettext('Cannot load a question: ')|generate_string|safe }}
+    cannotLoadQuestionStr: {{ gettext('Cannot load a question: ')|generate_string|safe }},
+    wrongUrlStr: {{ gettext('Wrong url. You can suggest questions only from Stack Overflow in English')|generate_string|safe }},
+    cannotSuggestQuestionStr: {{ gettext('Something went wrong during suggestion')|generate_string|safe }}
 }

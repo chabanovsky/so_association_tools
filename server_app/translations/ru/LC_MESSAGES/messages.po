@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-26 11:35+0300\n"
+"POT-Creation-Date: 2017-02-26 12:22+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: views.py:131 views.py:138 views.py:251
 msgid "Wrong params"
-msgstr ""
+msgstr "Неверные аргументы"
 
 #: views.py:142
 msgid "association"
@@ -29,40 +29,44 @@ msgstr "ассоциация"
 
 #: views.py:161
 msgid "Association was added"
-msgstr ""
+msgstr "Ассоциация добавлена"
 
 #: views.py:260
 #, python-format
 msgid "Question should be on hostname: %s"
-msgstr ""
+msgstr "Вопрос должен быть на сайте: %s"
 
 #: views.py:269
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
-msgstr ""
+msgstr "Невозможно обработать question_id. Path: %s, re: %s"
 
 #: views.py:275
 #, python-format
 msgid "Not valid question_id: %s"
-msgstr ""
+msgstr "Неверный question_id: %s"
 
 #: views.py:292
 #, python-format
 msgid "There are no items: %s"
-msgstr ""
+msgstr "Нет элементов: %s"
 
 #: views.py:306
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
-msgstr ""
+msgstr "Идентификаторы различаются: %s != %s, текст: %s"
 
 #: views.py:314
 msgid "The suggestion is already existed in the list"
-msgstr ""
+msgstr "Предлагаемый вопрос уже есть в списке"
 
-#: views.py:325
+#: views.py:329
+msgid "Suggestion was added but the association for it is already existed."
+msgstr "Предложение было добавлено, но ассоциация к нему уже существует."
+
+#: views.py:336
 msgid "Suggestion was added"
-msgstr ""
+msgstr "Предложение было добавлено"
 
 #: templates/base.html:6
 msgid "List of suggested questions for Stack Overflow in Russian"
@@ -154,25 +158,33 @@ msgstr "Нет данных в выборке."
 
 #: templates/locale_strings.js:32
 msgid "Processing the suggestion..."
-msgstr ""
+msgstr "Предложение обрабатывается..."
 
 #: templates/locale_strings.js:33
 msgid "Something went wrong during skipping/returning a question"
-msgstr ""
+msgstr "Что–то пошло не так во время отмечания вопроса как пропущенный"
 
 #: templates/locale_strings.js:34
 msgid ""
 "Something went wrong during requesting translation/canceling it for a "
 "question"
-msgstr ""
+msgstr "Что–то пошло не так во время отправки запроса на перевод"
 
 #: templates/locale_strings.js:35
 msgid "Cannot add association"
-msgstr ""
+msgstr "Невозможно добавить ассоциацию"
 
 #: templates/locale_strings.js:36
 msgid "Cannot load a question: "
-msgstr ""
+msgstr "Невозможно загрузить вопрос: "
+
+#: templates/locale_strings.js:37
+msgid "Wrong url. You can suggest questions only from Stack Overflow in English"
+msgstr "Неверный url. Возможно предлагать вопросы только со Stack Overflow на английском"
+
+#: templates/locale_strings.js:38
+msgid "Something went wrong during suggestion"
+msgstr "Что-то пошло не так во время отправки предложения"
 
 #: templates/no_way.html:2 templates/no_way.html:4
 msgid "No Way"
@@ -188,7 +200,7 @@ msgstr ""
 msgid "Try again"
 msgstr "Попробовать еще раз"
 
-#: templates/question.html:38
+#: templates/question.html:42
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
@@ -196,7 +208,7 @@ msgstr ""
 "Вы более не увидите этот вопрос в общем списке. Пропустите вопрос елси вы"
 " сделали все возможное, но не смогли найти ассоциацию."
 
-#: templates/question.html:46
+#: templates/question.html:50
 msgid ""
 "If you cannot find an association and think that the question must be in "
 "the knowledge base of your community add a translation request."
@@ -204,11 +216,11 @@ msgstr ""
 "Если вы не смогли найти ассоциацию и думаете, что вопрос обязан быть в "
 "базе знаний вашего сообщества, отправьте запрос на перевод."
 
-#: templates/question.html:53
+#: templates/question.html:57
 msgid "Query"
 msgstr "Запрос"
 
-#: templates/question.html:54
+#: templates/question.html:58
 msgid "Search"
 msgstr "Искать"
 
@@ -245,19 +257,22 @@ msgstr "Запросы на перевод"
 
 #: templates/question_pag_list.html:27
 msgid "Suggested"
-msgstr ""
+msgstr "Предложенные"
 
 #: templates/question_pag_list.html:33
 msgid "Suggest"
-msgstr ""
+msgstr "Предложить"
 
 #: templates/question_pag_list.html:34
 msgid ""
-"To suggest a question for assaciation paste url of the question bellow "
-"and click \"Suggest\". You can only suggest questions on the "
+"To suggest a question for assaciation paste url of the question above and"
+" click \"Suggest\". You can only suggest questions on the "
 "stackoverflow.com domain (it means questions from Stack Overflow in "
 "English only)."
 msgstr ""
+"Чтобы предложить вопрос для ассоциации встравьте адрес вопроса (url) в "
+"поле выше и нажмите на кнопку \"Предложить\". Возможно предлагать вопросы"
+"  только со Stack Overflow на английском."
 
 #: templates/topbar.html:14
 msgid "log out"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-26 11:35+0300\n"
+"POT-Creation-Date: 2017-02-26 12:22+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -59,7 +59,11 @@ msgstr ""
 msgid "The suggestion is already existed in the list"
 msgstr ""
 
-#: views.py:325
+#: views.py:329
+msgid "Suggestion was added but the association for it is already existed."
+msgstr ""
+
+#: views.py:336
 msgid "Suggestion was added"
 msgstr ""
 
@@ -167,6 +171,14 @@ msgstr ""
 msgid "Cannot load a question: "
 msgstr ""
 
+#: templates/locale_strings.js:37
+msgid "Wrong url. You can suggest questions only from Stack Overflow in English"
+msgstr ""
+
+#: templates/locale_strings.js:38
+msgid "Something went wrong during suggestion"
+msgstr ""
+
 #: templates/no_way.html:2 templates/no_way.html:4
 msgid "No Way"
 msgstr ""
@@ -179,23 +191,23 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: templates/question.html:38
+#: templates/question.html:42
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
 msgstr ""
 
-#: templates/question.html:46
+#: templates/question.html:50
 msgid ""
 "If you cannot find an association and think that the question must be in "
 "the knowledge base of your community add a translation request."
 msgstr ""
 
-#: templates/question.html:53
+#: templates/question.html:57
 msgid "Query"
 msgstr ""
 
-#: templates/question.html:54
+#: templates/question.html:58
 msgid "Search"
 msgstr ""
 
@@ -232,8 +244,8 @@ msgstr ""
 
 #: templates/question_pag_list.html:34
 msgid ""
-"To suggest a question for assaciation paste url of the question bellow "
-"and click \"Suggest\". You can only suggest questions on the "
+"To suggest a question for assaciation paste url of the question above and"
+" click \"Suggest\". You can only suggest questions on the "
 "stackoverflow.com domain (it means questions from Stack Overflow in "
 "English only)."
 msgstr ""
@@ -299,5 +311,14 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Questions"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "To suggest a question for assaciation"
+#~ " paste url of the question bellow "
+#~ "and click \"Suggest\". You can only "
+#~ "suggest questions on the stackoverflow.com "
+#~ "domain (it means questions from Stack"
+#~ " Overflow in English only)."
 #~ msgstr ""
 

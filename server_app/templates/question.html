@@ -1,4 +1,8 @@
 {% extends "base.html" %} {% block js_ext %}
+<script>
+    var googleCustomSearchKey = "{{ get_google_custom_search_key() }}";
+    var googleCustomSearchCX = "{{ get_google_custom_search_cx() }}";
+</script>
 <script type="text/javascript" src="/m/assets/google-code-prettify/prettify.js"></script>
 <script type="text/javascript" src="/m/js/google_custom_search.js"></script>
 <script type="text/javascript" async="" src="/m/js/question.js"></script>
