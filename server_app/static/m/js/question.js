@@ -218,6 +218,7 @@ function createCandidatesForAssociationList(items) {
             }
             thereAreResults(found);
             updatePrettify();
+            $(document).scrollTop(parseInt($(searchBoxTag).offset().top));
         },
         function() {
 
