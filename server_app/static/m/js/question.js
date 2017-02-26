@@ -218,7 +218,10 @@ function createCandidatesForAssociationList(items) {
             }
             thereAreResults(found);
             updatePrettify();
-            $(document).scrollTop(parseInt($(searchBoxTag).offset().top));
+
+            $('html, body').animate({
+                scrollTop: $(searchBoxTag).offset().top
+            }, 1000);
         },
         function() {
 
