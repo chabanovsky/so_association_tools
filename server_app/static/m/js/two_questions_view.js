@@ -38,13 +38,15 @@ function closePopup() {
 function addAssociation(soen_id, soint_id) {
     addAssUrl = addAssociationEndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
     loadHelper(addAssUrl, function(data) {
-        if (data.comment_id != undefined) {
-            alert(localeManager.associationWasAdded + data.comment_id)
+        if (data.status != undefined) {
+            alert(data.msg)
             closePopup();
             window.location = document.referrer;
             return;
         }
-    })
+    }, function(){
+        alert(localeManager.cannotAddAssociationStr);
+    });
 }
 
 function loadOverlayQuestion(questionId, site, rootTag) {
@@ -55,7 +57,7 @@ function loadOverlayQuestion(questionId, site, rootTag) {
         loadOverlayAnswers(question, site, rootTag);
     }, function() {
         closePopup();
-        console.log("Cannot load a question: " + questionId);
+        alert(localeManager.cannotLoadQuestionStr + questionId);
     })
 }
 

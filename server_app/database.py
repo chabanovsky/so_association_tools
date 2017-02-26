@@ -4,11 +4,13 @@ import re
 from datetime import datetime
 
 import logging
-from meta import db, db_session, engine
+from meta import db, db_session, engine, STACKOVERFLOW_HOSTNAME
 from models import QuestionViewHistory, Question, Association, User
 from utils import print_progress_bar
 from sqlalchemy.sql import func
-from sqlalchemy import and_
+from sqlalchemy import and_, not_, select, exists
+
+MINIMUM_VIEW_COUNT_TO_ADD = 30
 
 def init_db():
     # import all modules here that might define models so that
@@ -68,8 +70,12 @@ def upload_csv(data_path, debug_print, check_existence):
         
 def update_most_viewed():
     reader_session = db_session()
-    question_count = reader_session.query(func.count(QuestionViewHistory.id)).filter_by(counted=False).scalar()
-    query = reader_session.query(QuestionViewHistory.id, QuestionViewHistory.question_id, QuestionViewHistory.view_count).filter_by(counted=False)
+    question_count = reader_session.query(func.count(QuestionViewHistory.id)).\
+        filter(and_(QuestionViewHistory.counted==False, 
+            QuestionViewHistory.view_count>=MINIMUM_VIEW_COUNT_TO_ADD)).\
+        scalar()
+    query = reader_session.query(QuestionViewHistory.id, QuestionViewHistory.question_id, QuestionViewHistory.view_count).\
+        filter(and_(QuestionViewHistory.counted==False, QuestionViewHistory.view_count>=MINIMUM_VIEW_COUNT_TO_ADD))
     frame_size = 1000
     progress_index = 0
     counter = 0
@@ -106,30 +112,14 @@ def update_most_viewed():
 def sync_associations():
     session = db_session()
 
-    subquery = session.query(Association.soen_id).distinct()
-    query = session.query(Question).\
-        filter(Question.is_associated==False).\
-        filter(Question.question_id.in_(subquery))
+    update_query = Question.__table__.update().values(is_associated=True).\
+        where(and_(Question.is_associated==False, 
+            Question.question_id.in_(select([Association.soen_id]).\
+                distinct().\
+                as_scalar())))
 
-    frame_size = 1000
-    progress_index = 0
-    counter = 0
-    association_count = query.count()
-
-    print "Start syncing associations. Associations to sync: %s, frame size: %s" % (association_count, frame_size) 
-    
-    while counter <= association_count:
-        all_questions = query.offset(0).limit(frame_size).all()
-        counter = counter + frame_size
-        for question in all_questions:
-            question.is_associated = True
-            session.add(question)
-
-            print_progress_bar(progress_index, association_count, prefix = 'Progress:', suffix = 'Complete')
-            progress_index +=1
-
-        session.commit()
-
+    session.execute(update_query)
+    session.commit()
     session.close()   
 
     print "All associations were synced"
@@ -145,6 +135,11 @@ def update_associations(filename, debug_print):
                 soen_id = soen_id[0]
             else:
                 soen_id = -1
+
+            if STACKOVERFLOW_HOSTNAME not in text:
+                if debug_print:
+                    print "Association to another site: %s " % text
+                continue
 
             try:
                 comment_id = int(comment_id)

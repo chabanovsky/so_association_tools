@@ -29,5 +29,9 @@ var localeManager = {
     requestTranslationStr: {{ gettext('request translation')|generate_string|safe }},
     cancelTranslationRequestStr: {{ gettext('cancel request')|generate_string|safe }},
     emptyListStr: {{ gettext('There are no items here.')|generate_string|safe }},
-    processingSuggestionStr: {{ gettext('Processing the suggestion...')|generate_string|safe }}
+    processingSuggestionStr: {{ gettext('Processing the suggestion...')|generate_string|safe }},
+    cannotSkipStr: {{ gettext('Something went wrong during skipping/returning a question')|generate_string|safe }},
+    cannotRequestTranslationStr: {{ gettext('Something went wrong during requesting translation/canceling it for a question')|generate_string|safe }},
+    cannotAddAssociationStr: {{ gettext('Cannot add association')|generate_string|safe }},
+    cannotLoadQuestionStr: {{ gettext('Cannot load a question: ')|generate_string|safe }}
 }

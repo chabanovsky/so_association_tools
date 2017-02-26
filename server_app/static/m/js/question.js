@@ -55,7 +55,7 @@ function setupActions() {
                 $(skipActionTag).text(localeManager.addToTheListStr);
             }
         }, function(data) {
-            console.log("Something went wrong during skipping/returning a question");
+            alert(localeManager.cannotSkipStr);
         })
     });
     $(requestTranslationActionTag).click(function(event){
@@ -72,7 +72,7 @@ function setupActions() {
                 $(requestTranslationActionTag).text(localeManager.cancelTranslationRequestStr);
             }
         }, function(data) {
-            console.log("Something went wrong during requesting translation/canceling it for a question");
+            alert(localeManager.cannotRequestTranslationStr);
         })
     });
 }

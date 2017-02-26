@@ -126,12 +126,17 @@ def add_association():
         soen_id = int(request.args.get("soen_id"))
         soint_id = int(request.args.get("soint_id"))
     except:
-        abort(404)
+        return jsonify(**{
+            "status": False,
+            "msg": "Wrong params"
+        })  
     
     count = Association.query.filter_by(soen_id=soen_id).count()
     if count > 0:
-        # TODO add something better then 404
-        abort(404)
+        return jsonify(**{
+            "status": False,
+            "msg": "Wrong params"
+        })  
 
     url = STACKEXCHANGE_ADD_COMMENT_ENDPOINT.replace("{id}", str(soint_id))
     association_tag = gettext(u"association")
@@ -152,6 +157,8 @@ def add_association():
                 comment_id = item["comment_id"]
                 break
     resp = {
+        "status": True,
+        "msg": "Association was added",
         "comment_id": comment_id,
         "full_response": r.text
     }
