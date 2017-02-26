@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey, ColumnDefault
 
 from meta import app as application, db
 
@@ -40,19 +40,19 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer)
     view_count = db.Column(db.Integer)  
-    is_associated = db.Column(db.Boolean)
+    is_associated = db.Column(db.Boolean, default=False)
     question_type = db.Column(String(50)) 
     # Is used in case of question_type is "suggested"
     suggested_user_id = Column(Integer, ForeignKey('user.id'), nullable=True)
     # Allows to remove a question from the list manually
-    can_be_associated = db.Column(db.Boolean)
+    can_be_associated = db.Column(db.Boolean, default=True)
     # Currenly these are not in use.
     # It seems it could be a good idea
     # to add some kind of cache and search
     tags = db.Column(db.String(500))   
     # In order to track changes we need to know when we updated
     # a record last time.
-    last_update_date = db.Column(db.DateTime)
+    last_update_date = db.Column(db.DateTime, default=datetime.datetime.now)
 
 
     def __init__(self, question_type, question_id, view_count, suggested_user_id=None, is_associated=False):

@@ -101,6 +101,7 @@ def update_most_viewed():
         wiriter_session.close()
 
     print "All questions were counted"
+    sync_associations()
 
 def sync_associations():
     session = db_session()
