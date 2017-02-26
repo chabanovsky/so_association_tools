@@ -318,6 +318,17 @@ def suggest_question():
     
     pg_session.add(question)
     pg_session.commit()
+
+    association = pg_session.query(func.count(Association.id)).filter(Association.soen_id==question_id).scalar()
+    if association > 0:
+        question.is_associated = True
+        pg_session.commit()        
+        pg_session.close()
+        return jsonify(**{
+            "status": False,
+            "msg": gettext("Suggestion was added but the association for it is already existed.")
+        })  
+
     pg_session.close()
 
     return jsonify(**{

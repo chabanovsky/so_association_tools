@@ -18,7 +18,7 @@ def get_question_query(question_type):
         filter_by(question_type=question_type).\
         filter(and_(Question.is_associated==False, Question.can_be_associated==True)).\
         filter(~Question.id.in_(subquery)).\
-        order_by(desc('Views'))   
+        order_by(desc('Views')).distinct()   
 
 def get_most_viewed_question_pagination(page_num, per_page=DEFAULT_QUESTIONS_PER_PAGE):
     question_query = get_question_query(Question.question_type_most_viewed)
