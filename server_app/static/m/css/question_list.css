@@ -104,14 +104,6 @@
     margin-right: 2px;
 }
 
-.explanation {
-    background: #e9f7fd;
-    padding: 15px;
-    border: 2px solid #dde9ef;
-    margin: 0px 0 25px;
-    text-align: left;
-}
-
 #question_list .no-results {
     padding-top: 30px;
 }

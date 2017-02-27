@@ -91,10 +91,14 @@ def welcome():
 def question(question_id):
     if g.user is None:
         return redirect(url_for('welcome'))
-    q = Question.query.filter(and_(Question.is_associated==False, Question.question_id==question_id)).first()
-    
+    # Here there is an interesting question:
+    # There could be more then one question with an id
+    # sicne we allow users to suggest questions.
+    # Wich question should be show here?
+    q = Question.query.filter(and_(Question.question_id==question_id)).first()
     if q is None:
         abort(404)
+        
     skip = Action.query.filter(and_(Action.user_id==g.user.id, 
         Action.question_id==question_id, 
         Action.action_name==Action.action_skip_name, 
@@ -110,6 +114,7 @@ def question(question_id):
     return render_template('question.html', 
         question_id=q.question_id, 
         question_views=q.view_count, 
+        question=q,
         skip=skip,
         translate_request=translate_request,
         translate_request_count=translate_request_count)    

@@ -119,3 +119,8 @@ pre {
 .question-actions table {
     border-collapse: collapse;
 }
+
+.explanation {
+    float: left;
+    width: 668px;
+}

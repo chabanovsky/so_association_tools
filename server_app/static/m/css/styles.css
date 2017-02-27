@@ -123,6 +123,11 @@ body {
 
 .explanation {
     padding-bottom: 25px;
+    background: #e9f7fd;
+    padding: 15px;
+    border: 2px solid #dde9ef;
+    margin: 0px 0 25px;
+    text-align: left;
 }
 
 .post-menu {

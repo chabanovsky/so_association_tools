@@ -32,6 +32,7 @@
     <div id="question-taglist"></div>
     {% include 'post_menu.html' %}
 </div>
+{% if not question.is_associated %}
 <div class="question-actions">
     <table>
         <tr>
@@ -64,4 +65,9 @@
 </div>
 <div id="association-box"></div>
 </div>
+{% else %}
+<div class="explanation">
+    {{ gettext('This question already has been associated.') }}
+</div>
+{% endif %}
 {% endblock %}
