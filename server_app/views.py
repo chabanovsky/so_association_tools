@@ -156,6 +156,13 @@ def add_association():
             if item.get("comment_id", None) is not None:
                 comment_id = item["comment_id"]
                 break
+
+    if comment_id < 0:
+        return jsonify(**{
+            "status": False,
+            "msg": r.text
+        })  
+
     resp = {
         "status": True,
         "msg": gettext("Association was added"),
