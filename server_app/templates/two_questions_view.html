@@ -1,0 +1,22 @@
+<div id="two-question-popup" class="overlay" style="display: none">
+  <div class="overlay-content">
+      <div class="association-menu">
+            <a id="add-association" class="button">{{ gettext('Associate') }}</a>
+            <a id="close-popup" class="button">{{ gettext('Back') }}</a>
+      </div>
+      <table>
+        <tr>
+            <td class="left">
+                <div class="so-en-content">
+                    {% include 'two_questions_view_with_answers.html' %}
+                </div>
+            </td>
+            <td class="right">
+                <div class="so-int-content">
+                    {% include 'two_questions_view_with_answers.html' %}
+                </div>
+            </td>
+        </tr>
+      </table>
+  </div>
+</div>

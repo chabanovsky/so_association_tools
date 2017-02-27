@@ -1,0 +1,15 @@
+{% if paginator.total > paginator.per_page %}
+<div class="paginator">
+    {% for page in paginator.iter_pages() %} {% if page %}
+    <a href="{{ base_url }}?page={{ page}}">
+        {% if page != paginator.page %}
+        <span class="page-number">
+        {% else %}
+        <span class="page-number-selected">
+        {% endif %}    
+            {{ page }}
+        </span>
+    </a> {% else %}
+    <span class="page-number-separator">…</span> {% endif %} {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,358 @@
+# Japanese translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-02-27 11:58+0300\n"
+"PO-Revision-Date: 2017-02-17 11:01+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: views.py:24
+msgid ""
+"Your access token is not valid any more. To work with the app you need to"
+" log in again. Now you will be logged out."
+msgstr ""
+
+#: views.py:140 views.py:147 views.py:295
+msgid "Wrong params"
+msgstr ""
+
+#: views.py:151
+msgid "association"
+msgstr ""
+
+#: views.py:185
+msgid "Association was added"
+msgstr ""
+
+#: views.py:304
+#, python-format
+msgid "Question should be on hostname: %s"
+msgstr ""
+
+#: views.py:313
+#, python-format
+msgid "Cannot parse question_id. Path: %s, re: %s"
+msgstr ""
+
+#: views.py:319
+#, python-format
+msgid "Not valid question_id: %s"
+msgstr ""
+
+#: views.py:336
+#, python-format
+msgid "There are no items: %s"
+msgstr ""
+
+#: views.py:350
+#, python-format
+msgid "Question ids are different: %s != %s, text:  %s"
+msgstr ""
+
+#: views.py:358
+msgid "The suggestion is already existed in the list"
+msgstr ""
+
+#: views.py:373
+msgid "Suggestion was added but the association for it is already existed."
+msgstr ""
+
+#: views.py:380
+msgid "Suggestion was added"
+msgstr ""
+
+#: templates/base.html:6
+msgid "List of suggested questions for Stack Overflow in Russian"
+msgstr ""
+
+#: templates/base.html:51 templates/welcome.html:2
+msgid "Stack Overflow Association Tools"
+msgstr ""
+
+#: templates/locale_strings.js:4 templates/locale_strings.js:5
+#: templates/locale_strings.js:6
+msgid "answer"
+msgid_plural "answers"
+msgstr[0] ""
+
+#: templates/locale_strings.js:9 templates/locale_strings.js:10
+#: templates/locale_strings.js:11
+msgid "vote"
+msgid_plural "votes"
+msgstr[0] ""
+
+#: templates/locale_strings.js:14 templates/locale_strings.js:15
+#: templates/locale_strings.js:16
+msgid "view"
+msgid_plural "views"
+msgstr[0] ""
+
+#: templates/locale_strings.js:18
+msgid "asked "
+msgstr ""
+
+#: templates/locale_strings.js:19
+msgid "Google has not found anything by the query."
+msgstr ""
+
+#: templates/locale_strings.js:20
+msgid "Association has been added with id: "
+msgstr ""
+
+#: templates/locale_strings.js:21
+msgid "link"
+msgstr ""
+
+#: templates/locale_strings.js:22
+msgid "score"
+msgstr ""
+
+#: templates/locale_strings.js:23
+msgid "answered"
+msgstr ""
+
+#: templates/locale_strings.js:24
+msgid "Candidates for the association"
+msgstr ""
+
+#: templates/locale_strings.js:25
+msgid "Searching..."
+msgstr ""
+
+#: templates/locale_strings.js:26
+msgid "viewed"
+msgstr ""
+
+#: templates/locale_strings.js:27
+msgid "skip"
+msgstr ""
+
+#: templates/locale_strings.js:28
+msgid "add to the list"
+msgstr ""
+
+#: templates/locale_strings.js:29
+msgid "request translation"
+msgstr ""
+
+#: templates/locale_strings.js:30
+msgid "cancel request"
+msgstr ""
+
+#: templates/locale_strings.js:31
+msgid "There are no items here."
+msgstr ""
+
+#: templates/locale_strings.js:32
+msgid "Processing the suggestion..."
+msgstr ""
+
+#: templates/locale_strings.js:33
+msgid "Something went wrong during skipping/returning a question"
+msgstr ""
+
+#: templates/locale_strings.js:34
+msgid ""
+"Something went wrong during requesting translation/canceling it for a "
+"question"
+msgstr ""
+
+#: templates/locale_strings.js:35
+msgid "Cannot add association"
+msgstr ""
+
+#: templates/locale_strings.js:36
+msgid "Cannot load a question: "
+msgstr ""
+
+#: templates/locale_strings.js:37
+msgid "Wrong url. You can suggest questions only from Stack Overflow in English"
+msgstr ""
+
+#: templates/locale_strings.js:38
+msgid "Something went wrong during suggestion"
+msgstr ""
+
+#: templates/no_way.html:2 templates/no_way.html:4
+msgid "No Way"
+msgstr ""
+
+#: templates/no_way.html:6
+msgid "There is no way to use the app without OAuth authentication."
+msgstr ""
+
+#: templates/no_way.html:9
+msgid "Try again"
+msgstr ""
+
+#: templates/question.html:43
+msgid ""
+"You will not see this question again in the suggested list. Skip a "
+"question if you do your best but cannot find an association."
+msgstr ""
+
+#: templates/question.html:51
+msgid ""
+"If you cannot find an association and think that the question must be in "
+"the knowledge base of your community add a translation request."
+msgstr ""
+
+#: templates/question.html:58
+msgid "Query"
+msgstr ""
+
+#: templates/question.html:59
+msgid "Search"
+msgstr ""
+
+#: templates/question.html:70
+msgid "This question already has been associated."
+msgstr ""
+
+#: templates/question_pag_list.html:19
+msgid ""
+"The list bellow contains most viewed questions on Stack Overflow in "
+"English by a language audience. In order to add an association pick a "
+"question an click on it. In the open window you will see full question "
+"with a search box. Use the box to query the associations on an "
+"international site. Click on a candidate for association and you will see"
+" both the question on Stack Overflow in English and the candidate with "
+"their answers. If they are the same associate them!"
+msgstr ""
+
+#: templates/question_pag_list.html:21
+msgid ""
+"If users cannot find an association for a question they skip it. Skipping"
+" removes the question from a list. This section contains questions that "
+"were skipped by any users."
+msgstr ""
+
+#: templates/question_pag_list.html:23
+msgid ""
+"If users cannot find an association for a question and think that a "
+"question must be in the local knowledge base they send a translate "
+"request for the question. This section contains all those requests."
+msgstr ""
+
+#: templates/question_pag_list.html:25
+msgid ""
+"If users want to add to the list of questions for association another "
+"one, they submit it with the submission form below (please, use the form "
+"if you think that a question should be in the knowledge base of your "
+"comminity). This section contains all suggested questions."
+msgstr ""
+
+#: templates/question_pag_list.html:32
+msgid "Most Viewed"
+msgstr ""
+
+#: templates/question_pag_list.html:33
+msgid "Skipped"
+msgstr ""
+
+#: templates/question_pag_list.html:34
+msgid "Requested"
+msgstr ""
+
+#: templates/question_pag_list.html:35
+msgid "Suggested"
+msgstr ""
+
+#: templates/question_pag_list.html:41
+msgid "Suggest"
+msgstr ""
+
+#: templates/question_pag_list.html:42
+msgid ""
+"To suggest a question for assaciation paste url of the question above and"
+" click \"Suggest\". You can only suggest questions on the "
+"stackoverflow.com domain (it means questions from Stack Overflow in "
+"English only)."
+msgstr ""
+
+#: templates/topbar.html:14
+msgid "log out"
+msgstr ""
+
+#: templates/topbar.html:16
+msgid "mod"
+msgstr ""
+
+#: templates/topbar.html:18
+msgid "Help to make the app better. Contribute to the project on GitHub."
+msgstr ""
+
+#: templates/topbar.html:18
+msgid "GitHub"
+msgstr ""
+
+#: templates/two_questions_view.html:4
+msgid "Associate"
+msgstr ""
+
+#: templates/two_questions_view.html:5
+msgid "Back"
+msgstr ""
+
+#: templates/two_questions_view_with_answers.html:12
+msgid "Answers"
+msgstr ""
+
+#: templates/welcome.html:5
+msgid "Welcome!"
+msgstr ""
+
+#: templates/welcome.html:22
+msgid ""
+"Association Tools allows you to mark two questions as the same on two "
+"sites Stack Overflow in English and Stack Overflow in a language"
+msgstr ""
+
+#: templates/welcome.html:30
+msgid "Log in and start associating"
+msgstr ""
+
+#: templates/welcome.html:31
+msgid "In order to associate you must log in with Stack Exchange OAuth."
+msgstr ""
+
+#: templates/welcome.html:33
+msgid ""
+"This is an open source project. If you know how to improve the app, "
+"please, do that: "
+msgstr ""
+
+#: templates/welcome.html:42
+msgid "Help to build a bridge connecting knowledge bases and communities"
+msgstr ""
+
+#~ msgid " score"
+#~ msgstr ""
+
+#~ msgid " answered"
+#~ msgstr ""
+
+#~ msgid "Association Tools for Stack Overflow"
+#~ msgstr ""
+
+#~ msgid "Questions in English"
+#~ msgstr ""
+
+#~ msgid "Questions"
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+

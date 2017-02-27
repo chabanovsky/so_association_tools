@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+{% block title %}{{ gettext('Stack Overflow Association Tools') }}{% endblock %}
+{% block content %}
+<div class="welcome">
+<h2>{{ gettext('Welcome!') }}</h2>
+<a href="{{ url_for('start_oauth') }}">
+    <table>
+        <tr>
+            <td>
+                <img src="/m/img/so_logo_small.png">
+            </td>
+            <td>
+                <span class="sos-plus">+</span>
+            </td>
+            <td>
+                <img src="/m/img/so{{ language }}_logo_small.png">
+            </td>
+        </tr>
+    </table>
+</a>
+<p class="main-description">
+    {{ gettext('Association Tools allows you to mark two questions as the same on two sites Stack Overflow in English and Stack Overflow in a language') }}
+</p>    
+<p>
+    <div class="divider">
+        <div></div>
+    </div>
+</p>
+<p class="login-and-start">
+    <a href="{{ url_for('start_oauth') }}">{{ gettext('Log in and start associating') }}</a></br>
+    <span>{{ gettext('In order to associate you must log in with Stack Exchange OAuth.') }}</span>
+    <span>
+    {{ gettext("This is an open source project. If you know how to improve the app, please, do that: ") }} <a href="https://github.com/chabanovsky/so_association_tools">https://github.com/chabanovsky/so_association_tools</a>
+    </span>
+</p>    
+<p>
+    <div class="divider">
+        <div></div>
+    </div>   
+</p>
+<p class="why">
+    <div class="title">{{ gettext('Help to build a bridge connecting knowledge bases and communities') }}</div>
+</p>
+</div>
+{% endblock %}

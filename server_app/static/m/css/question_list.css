@@ -103,3 +103,7 @@
     font-size: 12px;
     margin-right: 2px;
 }
+
+#question_list .no-results {
+    padding-top: 30px;
+}

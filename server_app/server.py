@@ -1,23 +1,39 @@
-from flask import Flask, jsonify, render_template
+import sys
+import os
 
-from suggested_question import get_suggested_question_ids_with_views 
-
-app = Flask(__name__)
-
-@app.route("/")
-@app.route("/index.html")
-def index():
-    return render_template('question_list.html')
-
-@app.route("/questions/<question_id>")
-@app.route("/questions/<question_id>/")
-def question(question_id):
-    return render_template('question.html', question_id=question_id)    
-
-@app.route("/api/suggested_question_ids_with_views")
-def suggested_question_ids_with_views():
-    ids = get_suggested_question_ids_with_views()
-    return jsonify(**ids)    
+from meta import *
+from models import *
+from auth import *
+from views import *
+from oauth import *
+from filters import *
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        from database import init_db, upload_csv, upload_csv_from_file, update_most_viewed, update_associations
+        if str(sys.argv[1]) == "--init_db":
+            init_db()
+            quit()
+        elif str(sys.argv[1]) == "--upload_csv":
+            debug_print = int(os.environ.get("DEBUG_PRINT", "0")) == 1
+            check_existence = int(os.environ.get("CHECK_EXISTENCE", "1")) == 1
+            upload_csv("./csv_data_" + LANGUAGE + "/", 
+                debug_print,
+                check_existence)
+            quit()
+        elif "--upload_csv_from_file" in str(sys.argv[1]):
+            debug_print = int(os.environ.get("DEBUG_PRINT", "0")) == 1
+            check_existence = int(os.environ.get("CHECK_EXISTENCE", "1")) == 1
+            upload_csv_from_file("./csv_data_" + LANGUAGE + "/" + str(sys.argv[1]).split("=")[1], 
+                debug_print, 
+                check_existence)
+            quit()    
+        elif str(sys.argv[1]) == "--update_most_viewed":
+            update_most_viewed()
+            quit()
+        elif "--update_associations" in str(sys.argv[1]):
+            debug_print = int(os.environ.get("DEBUG_PRINT", "0")) == 1
+            update_associations("./csv_associations_" + LANGUAGE + "/" + str(sys.argv[1]).split("=")[1], debug_print)
+            quit()
+
     app.run()

@@ -6,7 +6,6 @@ var uploadingNow = false;
 var questionListRoot = "#question_list"
 
 var idsApiEndpoint = "/api/suggested_question_ids_with_views";
-var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site=stackoverflow"
 
 $(document).ready(function() {
     init(function() {
@@ -45,10 +44,6 @@ function uploadQuestionFeed() {
     });
 }
 
-function getAAPPlink(questionId) {
-    return "/questions/" + questionId;
-}
-
 function createQuestionsFeed(startIndex, endIndex, onEnded) {
     var ids = "";
     for (index = startIndex; index < endIndex && index < idsWithViews.length; index++) {
@@ -58,9 +53,9 @@ function createQuestionsFeed(startIndex, endIndex, onEnded) {
             ids += ";"
         }
     }
-    url = questionApiEndpoint.replace(/\{id\}/g, ids);
+    url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, false, false, "votes", "desc").replace(/\{id\}/g, ids);
     loadHelper(url, function(data) {
-        for (index = 0; index < data.items.length; index++) {
+        for (var index = 0; index < data.items.length; index++) {
             var item = data.items[index];
             var question = createQuestionFromResponse(item)
             $(question_list).append(question);
@@ -96,7 +91,7 @@ function createQuestionStatus(item) {
     $(votes_count).addClass("count");
     $(votes_count).append(item.score);
     var votes_count_word = document.createElement("div");
-    $(votes_count_word).append(plural(parseInt(item.score), score_strings));
+    $(votes_count_word).append(plural(parseInt(item.score), localeManager.scoreStrings));
 
     $(votes).append(votes_count);
     $(votes).append(votes_count_word);
@@ -110,7 +105,7 @@ function createQuestionStatus(item) {
     $(answer_count).append(item.answer_count);
     $(answer_count).addClass("count");
     var answer_count_word = document.createElement("div");
-    $(answer_count_word).append(plural(parseInt(item.answer_count), answer_strings));
+    $(answer_count_word).append(plural(parseInt(item.answer_count), localeManager.answerStrings));
 
     $(status).append(answer_count);
     $(status).append(answer_count_word);
@@ -123,7 +118,7 @@ function createQuestionStatus(item) {
     $(views_count).append(shortViewsCount + "K");
     $(views_count).addClass("count");
     var views_count_word = document.createElement("div");
-    $(views_count_word).append(plural(5, view_strings));
+    $(views_count_word).append(plural(5, localeManager.viewStrings));
 
     $(views).append(views_count);
     $(views).append(views_count_word);

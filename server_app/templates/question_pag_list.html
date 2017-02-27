@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block js_ext %}
+<script type="text/javascript" async="" src="/m/js/question_pag_list.js"></script>
+<script>
+    var initJson = []; 
+{% for item in paginator.items %}
+    initJson.push({
+        "questionId": {{ item.Question }},
+        "viewCount": {{ item.Views }}
+    }) 
+{% endfor %}
+
+</script>
+{% endblock %} {% block css_ext %}
+<link rel="stylesheet" href="/m/css/question_list.css" type="text/css" media="screen, projection"> {% endblock %} {% block content %}
+
+{% if paginator.page == 1 %}
+<div class="explanation">
+{% if "most_viewed" in active_tab %}
+    {{ gettext('The list bellow contains most viewed questions on Stack Overflow in English by a language audience. In order to add an association pick a question an click on it. In the open window you will see full question with a search box. Use the box to query the associations on an international site. Click on a candidate for association and you will see both the question on Stack Overflow in English and the candidate with their answers. If they are the same associate them!') }}
+{% elif "skipped" in active_tab %}
+    {{ gettext('If users cannot find an association for a question they skip it. Skipping removes the question from a list. This section contains questions that were skipped by any users.') }}
+{% elif "requested" in active_tab %}
+    {{ gettext('If users cannot find an association for a question and think that a question must be in the local knowledge base they send a translate request for the question. This section contains all those requests.') }}
+{% elif "suggested" in active_tab %}
+    {{ gettext('If users want to add to the list of questions for association another one, they submit it with the submission form below (please, use the form if you think that a question should be in the knowledge base of your comminity). This section contains all suggested questions.') }}
+{% endif %}    
+</div>
+{% endif %}
+
+<div class="main-menu">
+    <div id="tabs">
+        <a {% if "most_viewed" in active_tab  %}class="active"{% endif %} href="{{ url_for('index') }}">{{ gettext('Most Viewed') }}</a>
+        <a {% if "skipped" in active_tab  %}class="active"{% endif %} href="{{ url_for('skipped') }}">{{ gettext('Skipped') }}</a>
+        <a {% if "requested" in active_tab  %}class="active"{% endif %} href="{{ url_for('requested') }}">{{ gettext('Requested') }}</a>
+        <a {% if "suggested" in active_tab  %}class="active"{% endif %} href="{{ url_for('suggested') }}">{{ gettext('Suggested') }}</a>
+    </div>
+</div>
+{% if "suggested" in active_tab %}
+<div id="suggest-question-box">
+    <div class="suggest-question">
+        <input id="suggested-question"><a class="button" id="suggest-button">{{ gettext('Suggest') }}</a>
+        <div class="help">{{ gettext('To suggest a question for assaciation paste url of the question above and click "Suggest". You can only suggest questions on the stackoverflow.com domain (it means questions from Stack Overflow in English only).') }}</div>
+    </div>
+</div>
+{% endif %}
+<div id="question_list">
+</div>
+{% include 'paginator.html' %} {% endblock %}

@@ -3,17 +3,53 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>List of suggested questions for Stack Overflow in Russian</title>
+    <title>{% block title %}{{ gettext('List of suggested questions for Stack Overflow in Russian') }}{% endblock %}</title>
     <link rel="stylesheet" href="/m/css/styles.css" type="text/css" media="screen, projection">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+    {% include 'locale_strings.js' %}
+    var currentLanguage = "{{ current_language() }}";
+    </script>
     <script type="text/javascript" src="/m/js/scripts.js"></script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter43071039 = new Ya.Metrika({
+                        id:43071039,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true,
+                        webvisor:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/43071039" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
     {% block js_ext %} {% endblock %} {% block css_ext %} {% endblock %}
 </head>
 
 <body>
+    {% include 'topbar.html' %}
     {% block body %}
-    <div id="header">
-        {% block header %} {% endblock %}
+    <div id="header" class="header">
+        {% block header %}
+        <h2><a href="/">{{ gettext('Stack Overflow Association Tools') }}</a></h2>
+        {% endblock %}
     </div>
     <div id="content">
         {% block content %} {% endblock %}
