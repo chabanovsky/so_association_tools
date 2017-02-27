@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-27 11:15+0300\n"
+"POT-Creation-Date: 2017-02-27 11:58+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Вах ключ доступа устарел. Для продолжения работы необходимо войти в "
 "систему заново. Сейчас вы будете перенаправлены на страницу входа."
 
-#: views.py:140 views.py:147 views.py:288
+#: views.py:140 views.py:147 views.py:295
 msgid "Wrong params"
 msgstr "Неверные аргументы"
 
@@ -39,40 +39,40 @@ msgstr "ассоциация"
 msgid "Association was added"
 msgstr "Ассоциация добавлена"
 
-#: views.py:297
+#: views.py:304
 #, python-format
 msgid "Question should be on hostname: %s"
 msgstr "Вопрос должен быть на сайте: %s"
 
-#: views.py:306
+#: views.py:313
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
 msgstr "Невозможно обработать question_id. Path: %s, re: %s"
 
-#: views.py:312
+#: views.py:319
 #, python-format
 msgid "Not valid question_id: %s"
 msgstr "Неверный question_id: %s"
 
-#: views.py:329
+#: views.py:336
 #, python-format
 msgid "There are no items: %s"
 msgstr "Нет элементов: %s"
 
-#: views.py:343
+#: views.py:350
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
 msgstr "Идентификаторы различаются: %s != %s, текст: %s"
 
-#: views.py:351
+#: views.py:358
 msgid "The suggestion is already existed in the list"
 msgstr "Предлагаемый вопрос уже есть в списке"
 
-#: views.py:366
+#: views.py:373
 msgid "Suggestion was added but the association for it is already existed."
 msgstr "Предложение было добавлено, но ассоциация к нему уже существует."
 
-#: views.py:373
+#: views.py:380
 msgid "Suggestion was added"
 msgstr "Предложение было добавлено"
 

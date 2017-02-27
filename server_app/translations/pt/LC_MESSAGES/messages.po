@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-27 11:15+0300\n"
+"POT-Creation-Date: 2017-02-27 11:58+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -24,7 +24,7 @@ msgid ""
 " log in again. Now you will be logged out."
 msgstr ""
 
-#: views.py:140 views.py:147 views.py:288
+#: views.py:140 views.py:147 views.py:295
 msgid "Wrong params"
 msgstr ""
 
@@ -36,40 +36,40 @@ msgstr ""
 msgid "Association was added"
 msgstr ""
 
-#: views.py:297
+#: views.py:304
 #, python-format
 msgid "Question should be on hostname: %s"
 msgstr ""
 
-#: views.py:306
+#: views.py:313
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
 msgstr ""
 
-#: views.py:312
+#: views.py:319
 #, python-format
 msgid "Not valid question_id: %s"
 msgstr ""
 
-#: views.py:329
+#: views.py:336
 #, python-format
 msgid "There are no items: %s"
 msgstr ""
 
-#: views.py:343
+#: views.py:350
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
 msgstr ""
 
-#: views.py:351
+#: views.py:358
 msgid "The suggestion is already existed in the list"
 msgstr ""
 
-#: views.py:366
+#: views.py:373
 msgid "Suggestion was added but the association for it is already existed."
 msgstr ""
 
-#: views.py:373
+#: views.py:380
 msgid "Suggestion was added"
 msgstr ""
 
