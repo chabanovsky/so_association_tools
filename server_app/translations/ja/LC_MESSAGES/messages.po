@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-26 16:39+0300\n"
+"POT-Creation-Date: 2017-02-27 10:24+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -18,52 +18,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:131 views.py:138 views.py:251
+#: views.py:138 views.py:145 views.py:278
 msgid "Wrong params"
 msgstr ""
 
-#: views.py:142
+#: views.py:149
 msgid "association"
 msgstr ""
 
-#: views.py:161
+#: views.py:173
+msgid ""
+"Your access token is not valid any more. To work with the app you need to"
+" log in again. Now you will be logged out."
+msgstr ""
+
+#: views.py:183
 msgid "Association was added"
 msgstr ""
 
-#: views.py:260
+#: views.py:287
 #, python-format
 msgid "Question should be on hostname: %s"
 msgstr ""
 
-#: views.py:269
+#: views.py:296
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
 msgstr ""
 
-#: views.py:275
+#: views.py:302
 #, python-format
 msgid "Not valid question_id: %s"
 msgstr ""
 
-#: views.py:292
+#: views.py:319
 #, python-format
 msgid "There are no items: %s"
 msgstr ""
 
-#: views.py:306
+#: views.py:333
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
 msgstr ""
 
-#: views.py:314
+#: views.py:341
 msgid "The suggestion is already existed in the list"
 msgstr ""
 
-#: views.py:329
+#: views.py:356
 msgid "Suggestion was added but the association for it is already existed."
 msgstr ""
 
-#: views.py:336
+#: views.py:363
 msgid "Suggestion was added"
 msgstr ""
 
@@ -191,24 +197,28 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: templates/question.html:42
+#: templates/question.html:43
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
 msgstr ""
 
-#: templates/question.html:50
+#: templates/question.html:51
 msgid ""
 "If you cannot find an association and think that the question must be in "
 "the knowledge base of your community add a translation request."
 msgstr ""
 
-#: templates/question.html:57
+#: templates/question.html:58
 msgid "Query"
 msgstr ""
 
-#: templates/question.html:58
+#: templates/question.html:59
 msgid "Search"
+msgstr ""
+
+#: templates/question.html:70
+msgid "This question already has been associated."
 msgstr ""
 
 #: templates/question_pag_list.html:19
@@ -278,6 +288,14 @@ msgstr ""
 
 #: templates/topbar.html:16
 msgid "mod"
+msgstr ""
+
+#: templates/topbar.html:18
+msgid "Help to make the app better. Contribute to the project on GitHub."
+msgstr ""
+
+#: templates/topbar.html:18
+msgid "GitHub"
 msgstr ""
 
 #: templates/two_questions_view.html:4

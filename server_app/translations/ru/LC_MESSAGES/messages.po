@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-26 16:39+0300\n"
+"POT-Creation-Date: 2017-02-27 10:24+0300\n"
 "PO-Revision-Date: 2017-02-17 11:01+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,52 +19,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:131 views.py:138 views.py:251
+#: views.py:138 views.py:145 views.py:278
 msgid "Wrong params"
 msgstr "Неверные аргументы"
 
-#: views.py:142
+#: views.py:149
 msgid "association"
 msgstr "ассоциация"
 
-#: views.py:161
+#: views.py:173
+msgid ""
+"Your access token is not valid any more. To work with the app you need to"
+" log in again. Now you will be logged out."
+msgstr "Вах ключ доступа устарел. Для продолжения работы необходимо войти в систему заново. Сейчас вы будете перенаправлены на страницу входа."
+
+#: views.py:183
 msgid "Association was added"
 msgstr "Ассоциация добавлена"
 
-#: views.py:260
+#: views.py:287
 #, python-format
 msgid "Question should be on hostname: %s"
 msgstr "Вопрос должен быть на сайте: %s"
 
-#: views.py:269
+#: views.py:296
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
 msgstr "Невозможно обработать question_id. Path: %s, re: %s"
 
-#: views.py:275
+#: views.py:302
 #, python-format
 msgid "Not valid question_id: %s"
 msgstr "Неверный question_id: %s"
 
-#: views.py:292
+#: views.py:319
 #, python-format
 msgid "There are no items: %s"
 msgstr "Нет элементов: %s"
 
-#: views.py:306
+#: views.py:333
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
 msgstr "Идентификаторы различаются: %s != %s, текст: %s"
 
-#: views.py:314
+#: views.py:341
 msgid "The suggestion is already existed in the list"
 msgstr "Предлагаемый вопрос уже есть в списке"
 
-#: views.py:329
+#: views.py:356
 msgid "Suggestion was added but the association for it is already existed."
 msgstr "Предложение было добавлено, но ассоциация к нему уже существует."
 
-#: views.py:336
+#: views.py:363
 msgid "Suggestion was added"
 msgstr "Предложение было добавлено"
 
@@ -202,7 +208,7 @@ msgstr ""
 msgid "Try again"
 msgstr "Попробовать еще раз"
 
-#: templates/question.html:42
+#: templates/question.html:43
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
@@ -210,7 +216,7 @@ msgstr ""
 "Вы более не увидите этот вопрос в общем списке. Пропустите вопрос если вы"
 " сделали все возможное, но не смогли найти ассоциацию."
 
-#: templates/question.html:50
+#: templates/question.html:51
 msgid ""
 "If you cannot find an association and think that the question must be in "
 "the knowledge base of your community add a translation request."
@@ -218,13 +224,17 @@ msgstr ""
 "Если вы не смогли найти ассоциацию и думаете, что вопрос обязан быть в "
 "базе знаний вашего сообщества, отправьте запрос на перевод."
 
-#: templates/question.html:57
+#: templates/question.html:58
 msgid "Query"
 msgstr "Запрос"
 
-#: templates/question.html:58
+#: templates/question.html:59
 msgid "Search"
 msgstr "Искать"
+
+#: templates/question.html:70
+msgid "This question already has been associated."
+msgstr "Вопрос уже имеет ассоциацию."
 
 #: templates/question_pag_list.html:19
 msgid ""
@@ -250,14 +260,22 @@ msgid ""
 "If users cannot find an association for a question they skip it. Skipping"
 " removes the question from a list. This section contains questions that "
 "were skipped by any users."
-msgstr "Если участники не могут найти ассоциацию для вопроса, они пропускают его. Пропущенные вопросы удаляются из списка вопросов участника, пропустившего вопрос. Данный раздел содержит список всех пропущенных вопросов."
+msgstr ""
+"Если участники не могут найти ассоциацию для вопроса, они пропускают его."
+" Пропущенные вопросы удаляются из списка вопросов участника, "
+"пропустившего вопрос. Данный раздел содержит список всех пропущенных "
+"вопросов."
 
 #: templates/question_pag_list.html:23
 msgid ""
 "If users cannot find an association for a question and think that a "
 "question must be in the local knowledge base they send a translate "
 "request for the question. This section contains all those requests."
-msgstr "Если участники не могут найти ассоциацию для вопроса и считают, что вопрос обязан быть в базе знаний сообщества, они отправляют запрос на перевод. Данный раздел содержит все вопросы, отмеченные как требующие перевода."
+msgstr ""
+"Если участники не могут найти ассоциацию для вопроса и считают, что "
+"вопрос обязан быть в базе знаний сообщества, они отправляют запрос на "
+"перевод. Данный раздел содержит все вопросы, отмеченные как требующие "
+"перевода."
 
 #: templates/question_pag_list.html:25
 msgid ""
@@ -265,7 +283,11 @@ msgid ""
 "one, they submit it with the submission form below (please, use the form "
 "if you think that a question should be in the knowledge base of your "
 "comminity). This section contains all suggested questions."
-msgstr "Если участники хотят добавить вопрос в список предлагаемых для ассоциации, они используют форму отправки запроса представленную ниже. Используйте ее, если знаете хороший вопрос для ассоциации. Данный раздел содержит список всех предложенных участниками вопросов."
+msgstr ""
+"Если участники хотят добавить вопрос в список предлагаемых для "
+"ассоциации, они используют форму отправки запроса представленную ниже. "
+"Используйте ее, если знаете хороший вопрос для ассоциации. Данный раздел "
+"содержит список всех предложенных участниками вопросов."
 
 #: templates/question_pag_list.html:32
 msgid "Most Viewed"
@@ -295,8 +317,8 @@ msgid ""
 "English only)."
 msgstr ""
 "Чтобы предложить вопрос для ассоциации встравьте адрес вопроса (url) в "
-"поле выше и нажмите на кнопку \"Предложить\". Можно предлагать вопросы"
-" только со Stack Overflow на английском."
+"поле выше и нажмите на кнопку \"Предложить\". Можно предлагать вопросы "
+"только со Stack Overflow на английском."
 
 #: templates/topbar.html:14
 msgid "log out"
@@ -305,6 +327,14 @@ msgstr "выйти"
 #: templates/topbar.html:16
 msgid "mod"
 msgstr "мод"
+
+#: templates/topbar.html:18
+msgid "Help to make the app better. Contribute to the project on GitHub."
+msgstr ""
+
+#: templates/topbar.html:18
+msgid "GitHub"
+msgstr ""
 
 #: templates/two_questions_view.html:4
 msgid "Associate"
