@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-27 10:24+0300\n"
+"POT-Creation-Date: 2017-02-27 11:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,58 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: views.py:138 views.py:145 views.py:278
-msgid "Wrong params"
-msgstr ""
-
-#: views.py:149
-msgid "association"
-msgstr ""
-
-#: views.py:173
+#: views.py:24
 msgid ""
 "Your access token is not valid any more. To work with the app you need to"
 " log in again. Now you will be logged out."
 msgstr ""
 
-#: views.py:183
+#: views.py:140 views.py:147 views.py:288
+msgid "Wrong params"
+msgstr ""
+
+#: views.py:151
+msgid "association"
+msgstr ""
+
+#: views.py:185
 msgid "Association was added"
 msgstr ""
 
-#: views.py:287
+#: views.py:297
 #, python-format
 msgid "Question should be on hostname: %s"
 msgstr ""
 
-#: views.py:296
+#: views.py:306
 #, python-format
 msgid "Cannot parse question_id. Path: %s, re: %s"
 msgstr ""
 
-#: views.py:302
+#: views.py:312
 #, python-format
 msgid "Not valid question_id: %s"
 msgstr ""
 
-#: views.py:319
+#: views.py:329
 #, python-format
 msgid "There are no items: %s"
 msgstr ""
 
-#: views.py:333
+#: views.py:343
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
 msgstr ""
 
-#: views.py:341
+#: views.py:351
 msgid "The suggestion is already existed in the list"
 msgstr ""
 
-#: views.py:356
+#: views.py:366
 msgid "Suggestion was added but the association for it is already existed."
 msgstr ""
 
-#: views.py:363
+#: views.py:373
 msgid "Suggestion was added"
 msgstr ""
 
