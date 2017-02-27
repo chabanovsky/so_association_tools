@@ -20,7 +20,9 @@ STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{i
 STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/";
 STACKEXCHANGE_QUESTION_API_ENDPOINT = "https://api.stackexchange.com/2.2/questions/{id}/";
 
-LOGOUT_CASE = [401, 402, 403, 405, 406]
+LOGOUT_CASES = [401, 402, 403, 405, 406]
+LOGOUT_MSG = gettext('Your access token is not valid any more. To work with the app you need to log in again. Now you will be logged out.')
+
 
 @application.before_request
 def before_request():
@@ -98,7 +100,7 @@ def question(question_id):
     q = Question.query.filter(and_(Question.question_id==question_id)).first()
     if q is None:
         abort(404)
-        
+
     skip = Action.query.filter(and_(Action.user_id==g.user.id, 
         Action.question_id==question_id, 
         Action.action_name==Action.action_skip_name, 
@@ -168,9 +170,9 @@ def add_association():
         redirect_flag = False
         msg = r.text
         error_id = int(data.get("error_id", 0))
-        if error_id in LOGOUT_CASE:
+        if error_id in LOGOUT_CASES:
             redirect_flag = True
-            msg = gettext('Your access token is not valid any more. To work with the app you need to log in again. Now you will be logged out.')
+            msg = LOGOUT_MSG
         return jsonify(**{
             "status": False,
             "msg": msg,
@@ -225,7 +227,15 @@ def get_answers():
     except:
         return jsonify(**{
             "error": r.text
-        })        
+        }) 
+    error_id = int(data.get("error_id", 0))
+    if error_id in LOGOUT_CASES:
+        return jsonify(**{
+            "msg": LOGOUT_MSG,
+            "logout": True,
+            "logout_url": url_for("logout_oauth")
+        })  
+                
     return jsonify(**data)    
 
 
