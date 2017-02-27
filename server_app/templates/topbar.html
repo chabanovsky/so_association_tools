@@ -15,6 +15,7 @@
         {% if g.user.role == "moderator" %}
         <a class="topbar-icon" href="#"><span>{{ gettext('mod') }}</span></a>
         {% endif %}
+        <a target="_blank" title="{{ gettext('Help to make the app better. Contribute to the project on GitHub.') }}" href="https://github.com/chabanovsky/so_association_tools">{{ gettext('GitHub') }}</a>
     </div>
 </div>
 {% endif %}
