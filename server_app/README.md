@@ -9,10 +9,10 @@ We started developing a samll server application (in code aappp, wich means "Ass
 4. You need apache web server, mod_wsgi, postgres 9+ installed.
 5. Install Flask and Flask's modules
 
-    pip install Flask
-    pip install Flask-Babel
-    pip install Flask-SQLAlchemy
-    pip install Flask-OpenID
+    pip install Flask    
+    pip install Flask-Babel    
+    pip install Flask-SQLAlchemy   
+    pip install Flask-OpenID   
 
 6. Login to postgres.
 
@@ -20,24 +20,24 @@ We started developing a samll server application (in code aappp, wich means "Ass
 
 7. Create a user and a database.
 
-    CREATE USER your user;
-    CREATE DATABASE association_tools_ru;
-    GRANT ALL PRIVILEGES ON DATABASE association_tools_ru TO your_user;
+    CREATE USER your user;   
+    CREATE DATABASE association_tools_ru;   
+    GRANT ALL PRIVILEGES ON DATABASE association_tools_ru TO your_user;   
 
-<sub>*</sub> If you cannot log in as a postgres [see this](http://stackoverflow.com/questions/15791406/).
-<sub>**</sub> If there are issues with auth [see this](http://stackoverflow.com/a/30052923/564240).
+  <sup>*</sup> If you cannot log in as a postgres [see this](http://stackoverflow.com/questions/15791406/).
+  <sup>**</sup> If there are issues with auth [see this](http://stackoverflow.com/a/30052923/564240).
 
 8. Create a local_settings.py file in the server_app folder with following variables
 
-    STACKEXCHANGE_CLIENT_SECRET = "secret"
-    STACKEXCHANGE_CLIENT_KEY = "key"
-    STACKEXCHANGE_CLIENT_ID = id
+    STACKEXCHANGE_CLIENT_SECRET = "secret"   
+    STACKEXCHANGE_CLIENT_KEY = "key"   
+    STACKEXCHANGE_CLIENT_ID = id   
 
-    FLASK_SECRET_KEY = 'key'
-    PG_NAME_PASSWORD = "name:pass"
+    FLASK_SECRET_KEY = 'key'   
+    PG_NAME_PASSWORD = "name:pass"   
 
  
-9. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --init_db`.
+9. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --init_db`.  
 10. Execute `LOCALE_LANGUAGE_NAME=ru python server.py --upload_csv`. For the first run you may want to add `CHECK_EXISTENCE=0`.
 11. Ececute `LOCALE_LANGUAGE_NAME=ru python ./server.py --update_most_viewed`.
 12. Ececute `LOCALE_LANGUAGE_NAME=ru  python ./server.py --update_associations=associations.csv`.
