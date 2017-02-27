@@ -85,6 +85,11 @@ function loadOverlayAnswers(question, site, rootTag) {
     }
     url = "/api/get-answers/?ids=" + ids + "&site=" + site;
     loadHelper(url, function(data) {
+        if (data.logout != undefined && data.logout) {
+            alert(data.msg)
+            window.location.href = data.logout_url
+            return;
+        }
         answers = data.items;
         updateOverlayAnswers(answers, rootTag);
     }, function() {
