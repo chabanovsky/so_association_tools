@@ -227,8 +227,15 @@ def get_answers():
     except:
         return jsonify(**{
             "error": r.text
-        }) 
-    error_id = int(data.get("error_id", 0))
+        })
+    error_id = -1    
+    try: 
+        error_id = int(data.get("error_id", 0))
+    except:
+        return jsonify(**{
+            "error": r.text,
+        })  
+
     if error_id in LOGOUT_CASES:
         return jsonify(**{
             "msg": LOGOUT_MSG,

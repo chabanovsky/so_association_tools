@@ -4,6 +4,7 @@ var soEnContentTag = popupContentTag + " .so-en-content";
 var soIntContentTag = popupContentTag + " .so-int-content";
 var addAssociationTag = "#add-association";
 var closePopupMenuTag = "#close-popup";
+var waitingForRedirect = false;
 
 function show(soen_id, soint_id) {
     console.log("SOen: " + soen_id + ", SOint: " + soint_id);
@@ -86,8 +87,11 @@ function loadOverlayAnswers(question, site, rootTag) {
     url = "/api/get-answers/?ids=" + ids + "&site=" + site;
     loadHelper(url, function(data) {
         if (data.logout != undefined && data.logout) {
-            alert(data.msg)
+            if (!waitingForRedirect) {
+                alert(data.msg)
+            }
             window.location.href = data.logout_url
+            waitingForRedirect = true;
             return;
         }
         answers = data.items;
