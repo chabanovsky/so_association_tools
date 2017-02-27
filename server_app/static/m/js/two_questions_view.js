@@ -39,10 +39,18 @@ function addAssociation(soen_id, soint_id) {
     addAssUrl = addAssociationEndpoint + "?soen_id=" + soen_id + "&soint_id=" + soint_id
     loadHelper(addAssUrl, function(data) {
         if (data.status != undefined) {
-            alert(data.msg)
-            closePopup();
-            window.location = document.referrer;
-            return;
+            if (data.status) {
+                alert(data.msg)
+                closePopup();
+                window.location.href = document.referrer;
+                return;
+            } else {
+                if (data.logout != undefined && data.logout) {
+                    alert(data.msg)
+                    window.location.href = data.logout_url
+                    return;
+                }
+            }
         }
     }, function(){
         alert(localeManager.cannotAddAssociationStr);

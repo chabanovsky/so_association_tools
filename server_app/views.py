@@ -20,6 +20,8 @@ STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{i
 STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/";
 STACKEXCHANGE_QUESTION_API_ENDPOINT = "https://api.stackexchange.com/2.2/questions/{id}/";
 
+LOGOUT_CASE = [401, 402, 403, 405, 406]
+
 @application.before_request
 def before_request():
     g.user = None
@@ -158,9 +160,17 @@ def add_association():
                 break
 
     if comment_id < 0:
+        redirect_flag = False
+        msg = r.text
+        error_id = int(data.get("error_id", 0))
+        if error_id in LOGOUT_CASE:
+            redirect_flag = True
+            msg = gettext('Your access token is not valid any more. To work with the app you need to log in again. Now you will be logged out.')
         return jsonify(**{
             "status": False,
-            "msg": r.text
+            "msg": msg,
+            "logout": redirect_flag,
+            "logout_url": url_for("logout_oauth")
         })  
 
     resp = {
