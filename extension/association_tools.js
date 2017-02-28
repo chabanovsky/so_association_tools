@@ -1,14 +1,35 @@
 var associationTag = "ассоциация:";
 var AssociationTag = "Ассоциация:";
-var targetPage = "/questions/";
-var targetPageException = "/questions/ask";
 var associationHelpText = "Вопрос был ассоциирован участником";
 var associateHelpText = "ассоциировать";
 var addAssociationHelpText = "Ассоциировать";
-var questionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}?order=desc&sort=votes&site={sitename}"
-var commetsToQuestionApiEndpoint = "https://api.stackexchange.com/2.2/questions/{id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(";
-var querySESiteInfo = "https://api.stackexchange.com/2.2/info?site={sitename}&filter=!2--kZCrbrZAvwtX1SWlK)";
 
+var targetPage = "/questions/";
+var targetPageException = "/questions/ask";
+
+var stringTemplates = {
+    questionApiEndpoint(id, sitename) { return `https://api.stackexchange.com/2.2/questions/${id}?order=desc&sort=votes&site=${sitename}`; },
+    commetsToQuestionApiEndpoint(id) { return `https://api.stackexchange.com/2.2/questions/${id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(`; },
+    querySESiteInfo(sitename) { return `https://api.stackexchange.com/2.2/info?site=${sitename}&filter=!2--kZCrbrZAvwtX1SWlK)` },
+    associationBoxTemplate(owner, linkToSOen, enQuestionTitle, absTime, SE_SiteName) {
+        return `
+            <tr class="association-root">
+                <td class="special-status" colspan="2">
+                    <div class="question-status">
+                        <h2>
+                            ${associationHelpText}
+                            <a class="association-author" href="${owner.link}">${owner.display_name}</a> <span title="${absTime}" class="relativetime-clean"></span>
+                        </h2>
+                        <p>
+                            <b>${SE_SiteName}</b>: 
+                            <a class="association-link" href="${linkToSOen}">${enQuestionTitle}</a>
+                            <a class="association-as-comment comment-delete delete-tag" style="visibility: visible;" href="#"></a>
+                        </p>
+                    </div>
+                </td>
+            </tr>`;
+    }
+};
 
 checkPage(document.baseURI)
     .then(loadCommentsFromLocalizedStackOverflow)
@@ -16,8 +37,7 @@ checkPage(document.baseURI)
     .then(findTargetComment)
     .then(findLinkToSE)
     .then(getSEQuestionId)
-    .then(({ comment, linkToSE, SE_QuestionId, absTime, SE_Site }) => loadQuestionFromStackExchange(SE_QuestionId, SE_Site).then(data => ({ comment, linkToSE, SE_Question: data.items[0], absTime, SE_Site })))
-    .then(({ comment, linkToSE, SE_Question,   absTime, SE_Site }) => getSESiteName( SE_Site ).then( data => ({ comment, linkToSE, SE_Question, absTime, SE_SiteName:data.items[0].site.name }) ) )
+    .then(processSEQuestion)
     .then(createAssociationBox)
     .catch(handleWrongPage)
     .then(processAddingAssociationLink);
@@ -31,25 +51,25 @@ function checkPage(uri) {
         }
     });
 }
+
 function handleWrongPage(rejectReason) {
     if (rejectReason == 'wrong page') return Promise.reject();
-    console.error(rejectReason);
+    console.info(rejectReason);
 }
 function checkCommentsLoaded(data) {
     return (data == undefined || data.items.length == 0)
-        ? Promise.reject()
+        ? Promise.reject('comments not loaded')
         : data.items;
 }
 function findTargetComment(comments) {
-    return comments.find(comment => comment.body.toLowerCase().includes(associationTag)) || Promise.reject();
+    return comments.find(comment => comment.body.toLowerCase().includes(associationTag)) || Promise.reject('association comment not exists');
 }
 function findLinkToSE(comment) {
     var tmpCommnetHtml = parseTemplate(`<div>${comment.body}</div>`);
 
     var linkToSE = tmpCommnetHtml.querySelector("a").href;
     if (linkToSE.length == 0) {
-        console.error("Unexpected comment structure");
-        return Promise.reject();
+        return Promise.reject("Unexpected comment structure");
     }
     return { comment, linkToSE }
 }
@@ -64,21 +84,29 @@ function processAddingAssociationLink() {
     });
 }
 
-function getSEQuestionId( {comment, linkToSE} ) {
-	var SE_Site = /:\/\/([^\/]+)\.com\//.exec( linkToSE )[1];
-	console.log ( SE_Site );
+function getSEQuestionId({comment, linkToSE}) {
+    var SE_Site = /:\/\/([^\/]+)\.com\//.exec(linkToSE)[1];
+    console.log(SE_Site);
     var absTime = (new Date(comment.creation_date * 1000)).toISOString().replace("T", " ").replace(".000", "");
-    var SE_QuestionId = questionId( linkToSE );
+    var SE_QuestionId = questionId(linkToSE);
     return { comment, linkToSE, SE_QuestionId, absTime, SE_Site };
 }
 
+function processSEQuestion({ comment, linkToSE, SE_QuestionId, absTime, SE_Site }) {
+    return Promise.all([
+        loadQuestionFromStackExchange(SE_QuestionId, SE_Site),
+        getSESiteName(SE_Site)
+    ])
+        .then(([{items: [SE_Question]}, {items: [{site: {name: SE_SiteName}}]}]) => ({ comment, linkToSE, SE_Question, absTime, SE_SiteName }));
+}
+
 function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_SiteName}) {
-    var template = associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, SE_SiteName );
+    var template = stringTemplates.associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, SE_SiteName);
     var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
     if (assocComment)
         assocComment.style.display = "none";
 
-    document.querySelector(".question > table > tbody > tr:first-child").insertAdjacentHTML('afterend',template);
+    document.querySelector(".question > table > tbody > tr:first-child").insertAdjacentHTML('afterend', template);
     document.querySelector(".association-as-comment").addEventListener('click', function (e) {
         var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
         if (assocComment)
@@ -98,15 +126,14 @@ function getJson(url) {
         .then((response) => response.json())
         .catch((...args) => console.log('error request', ...args));
 }
-function loadQuestionFromStackExchange( id, SE_Site ) {
-    console.info( 'load ' + SE_Site + ' question' );
-    var url = questionApiEndpoint.replace( /\{id\}/g, id)
-                                 .replace( /\{sitename\}/g, SE_Site );
+function loadQuestionFromStackExchange(id, SE_Site) {
+    console.info('load ' + SE_Site + ' question');
+    var url = stringTemplates.questionApiEndpoint(id, SE_Site);
     return getJson(url);
 }
 function loadCommentsFromLocalizedStackOverflow(id) {
     console.info('load comments');
-    var url = commetsToQuestionApiEndpoint.replace(/\{id\}/g, id);
+    var url = stringTemplates.commetsToQuestionApiEndpoint(id);
     return getJson(url);
 }
 function stripHtml(html) {
@@ -115,28 +142,10 @@ function stripHtml(html) {
     return div.textContent || div.innerText || "";
 }
 
-function getSESiteName( SE_Site ) {
-	return getJson( querySESiteInfo.replace( /\{sitename\}/g, SE_Site ) );
- }
-
-function associationBoxTemplate(owner, linkToSOen, enQuestionTitle, absTime, SE_SiteName) {
-    return `
-    <tr class="association-root">
-        <td class="special-status" colspan="2">
-            <div class="question-status">
-                <h2>
-                    ${associationHelpText}
-                    <a class="association-author" href="${owner.link}">${owner.display_name}</a> <span title="${absTime}" class="relativetime-clean"></span>
-                </h2>
-                <p>
-                    <b>${SE_SiteName}</b>: 
-                    <a class="association-link" href="${linkToSOen}">${enQuestionTitle}</a>
-                    <a class="association-as-comment comment-delete delete-tag" style="visibility: visible;" href="#"></a>
-                </p>
-            </div>
-        </td>
-    </tr>`
+function getSESiteName(SE_Site) {
+    return getJson(stringTemplates.querySESiteInfo(SE_Site));
 }
+
 function parseTemplate(template) {
     var parser = new DOMParser();
     return parser.parseFromString(template, 'text/html').body.firstElementChild;
