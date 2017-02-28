@@ -190,11 +190,18 @@ def update_associations(filename, debug_print):
             else:
                 if debug_print:
                     print "Association has already existed: %s" % str(association.id)
-
-            association_list.append({
-                "soen": soen_id,
-                "soint": soint_id
-            })
+            
+            existed = False
+            for item in association_list:
+                if item["soen"] == soen_id or item["soint"] == soint_id:
+                    existed = True
+                    break
+                    
+            if not existed:
+                association_list.append({
+                    "soen": soen_id,
+                    "soint": soint_id
+                })
 
     
     session.close()
