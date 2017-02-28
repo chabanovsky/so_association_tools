@@ -202,7 +202,6 @@ def update_associations(filename, debug_print):
                     "soen": soen_id,
                     "soint": soint_id
                 })
-
     
     session.close()
     sync_associations()
