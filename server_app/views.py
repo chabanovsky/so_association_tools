@@ -379,4 +379,20 @@ def suggest_question():
         "status": True,
         "msg": gettext("Suggestion was added")
     })  
-    
+
+@application.route("/api/leaderboard")
+@application.route("/api/leaderboard/")
+def api_leaderboard():    
+    pg_session = db_session()
+    query = pg_session.query(User.user_id.label('UserId'), func.count(Association.soen_id).label('AssociationCount')).filter(User.id==Association.user_id).filter(User.user_id!=6).group_by('UserId').order_by(desc('AssociationCount')).distinct()
+    users = query.all()
+
+    resp = list()
+    for user in users:
+        resp.append({
+            "id": user.UserId,
+            "count": user.AssociationCount
+        })
+    return jsonify(**{
+        "items": resp
+    })
