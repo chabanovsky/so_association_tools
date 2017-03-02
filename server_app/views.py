@@ -384,7 +384,7 @@ def suggest_question():
 @application.route("/api/leaderboard/")
 def api_leaderboard():    
     pg_session = db_session()
-    query = pg_session.query(User.user_id.label('UserId'), func.count(Association.soen_id).label('AssociationCount')).filter(User.id==Association.user_id).filter(User.user_id!=6).group_by('UserId').order_by(desc('AssociationCount')).distinct()
+    query = pg_session.query(User.user_id.label('UserId'), func.count(Association.soen_id).label('AssociationCount')).filter(User.id==Association.user_id).group_by('UserId').order_by(desc('AssociationCount')).distinct()
     users = query.all()
 
     resp = list()
