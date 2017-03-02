@@ -25,6 +25,6 @@ def print_progress_bar (iteration, total, prefix = '', suffix = '', decimals = 1
 def print_association_setting(association_list):
     for item in association_list:
         s = str(item["soen"]) + "=" + str(item["soint"])
-        print (s, end=';')
+        print (s, end=',')
     
     print ()
