@@ -393,6 +393,31 @@ def api_leaderboard():
             "id": user.UserId,
             "count": user.AssociationCount
         })
+
+    pg_session.close()
+
     return jsonify(**{
         "items": resp
     })
+
+@application.route("/setting-string", endpoint="setting_string")
+@application.route("/setting-string/", endpoint="setting_string")
+def setting_string():    
+    pg_session = db_session()
+    query = pg_session.query(Association.soen_id, Association.soint_id).distinct()
+    pairs = query.all()
+    count = query.count() - 1
+
+    resp = ""
+    index = 0
+    delimiter = ","
+    for pair in pairs:
+        soen, soint = pair
+        resp = resp + str(soen) + "=" + str(soint)
+        if index < count:
+            resp = resp + delimiter
+        index +=1
+
+    pg_session.close()    
+    
+    return resp
