@@ -408,14 +408,30 @@ def setting_string():
     pairs = query.all()
     count = query.count() - 1
 
+    
+    association_list = list()
     resp = ""
     index = 0
     delimiter = ","
     for pair in pairs:
         soen, soint = pair
-        resp = resp + str(soen) + "=" + str(soint)
-        if index < count:
-            resp = resp + delimiter
+        existed = False
+
+        for item in association_list:
+            if item["soen"] == soen or item["soint"] == soint:
+                existed = True
+                break
+
+        if not existed:
+            resp = resp + str(soen) + "=" + str(soint)
+            if index < count:
+                resp = resp + delimiter
+            
+            association_list.append({
+                "soen": soen,
+                "soint": soint
+            })
+
         index +=1
 
     pg_session.close()    
