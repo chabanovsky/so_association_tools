@@ -6,7 +6,7 @@ import urllib
 import re
 from urlparse import urlparse
 
-from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort
+from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session, abort, make_response
 from flask.ext.babel import gettext, ngettext
 from sqlalchemy import and_, desc
 from sqlalchemy.sql import func
@@ -385,7 +385,7 @@ def suggest_question():
 def api_leaderboard():    
     pg_session = db_session()
     query = pg_session.query(User.user_id.label('UserId'), func.count(Association.soen_id).label('AssociationCount')).filter(User.id==Association.user_id).group_by('UserId').order_by(desc('AssociationCount')).distinct()
-    users = query.all()
+    users = query.all()   
 
     resp = list()
     for user in users:
@@ -395,10 +395,15 @@ def api_leaderboard():
         })
 
     pg_session.close()
-
-    return jsonify(**{
+    
+    response = make_response(jsonify(**{
         "items": resp
-    })
+    }))
+
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS' 
+
+    return response
 
 @application.route("/setting-string", endpoint="setting_string")
 @application.route("/setting-string/", endpoint="setting_string")
