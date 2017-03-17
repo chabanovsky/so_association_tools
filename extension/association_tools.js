@@ -3,12 +3,14 @@ var AssociationTag = "Ассоциация:";
 var associationHelpText = "Вопрос был ассоциирован участником";
 var associateHelpText = "ассоциировать";
 var addAssociationHelpText = "Ассоциировать";
+var Site = document.baseURI.split('/')[2];
 
 var targetPage = "/questions/";
 var targetPageException = "/questions/ask";
 
 var stringTemplates = {
     questionApiEndpoint(id, sitename) { return `https://api.stackexchange.com/2.2/questions/${id}?order=desc&sort=votes&site=${sitename}`; },
+    answerApiEndpoint(id, sitename) { return `https://api.stackexchange.com/2.2/answers/${id}?order=desc&sort=votes&site=${sitename}`; },
     commetsToQuestionApiEndpoint(id) { return `https://api.stackexchange.com/2.2/questions/${id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(`; },
     querySESiteInfo(sitename) { return `https://api.stackexchange.com/2.2/info?site=${sitename}&filter=!2--kZCrbrZAvwtX1SWlK)` },
     associationBoxTemplate(owner, linkToSOen, enQuestionTitle, absTime, SE_SiteName) {
@@ -43,13 +45,10 @@ checkPage(document.baseURI)
     .then(processAddingAssociationLink);
 
 function checkPage(uri) {
-    return new Promise((resolve, reject) => {
-        if (!uri.includes(targetPage) || uri.includes(targetPageException)) {
-            reject('wrong page')
-        } else {
-            resolve(questionId(uri));
-        }
-    });
+    if (!uri.includes(targetPage) || uri.includes(targetPageException)) {
+        return Promise.reject('wrong page')
+    }
+    return questionId(uri, Site);
 }
 
 function handleWrongPage(rejectReason) {
@@ -88,20 +87,19 @@ function getSEQuestionId({comment, linkToSE}) {
     var SE_Site = /:\/\/([^\/]+)\.com\//.exec(linkToSE)[1];
     console.log(SE_Site);
     var absTime = (new Date(comment.creation_date * 1000)).toISOString().replace("T", " ").replace(".000", "");
-    var SE_QuestionId = questionId(linkToSE);
-    return { comment, linkToSE, SE_QuestionId, absTime, SE_Site };
+    return questionId(linkToSE, SE_Site).then(SE_QuestionId => ({ comment, SE_QuestionId, absTime, SE_Site }));
 }
 
-function processSEQuestion({ comment, linkToSE, SE_QuestionId, absTime, SE_Site }) {
+function processSEQuestion({ comment, SE_QuestionId, absTime, SE_Site }) {
     return Promise.all([
         loadQuestionFromStackExchange(SE_QuestionId, SE_Site),
         getSESiteName(SE_Site)
     ])
-        .then(([{items: [SE_Question]}, {items: [{site: {name: SE_SiteName}}]}]) => ({ comment, linkToSE, SE_Question, absTime, SE_SiteName }));
+        .then(([{items: [SE_Question]}, {items: [{site: {name: SE_SiteName}}]}]) => ({ comment, SE_Question, absTime, SE_SiteName }));
 }
 
-function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_SiteName}) {
-    var template = stringTemplates.associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, SE_SiteName);
+function createAssociationBox({comment, SE_Question, absTime, SE_SiteName}) {
+    var template = stringTemplates.associationBoxTemplate(comment.owner, SE_Question.link, stripHtml(SE_Question.title), absTime, SE_SiteName);
     var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
     if (assocComment)
         assocComment.style.display = "none";
@@ -116,9 +114,12 @@ function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_SiteN
         e.preventDefault();
     });
 }
-function questionId(uri) {
-    var id = /\/(\d+)\//.exec(uri)
-    return id == null ? -1 : id[1];
+function questionId(uri, site) {
+    let res = /q(?:uestions)?\/(\d+)/.exec(uri);
+    if (res !== null) return Promise.resolve(res[1]);
+    res = /a\/(\d+)/.exec(uri); // get by answer
+    if (res === null) return Promise.reject('incorrect association link format');
+    return loadAnswerFromStackExchange(res[1], site).then(({items: [{question_id}]}) => question_id);
 }
 
 function getJson(url) {
@@ -129,6 +130,11 @@ function getJson(url) {
 function loadQuestionFromStackExchange(id, SE_Site) {
     console.info('load ' + SE_Site + ' question');
     var url = stringTemplates.questionApiEndpoint(id, SE_Site);
+    return getJson(url);
+}
+function loadAnswerFromStackExchange(id, SE_Site) {
+    console.info('load ' + SE_Site + ' answer');
+    var url = stringTemplates.answerApiEndpoint(id, SE_Site);
     return getJson(url);
 }
 function loadCommentsFromLocalizedStackOverflow(id) {
