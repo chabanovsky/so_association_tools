@@ -85,6 +85,10 @@ function thereAreResults(flag) {
     }
 }
 
+function canProcessLocally(query) {
+    return /.+\.stackoverflow\.com\/(questions|q)\/\d+\/*/.test(query);
+}
+
 function init(onInitCompleted) {
     url = getQuestionApiEndPoint(STACKOVERFLOW_IN_ENGLISH, true, false, "activity", "desc").replace(/\{id\}/g, soQuestionId);
     loadHelper(url, function(data) {
@@ -97,6 +101,12 @@ function init(onInitCompleted) {
         event.preventDefault();
         $(searchResultTag).empty();
         var theQuery = $(searchInputTag).val();
+        if (canProcessLocally(theQuery)) {
+            createCandidatesForAssociationList([{
+                'link': theQuery
+            }]);
+            return;
+        }
         $(searchBoxTag + " .help h3").text(localeManager.searchingStr);
         queryGoogle(theQuery, function(result) {
             if (result == null || result == undefined || result.items == undefined || result.items.length == 0) {
