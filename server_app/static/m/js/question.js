@@ -86,7 +86,7 @@ function thereAreResults(flag) {
 }
 
 function canProcessLocally(query) {
-    return /.+\.stackoverflow\.com\/(questions|q)\/\d+\/*/.test(query);
+    return /.+\.stackoverflow\.com\/(questions|q)\/\d+/.test(query);
 }
 
 function init(onInitCompleted) {
