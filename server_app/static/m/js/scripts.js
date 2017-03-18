@@ -67,11 +67,11 @@ function getLocation(href) {
 };
 
 function questionId(uri) {
-    var id = /\/\d+\//.exec(uri)
+    var id = /\d+/.exec(uri)
     if (!id)
         return -1
 
-    return id[0].replace(/\//g, "");
+    return id[0];
 }
 
 function loadHelper(url, onSuccess, onError) {
