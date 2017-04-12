@@ -14,7 +14,7 @@ from sqlalchemy.sql import func
 from meta import app as application, db, db_session, engine, LANGUAGE, STACKOVERFLOW_HOSTNAME, STACKOVERFLOW_SITE_PARAM, INT_STACKOVERFLOW_SITE_PARAM
 from models import User, Association, Question, Action
 from suggested_question import get_skipped_question_pagination, get_requested_question_pagination, get_most_viewed_question_pagination, get_suggested_question_pagination
-from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
+from meta import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_ADD_COMMENT_ENDPOINT = "https://api.stackexchange.com/2.2/posts/{id}/comments/add"
 STACKEXCHANGE_ANSWER_API_ENDPOINT = "https://api.stackexchange.com/2.2/answers/{id}/";

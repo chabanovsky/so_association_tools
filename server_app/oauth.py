@@ -7,7 +7,7 @@ from flask import Flask, jsonify, render_template, g, url_for, redirect, request
 
 from meta import app as application, db_session, db, APP_URL
 from models import User
-from local_settings import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
+from meta import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
 STACKEXCHANGE_OAUTH_ENDPOINT = "https://stackexchange.com/oauth"
 STACKEXCHANGE_OAUTH_GET_ACCESS_TOKEN = "https://stackexchange.com/oauth/access_token"
