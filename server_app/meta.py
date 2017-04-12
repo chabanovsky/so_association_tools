@@ -17,7 +17,7 @@ def make_db_engine():
     return create_engine(app.config['SQLALCHEMY_DATABASE_URI'], convert_unicode=True)
 
 LANGUAGE = os.environ["LOCALE_LANGUAGE_NAME"]
-APP_URL = "http://demo.chabanovsky.com"
+APP_URL = "http://" + LANGUAGE + ".rudevs.ru"
 DB_NAME = "association_tools_" + LANGUAGE
 STACKOVERFLOW_HOSTNAME = "stackoverflow.com"
 STACKOVERFLOW_SITE_PARAM = "stackoverflow"
