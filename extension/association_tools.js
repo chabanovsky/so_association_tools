@@ -12,22 +12,30 @@ var stringTemplates = {
     commetsToQuestionApiEndpoint(id) { return `https://api.stackexchange.com/2.2/questions/${id}/comments?order=desc&sort=creation&site=ru.stackoverflow&filter=!9YdnSNaN(`; },
     querySESiteInfo(sitename) { return `https://api.stackexchange.com/2.2/info?site=${sitename}&filter=!2--kZCrbrZAvwtX1SWlK)` },
     associationBoxTemplate(owner, linkToSOen, enQuestionTitle, absTime, SE_SiteName) {
-        return `
+        var container = document.createElement('table');
+        container.innerHTML = `
             <tr class="association-root">
                 <td class="special-status" colspan="2">
                     <div class="question-status">
                         <h2>
                             ${associationHelpText}
-                            <a class="association-author" href="${owner.link}">${owner.display_name}</a> <span title="${absTime}" class="relativetime-clean"></span>
+                            <a class="association-author"></a> <span class="relativetime-clean"></span>
                         </h2>
                         <p>
-                            <b>${SE_SiteName}</b>: 
-                            <a class="association-link" href="${linkToSOen}">${enQuestionTitle}</a>
+                            <b x-slot=SE_SiteName></b>: 
+                            <a class="association-link"></a>
                             <a class="association-as-comment comment-delete delete-tag" style="visibility: visible;" href="#"></a>
                         </p>
                     </div>
                 </td>
             </tr>`;
+        container.querySelector('.association-author').href = owner.link;
+        container.querySelector('.association-author').textContent = owner.display_name;
+        container.querySelector('.relativetime-clean').title = absTime;
+        container.querySelector('[x-slot=SE_SiteName]').textContent = SE_SiteName;
+        container.querySelector('.association-link').href = linkToSOen;
+        container.querySelector('.association-link').textContent = enQuestionTitle;
+        return container.rows[0]
     }
 };
 
@@ -101,13 +109,13 @@ function processSEQuestion({ comment, linkToSE, SE_QuestionId, absTime, SE_Site 
 }
 
 function createAssociationBox({comment, linkToSE, SE_Question, absTime, SE_SiteName}) {
-    var template = stringTemplates.associationBoxTemplate(comment.owner, linkToSE, stripHtml(SE_Question.title), absTime, SE_SiteName);
+    var template = stringTemplates.associationBoxTemplate(comment.owner, linkToSE, SE_Question.title, absTime, SE_SiteName);
     var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
     if (assocComment)
         assocComment.style.display = "none";
 
-    document.querySelector(".question > table > tbody > tr:first-child").insertAdjacentHTML('afterend', template);
-    document.querySelector(".association-as-comment").addEventListener('click', function (e) {
+    document.querySelector(".question > table > tbody > tr:first-child").insertAdjacentElement('afterend', template);
+    template.querySelector(".association-as-comment").addEventListener('click', function (e) {
         var assocComment = document.querySelector(`#comment-${comment.comment_id}`)
         if (assocComment)
             assocComment.style.display = "";
@@ -135,9 +143,6 @@ function loadCommentsFromLocalizedStackOverflow(id) {
     console.info('load comments');
     var url = stringTemplates.commetsToQuestionApiEndpoint(id);
     return getJson(url);
-}
-function stripHtml(html) {
-    return html.replace(/<(?:.|\n)*?>/gm, '');
 }
 
 function getSESiteName(SE_Site) {
