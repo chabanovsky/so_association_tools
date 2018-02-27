@@ -137,9 +137,7 @@ function loadCommentsFromLocalizedStackOverflow(id) {
     return getJson(url);
 }
 function stripHtml(html) {
-    var div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
+    return jQuery(html).text();
 }
 
 function getSESiteName(SE_Site) {

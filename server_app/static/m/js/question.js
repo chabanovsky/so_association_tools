@@ -119,7 +119,8 @@ function init(onInitCompleted) {
 }
 
 function updatePage() {
-    $("#question-header h2").text(stripHtml(question.title));
+    $("#question-header h2 a").text(stripHtml(question.title));
+    $("#question-header h2 a").attr('href', question.link);
     $("#question-body").html(question.body);
     var tags = createTagsDiv(question.tags);
     $("#question-taglist").append(tags);
