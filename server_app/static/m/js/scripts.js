@@ -51,9 +51,7 @@ function plural(n, forms) {
 }
 
 function stripHtml(html) {
-    var div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
+    return html.replace(/<(?:.|\n)*?>/gm, '');
 }
 
 // http://stackoverflow.com/a/13405933/564240
