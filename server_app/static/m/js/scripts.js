@@ -51,7 +51,7 @@ function plural(n, forms) {
 }
 
 function stripHtml(html) {
-    return jQuery('<p>' + html + '</p>').text();
+    return html.replace(/<(?:.|\n)*?>/gm, '');
 }
 
 // http://stackoverflow.com/a/13405933/564240
