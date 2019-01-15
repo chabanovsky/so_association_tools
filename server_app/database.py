@@ -152,6 +152,7 @@ def update_associations(filename, debug_print):
             if len(soen_id) > 0:
                 soen_id = soen_id[0]
             else:
+                print "Association NOT on StackOverflow: %s" % row
                 soen_id = -1
 
             if STACKOVERFLOW_HOSTNAME not in text:
