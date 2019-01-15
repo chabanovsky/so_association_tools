@@ -427,7 +427,7 @@ def setting_string():
                 existed = True
                 break
 
-        if not existed:
+        if not existed and (int(soen) > 0 and int(soint) > 0):
             resp = resp + str(soen) + "=" + str(soint)
             if index < count:
                 resp = resp + delimiter
