@@ -2,3 +2,4 @@
 *.pyc
 *.log
 local_settings.py
+.idea
