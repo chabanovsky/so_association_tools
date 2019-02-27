@@ -5,7 +5,7 @@ import json
 
 from flask import Flask, jsonify, render_template, g, url_for, redirect, request, session
 
-from meta import app as application, db_session, db, APP_URL
+from meta import app as application, db_session, db, APP_URL, LANGUAGE
 from models import User
 from meta import STACKEXCHANGE_CLIENT_SECRET, STACKEXCHANGE_CLIENT_ID, STACKEXCHANGE_CLIENT_KEY
 
@@ -73,7 +73,7 @@ def login_oauth():
         return redirect(url_for("no_way"))
 
     params = {
-        "site": "ru.stackoverflow",
+        "site": LANGUAGE +".stackoverflow",
         "order": "desc",
         "sort": "reputation",
         "key": STACKEXCHANGE_CLIENT_KEY, 
