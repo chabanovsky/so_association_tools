@@ -1,0 +1,11 @@
+Id,PostId,,AccountId,Id,DisplayName
+"448164","1487"," https://stackoverflow.com/questions/5585779/how-do-i-convert-a-string-to-an-int-in-java","2251762","83","fedorqui"
+"448165","20804"," https://stackoverflow.com/questions/503093/how-do-i-redirect-to-another-webpage","2251762","83","fedorqui"
+"448166","45508"," https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript","2251762","83","fedorqui"
+"448167","30399"," https://stackoverflow.com/questions/5487892/sql-server-case-when-or-then-else-end-the-or-is-not-supported","2251762","83","fedorqui"
+"448168","48596"," https://stackoverflow.com/questions/2334712/how-do-i-update-from-a-select-in-sql-server","2251762","83","fedorqui"
+"448386","48805"," https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link","2251762","83","fedorqui"
+"448388","45846"," https://stackoverflow.com/questions/3481828/how-to-split-a-string-in-java","2251762","83","fedorqui"
+"448390","56144"," https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value","2251762","83","fedorqui"
+"448391","49125"," https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript","2251762","83","fedorqui"
+"214577","115684","creo que estas respondiéndote a ti mismo: necesitarías 3 tablas: primero que nada una tabla de  `horasextra_Asoc` en esta tablas podras poner 3 columnas, la primera seria un auto increment irrelevante, la segunda seria un ID y la tercera seria una fecha para estadística o control de cuando se creo la asociación, necesitas la temporal tal cual esta, pero a la de real `tbl_horaextra` tienes que agregarle una columna con Alter table [Link](https://stackoverflow.com/a/17541485/4717133) cuando haces el pase de la temporal a la real guardas en la tabla de asoc y en la tbl los datos.","6004893","46896","Francisco Núñez"
