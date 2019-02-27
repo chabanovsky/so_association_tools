@@ -73,7 +73,7 @@ def login_oauth():
         return redirect(url_for("no_way"))
 
     params = {
-        "site": LANGUAGE +".stackoverflow",
+        "site": LANGUAGE + ".stackoverflow",
         "order": "desc",
         "sort": "reputation",
         "key": STACKEXCHANGE_CLIENT_KEY, 
@@ -132,6 +132,8 @@ def login_oauth():
             user.profile_image = profile_image
         if user.profile_link != link:
             user.profile_link = link
+        if user.user_id != user_id:
+            user.user_id = user_id
         db.session.commit()
 
     session["account_id"] = account_id
