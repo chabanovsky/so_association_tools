@@ -148,6 +148,9 @@ def update_associations(filename, debug_print):
         csv_reader = csv.reader(csvfile, delimiter=',')
         for row in csv_reader:
             comment_id, soint_id, text, user_account_id, user_id, username = row
+            if "stackoverflow.com/" not in text:
+                print "Association NOT on StackOverflow (does not contain so.com in the text): %s" % row
+                continue
             soen_id = re.findall('\d+', text)
             if len(soen_id) > 0:
                 soen_id = soen_id[0]
