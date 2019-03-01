@@ -23,12 +23,12 @@ msgid ""
 "Your access token is not valid any more. To work with the app you need to"
 " log in again. Now you will be logged out."
 msgstr ""
-"El token de acceso ya no es valido. Para usar el app necesitas iniciar "
+"El token de acceso ya no es válido. Para usar la app necesitas iniciar "
 "sesión de nuevo. La sesión se cerrará ahora."
 
 #: views.py:140 views.py:147 views.py:295
 msgid "Wrong params"
-msgstr "Parametros incorrectos"
+msgstr "Parámetros incorrectos"
 
 #: views.py:151
 msgid "association"
@@ -51,7 +51,7 @@ msgstr " No se pudo analizar la question_id. Path: %s, re: %s"
 #: views.py:319
 #, python-format
 msgid "Not valid question_id: %s"
-msgstr "No es valida la question_id: %s"
+msgstr "No es válida la question_id: %s"
 
 #: views.py:336
 #, python-format
@@ -61,11 +61,11 @@ msgstr "No hay objetos: %s"
 #: views.py:350
 #, python-format
 msgid "Question ids are different: %s != %s, text:  %s"
-msgstr "Las ids de las preguntas son diferentes: %s != %s, text:  %s"
+msgstr "Los ids de las preguntas son diferentes: %s != %s, text:  %s"
 
 #: views.py:358
 msgid "The suggestion is already existed in the list"
-msgstr "La sugerencia ya esiste en la lista"
+msgstr "La sugerencia ya existe en la lista"
 
 #: views.py:373
 msgid "Suggestion was added but the association for it is already existed."
@@ -77,7 +77,7 @@ msgstr "La sugerencia fue añadida"
 
 #: templates/base.html:6
 msgid "List of suggested questions for Stack Overflow in Russian"
-msgstr "La lista de las preguntas sugeridas para Stack Overflow en español"
+msgstr "Lista de las preguntas sugeridas para Stack Overflow en español"
 
 #: templates/base.html:51 templates/welcome.html:2
 msgid "Stack Overflow Association Tools"
@@ -130,7 +130,7 @@ msgstr "respondidas"
 
 #: templates/locale_strings.js:24
 msgid "Candidates for the association"
-msgstr "Candidatos para la asociación"
+msgstr "Candidatas para la asociación"
 
 #: templates/locale_strings.js:25
 msgid "Searching..."
@@ -142,7 +142,7 @@ msgstr "vistas"
 
 #: templates/locale_strings.js:27
 msgid "skip"
-msgstr "brincar"
+msgstr "omitir"
 
 #: templates/locale_strings.js:28
 msgid "add to the list"
@@ -166,7 +166,7 @@ msgstr "Procesando la sugerencia..."
 
 #: templates/locale_strings.js:33
 msgid "Something went wrong during skipping/returning a question"
-msgstr "Algo malo sucedió durante el proceso de brincar/regresar la pregunta"
+msgstr "Algo malo sucedió durante el proceso de omitir/regresar la pregunta"
 
 #: templates/locale_strings.js:34
 msgid ""
@@ -200,19 +200,19 @@ msgstr "No hay manera"
 
 #: templates/no_way.html:6
 msgid "There is no way to use the app without OAuth authentication."
-msgstr "No hay manera de usar el app sin la OAuth autenticación."
+msgstr "No hay manera de usar la app sin la autenticación OAuth."
 
 #: templates/no_way.html:9
 msgid "Try again"
-msgstr "Intenta de nuevo"
+msgstr "Inténtalo de nuevo"
 
 #: templates/question.html:43
 msgid ""
 "You will not see this question again in the suggested list. Skip a "
 "question if you do your best but cannot find an association."
 msgstr ""
-"No veras esta pregunta de nuevo en la liste de sugerencias. Brinca la "
-"pregunta si haces el mejor intento pero no puedes encontrar una "
+"No verás esta pregunta de nuevo en la lista de sugerencias. Omite la "
+"pregunta si lo estás intentando pero no puedes encontrar una "
 "asociación."
 
 #: templates/question.html:51
@@ -221,7 +221,7 @@ msgid ""
 "the knowledge base of your community add a translation request."
 msgstr ""
 "Si no puedes encontrar una asociación y piensas que la pregunta debe "
-"estar en la base de información en tu comunidad agrega una solicitud para"
+"estar en la base de información de tu comunidad agrega una solicitud para"
 " traducción."
 
 #: templates/question.html:58
@@ -248,8 +248,8 @@ msgid ""
 msgstr ""
 "La siguiente lista contiene las preguntas más vistas en Stack Overflow en"
 " inglés por una audiencia específica de lenguaje. Para agregar una "
-"asociación, selecciona unapregunta y haz clic en ella. En la ventana que "
-"se abrirá veras la pregunta en total con un recuadro de búsqueda. Usa la "
+"asociación, selecciona una pregunta y haz clic en ella. En la ventana que "
+"se abrirá veras la pregunta completa con un recuadro de búsqueda. Usa la "
 "búsqueda para buscar asociaciones en un sitio internacional. Haz clic en "
 "un candidato para la asociación y verás  la pregunta en Stack Overflow en"
 " inglés y el candidato para la asociación con sus respuestas. Si son "
@@ -261,9 +261,9 @@ msgid ""
 " removes the question from a list. This section contains questions that "
 "were skipped by any users."
 msgstr ""
-"Si no se puede encontrar una asociación para la pregunta, se le puede "
-"brincar. El brincarla remueve la pregunta de la lista. Esta sección "
-"contiene preguntas que fueron brincadas por otros."
+"Si no se puede encontrar una asociación para la pregunta, se puede "
+"omitir. El omitirla elimina la pregunta de la lista. Esta sección "
+"contiene preguntas que fueron omitidas por otros."
 
 #: templates/question_pag_list.html:23
 msgid ""
@@ -281,12 +281,12 @@ msgid ""
 "If users want to add to the list of questions for association another "
 "one, they submit it with the submission form below (please, use the form "
 "if you think that a question should be in the knowledge base of your "
-"comminity). This section contains all suggested questions."
+"community). This section contains all suggested questions."
 msgstr ""
 "Si los usuarios quieren agregar otra pregunta a la lista de preguntas con"
-" asociaciones necesitan rellenar el formulario siguiente (favor de usar "
+" asociaciones necesitan rellenar el formulario siguiente (por favor, usa "
 "el formulario si piensas que se necesita agregar esa pregunta a la base "
-"de conocimiento de tu comunidad). esta sección contiene esas sugerencias."
+"de conocimiento de tu comunidad). Esta sección contiene esas sugerencias."
 
 #: templates/question_pag_list.html:32
 msgid "Most Viewed"
@@ -306,7 +306,7 @@ msgstr "Sugeridas"
 
 #: templates/question_pag_list.html:41
 msgid "Suggest"
-msgstr "Sugiere"
+msgstr "Sugerir"
 
 #: templates/question_pag_list.html:42
 msgid ""
@@ -316,9 +316,9 @@ msgid ""
 "English only)."
 msgstr ""
 "Para sugerir una pregunta para una asociación copia el url de la pregunta"
-" y  haz clic en  \"Sugiere\". Solamente puedes sugerir preguntas que se "
-"encuentran en el dominio wed de stackoverflow.com (solamente las "
-"preguntas de Stack Overflow en inglés se pueden usar)."
+" y  haz clic en  \"Sugerir\". Solamente puedes sugerir preguntas que se "
+"encuentran en el dominio web de stackoverflow.com (solamente se pueden usar las "
+"preguntas de Stack Overflow en inglés)."
 
 #: templates/topbar.html:14
 msgid "log out"
@@ -374,7 +374,7 @@ msgid ""
 "This is an open source project. If you know how to improve the app, "
 "please, do that: "
 msgstr ""
-"Este es un proyecto de Open Source. Si sabes cómo mejorar el app, por "
+"Este es un proyecto de Open Source. Si sabes cómo mejorar la app, por "
 "favor ayúdanos: "
 
 #: templates/welcome.html:42
