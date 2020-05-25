@@ -144,6 +144,9 @@ def update_associations(filename, debug_print):
     session.execute(delete_stmt)
     session.commit()
 
+    if debug_print:
+        print "Using '%s' as the data source." % str(filename)
+
     with open(filename, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
         line_total = 0 
