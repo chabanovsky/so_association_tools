@@ -146,7 +146,9 @@ def update_associations(filename, debug_print):
 
     with open(filename, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
+        line_total = 0 
         for row in csv_reader:
+            line_total = line_total + 1
             comment_id, soint_id, text, user_account_id, user_id, username = row
             if debug_print:
                 print "Start partsing a row %s" % str(row)
@@ -154,7 +156,7 @@ def update_associations(filename, debug_print):
             if "stackoverflow.com/" not in text:
                 print "Association NOT on StackOverflow (does not contain so.com in the text): %s" % row
                 continue
-            
+
             soen_id = re.findall('\d+', text)
             if len(soen_id) > 0:
                 soen_id = soen_id[0]
@@ -210,7 +212,9 @@ def update_associations(filename, debug_print):
                     "soen": soen_id,
                     "soint": soint_id
                 })
-    
+        if debug_print:
+            print "Num of lines read %s" % str(line_total)
+            
     session.close()
     sync_associations()
     print_association_setting(association_list)
