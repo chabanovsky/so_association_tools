@@ -190,10 +190,10 @@ def update_associations(filename, debug_print):
                 session.add(association)
                 session.commit()
                 if debug_print:
-                    print "Association was added: %s" % str(association.id)
+                    print "Association was added: %s (soen: %s, soint: %s)" % (str(association.id), str(soen_id), str(soint_id))
             else:
                 if debug_print:
-                    print "Association has already existed: %s" % str(association.id)
+                    print "Association has already existed: %s (soen: %s, soint: %s)" % (str(association.id), str(soen_id), str(soint_id))
             
             existed = False
             for item in association_list:
