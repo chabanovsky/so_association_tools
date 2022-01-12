@@ -157,7 +157,7 @@ def add_association():
        "preview": "false"
     }
     
-    r = requests.post(url, data=params) 
+    r = requests.post(url, data=params, verify=False) 
     comment_id = -1
     data = json.loads(r.text)
     if data.get("items", None) is not None:
