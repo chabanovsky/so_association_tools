@@ -221,7 +221,7 @@ def get_answers():
        "sort": "votes",
        "filter": "!)s4ZC4Cto10(q(Yp)zK*"
     }    
-    r = requests.get(url, data=params) 
+    r = requests.get(url, data=params, verify=False) 
     try: 
         data = json.loads(r.text)
     except:
@@ -327,7 +327,7 @@ def suggest_question():
        "order": "desc",
        "sort": "votes",
     }    
-    r = requests.get(url, data=params) 
+    r = requests.get(url, data=params, verify=False) 
     data = json.loads(r.text)
 
     if data.get("items", None) is None:

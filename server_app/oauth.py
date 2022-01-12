@@ -80,7 +80,7 @@ def login_oauth():
         "access_token": session['access_token']
     }
 
-    r = requests.get(STACKEXCHANGE_OAUTH_ME_ENDPOINT, data=params)
+    r = requests.get(STACKEXCHANGE_OAUTH_ME_ENDPOINT, data=params, verify=False)
     data = json.loads(r.text)
     account_id = -1
     user_id = -1
